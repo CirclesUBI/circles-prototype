@@ -1,0 +1,54 @@
+<!--
+  Generated template for the WalletPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>WalletPage</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row style="font-weight:600;">
+      <ion-col>
+        Coin
+      </ion-col>
+      <ion-col>
+        Owner
+      </ion-col>
+      <ion-col>
+        Amount
+      </ion-col>
+      <ion-col>
+        Priority
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let coin of displayWallet">
+      <ion-col col-3>
+        {{coin.title}}
+      </ion-col>
+      <ion-col col-4>
+        {{coin.displayOwner}}
+      </ion-col>
+      <ion-col col-2>
+        {{coin.amount}}
+      </ion-col>
+      <ion-col col-3>
+        <button [disabled]="coin.priority < 1" class="pButton" (click)="priorityUp(coin)">
+          &uarr;
+        </button> {{coin.priority}}
+        <button [disabled]="coin.priority >= displayWallet.length-1" class="pButton" (click)="priorityDown(coin)">
+          &darr;
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <button ion-button full (click)="save()">SAVE</button>
+</ion-content>

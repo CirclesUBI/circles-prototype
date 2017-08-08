@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Apply for Validation from {{validator.displayName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-list-header>REQUIREMENTS</ion-list-header>
+
+      <ion-item *ngFor="let req of requirements">
+        <h1>{{req.displayName}}</h1>
+        <p *ngIf="req.completed">Completed</p>
+        <p *ngIf="!req.completed">{{req.message}}</p>
+        <span item-right>
+          <ion-icon name="{{req.icon}}" [ngClass]="{'req-not-met': !req.completed, 'req-met': req.completed}"></ion-icon>
+        </span>
+      </ion-item>
+  </ion-list>
+
+
+    <button class="group-button" ion-button [disabled]="!allRequirementsMet" (click)="apply()" >
+      <span *ngIf="!hasApplied">Apply</span>
+      <span *ngIf="hasApplied">Applied</span>
+    </button>
+
+
+</ion-content>

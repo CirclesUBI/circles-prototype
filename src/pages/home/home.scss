@@ -1,0 +1,133 @@
+page-home {
+
+  .item-ios{
+    border-bottom: 1px solid rgba(0,0,0,.2);
+    .item-inner{
+      border: none !important;
+    }
+  }
+
+  .toolbar{
+    height: 120px;
+    align-items: flex-start;
+    padding-top: 10px;
+  }
+
+  .content{
+   // background: linear-gradient(170deg, map-get($colors, primary) 10%, #4788C8 60%, white 60%); /* Standard syntax */
+   // display: flex;
+   // flex-direction: column;
+  }
+
+  #home-content{
+     background: linear-gradient(170deg, map-get($colors, primary) 10%, #4788C8 378px, white 300px); /* Standard syntax */
+     height: 100%;
+    pointer-events: visible;
+
+    // display: flex;
+    //flex-direction: column;
+  }
+
+  .home-fixed{
+    padding-top: 0px;
+    margin-top: -20px;
+    display: flex;
+    flex-direction: column;
+    pointer-events: visible;
+    height: 100%; width: 100%;
+  }
+
+  .home-item {
+    margin: 5px;
+    width: 55px;
+    height: 55px;
+    float:left;
+  }
+
+  .home-pic{
+    margin-top: -50px;
+    text-align: center;
+    color: white;
+    .circle-crop{
+      border-radius: 50%;
+      position:relative;
+      overflow: hidden;
+      width: 156px;
+      height: 156px;
+      margin: auto;
+      background-size:cover;
+      background-position: center;
+      border: 1px solid white;
+    }
+    img{
+      display: block;
+      margin: auto;
+    }
+    .user-name{
+      font-size: 36px;
+    }
+    .balance{
+      font-size: 18px;
+      color: #E7E6E6;
+      margin: -5px 0 10px 0;
+    }
+  }
+
+  .segment-btns{
+    width: 75%;
+    margin: auto;
+  }
+
+  #balance-detail{
+    background-color: white;
+    color: #333;
+    padding: 10px 0;
+    margin: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 25px rgba(136,136,136,.5);
+    text-align: center;
+    z-index: 100;
+    div{
+      display: inline-block;
+      padding: 10px;
+      margin: auto;
+      text-align: center;
+      width: 47%;
+    }
+    h1{
+      font-size: 12px;
+      font-weight: 500;
+    }
+    h2{
+      font-size: 14px;
+      margin-bottom: -5px;
+    }
+    .received{
+      h2{color: #139105;}
+      border-right: 1px solid rgba(0,0,0,.2);
+
+    }
+    .sent{
+      h2{color: #4AA7EF;}
+    }
+  }
+
+  .scrolling-list{
+    flex: 1 1 auto;
+    background-color: transparent;
+    margin: -10px 0 -10px 0;
+    &::after {
+      background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 10%); /* Standard syntax */
+      content: "";
+      display: block;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+  }
+
+}

@@ -1,0 +1,14 @@
+page-send {
+
+  .user-search-list {
+    top:100px;
+    position:absolute;
+    z-index: 1000;
+    width:90%;
+
+      .item-inner {
+        background: #f4f4f4 !important;
+        padding-left: 10px;
+      }
+  }
+}

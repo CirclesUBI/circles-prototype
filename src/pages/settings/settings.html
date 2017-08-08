@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Settings</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-row>
+    <ion-col>
+
+      <form (ngSubmit)="saveSettings()">
+        <!-- First Name -->
+        <ion-item>
+          <ion-label stacked>First Name</ion-label>
+          <ion-input type="text" [value]="user?.firstName" name="firstname"></ion-input>
+        </ion-item>
+
+        <!-- Last Name -->
+        <ion-item>
+          <ion-label stacked>Last Name</ion-label>
+          <ion-input type="text" [value]="user?.lastName" name="lastname"></ion-input>
+        </ion-item>
+
+        <!-- Greeting -->
+        <ion-item>
+          <ion-label stacked>Greeting</ion-label>
+          <ion-input type="text" [value]="user?.greeting" name="title"></ion-input>
+        </ion-item>
+        <button ion-button type="submit" block>Save</button>
+      </form>
+
+    </ion-col>
+  </ion-row>
+
+</ion-content>

@@ -1,0 +1,21 @@
+page-user-detail {
+    .center-wrapper {
+        text-align: center;
+        position: relative;
+    }
+
+    .center-item {
+        display: inline-block;
+    }
+
+    span.arrow {
+        font-size: 46px;
+        line-height: 46px;
+    }
+
+    .center-text {
+        top: 16px;
+        right: 14px;
+        position: absolute;
+    }
+}

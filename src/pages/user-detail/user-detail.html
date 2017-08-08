@@ -1,0 +1,89 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-card class="shadowless-card">
+    <ion-card-title>
+      <h1>{{viewUser.displayName}}</h1>
+      <h2>{{viewUser.greeting}}</h2>
+    </ion-card-title>
+    <ion-card-content style="padding: 0;">
+       <img src="{{profilePicURL}}">
+       <span>
+         <div class="center-wrapper" *ngIf="(trustTo&&!trustFrom)||validatorTrust">
+           <div class="center-item"><span class="arrow">↑</span></div>
+           <div class="center-text" *ngIf="!validatorTrust">You trust</div>
+           <div class="center-text" *ngIf="validatorTrust">Trusts them</div>
+         </div>
+
+         <div class="center-wrapper" *ngIf="validatorTrust">
+           <ion-avatar class="center-item" style="width:85px;" item-center>
+             <img src="{{validatedBy.profilePicURL}}">
+            </ion-avatar>
+         </div>
+
+         <div class="center-wrapper" *ngIf="(trustFrom&&!trustTo)||validatorTrust">
+           <div class="center-item"><span class="arrow">↓</span></div>
+           <div class="center-text">Trusts you</div>
+         </div>
+
+         <div class="center-wrapper" *ngIf="(trustFrom&&trustTo)&&!validatorTrust">
+           <div class="center-item"><span class="arrow">↕</span></div>
+           <div class="center-text">Trust each other</div>
+         </div>
+
+         <div class="center-wrapper" *ngIf="trustTo||trustFrom||validatorTrust">
+            <ion-avatar class="center-item" style="width:85px;" item-center>
+              <img src="{{user.profilePicURL || genericProfilePicURL}}">
+           </ion-avatar>
+         </div>
+       </span>
+       <ion-list no-lines>
+         <ion-item *ngIf="viewUser.email">
+           <ion-icon name="mail" item-left></ion-icon>
+           <p>{{viewUser.email}}</p>
+         </ion-item>
+
+         <ion-item *ngIf="viewUser.phoneNum">
+           <ion-icon name="phone-portrait" item-left></ion-icon>
+           {{viewUser.phoneNum}}
+         </ion-item>
+
+       </ion-list>
+
+       <ion-card *ngIf="viewUser.tradeMessage" style="margin:12px 0;width:100%">
+        <ion-card-header>
+          Trade Message
+        </ion-card-header>
+        <ion-card-content>
+          {{viewUser.tradeMessage}}
+        </ion-card-content>
+      </ion-card>
+
+
+      <button ion-button full *ngIf="!trustTo" (click)="affordTrust()" icon-end>
+          Afford Trust
+         <ion-icon name="lock" color="red">
+         </ion-icon>
+      </button>
+
+      <button ion-button full *ngIf="trustTo" (click)="revokeTrust()" icon-end>
+        Revoke Trust
+        <ion-icon name="unlock" color="green" item-right>
+        </ion-icon>
+      </button>
+
+      <button ion-button full [disabled]="!trusted"  (click)="sendCircles()" icon-end>
+        Send Circles
+        <ion-icon name="send">
+        </ion-icon>
+      </button>
+
+     </ion-card-content>
+   </ion-card>
+</ion-content>

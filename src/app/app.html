@@ -1,0 +1,44 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+
+      <button menuClose ion-item (click)="goToProfile()">
+        <ion-icon name="person" item-left></ion-icon>
+        Profile
+      </button>
+
+      <button menuClose ion-item (click)="goToSettings()">
+        <ion-icon name="cog" item-left></ion-icon>
+        Settings
+      </button>
+
+      <button menuClose ion-item>
+        <ion-icon name="information" item-left></ion-icon>
+        About
+      </button>
+
+      <button menuClose ion-item (click)="goToWallet()">
+        <ion-icon name="cash" item-left></ion-icon>
+        Wallet
+      </button>
+
+      <button menuClose ion-item (click)="logout()">
+        <ion-icon name="log-out" item-left></ion-icon>
+        Logout
+      </button>
+
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<simple-notifications [options]="{timeOut:2500}" ></simple-notifications>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

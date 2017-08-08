@@ -1,0 +1,220 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Circles
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+
+  <ion-slides pager (ionSlideWillChange)="onSlideWillChange()" (ionSlideDidChange)="onSlideDidChange()">
+
+    <ion-slide>
+      <ion-row>
+        <ion-col col-8 offset-2>
+          <div class="slide-heading">
+            Before we get started, we have a few questions
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-8 offset-2>
+          <div class="slide-text">
+            Please answer honestly, this network requires the trust of each user to survive and prosper!
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="slide-buttons">
+            <button ion-button full (click)="onFirstSlideSubmit()"> Next</button>
+          </div>
+        </ion-col>
+      </ion-row>
+
+    </ion-slide>
+
+    <ion-slide>
+      <ion-row>
+        <ion-col col-8 offset-2>
+          <div class="slide-heading">
+            Are you an individual or organisation?
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <form [formGroup]="userTypeForm">
+            <ion-list radio-group>
+              <ion-list-header>
+                What type of user are you? {{formState.type}}
+              </ion-list-header>
+
+              <ion-list radio-group formControlName="type">
+                <ion-item>
+                  <ion-label>Individual</ion-label>
+                  <ion-radio (ionSelect)="onSecondSlideSubmit()" value="individual"></ion-radio>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>Organisation</ion-label>
+                  <ion-radio (ionSelect)="onSecondSlideSubmit()" value="organisation"></ion-radio>
+                </ion-item>
+              </ion-list>
+
+            </ion-list>
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-slide>
+
+
+    <ion-slide>
+      <div *ngIf="formState.type == 'individual'">
+        <ion-row>
+          <ion-col col-8 offset-2>
+            <div class="slide-heading">
+              Please tell us a bit about yourself
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+
+            <form [formGroup]="individualForm" (ngSubmit)="onSubmit(individualForm.value, individualForm.valid)">
+              <ion-list>
+                <ion-item>
+                  <ion-label>First Name</ion-label>
+                  <ion-input formControlName="firstName" type="text"></ion-input>
+                </ion-item>
+                <div *ngIf="formState.submitAttempt">
+                  <div *ngIf="individualForm.controls.firstName.dirty && !individualForm.controls.firstName.valid" class="alert alert-danger">
+                    Letters only please!
+                  </div>
+                  <div *ngIf="individualForm.controls.firstName.pristine || individualForm.controls.firstName.value == ''" class="alert alert-danger">
+                    First name is required!
+                  </div>
+                </div>
+                <ion-item>
+                  <ion-label>Last Name</ion-label>
+                  <ion-input formControlName="lastName" type="text"></ion-input>
+                </ion-item>
+                <div *ngIf="formState.submitAttempt">
+                  <div *ngIf="individualForm.controls.lastName.dirty && !individualForm.controls.lastName.valid" class="alert alert-danger">
+                    Letters only please!
+                  </div>
+                  <div *ngIf="individualForm.controls.lastName.pristine || individualForm.controls.lastName.value == ''" class="alert alert-danger">
+                    First name is required!
+                  </div>
+                </div>
+                <ion-item>
+                  <ion-label>Email</ion-label>
+                  <ion-input formControlName="email" type="email"></ion-input>
+                </ion-item>
+
+                <div *ngIf="individualForm.controls.email.hasErrors && individualForm.controls.email.dirty " class="alert alert-danger">
+                  Enter Valid Email Address!!!
+                </div>
+                <ion-item-divider>
+                  <button ion-button full type="submit" [disabled]="!individualForm.valid" >Next</button>
+                </ion-item-divider>
+              </ion-list>
+            </form>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div *ngIf="formState.type == 'organisation'">
+        <ion-row>
+          <ion-col col-8 offset-2>
+            <div class="slide-heading">
+              Please tell us a bit about your organisation
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <form [formGroup]="organisationForm" (ngSubmit)="onSubmit(organisationForm.value, organisationForm.valid)">
+
+              <ion-item>
+                <ion-label>Organisation Name</ion-label>
+                <ion-input formControlName="organisation" type="text"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Tagline</ion-label>
+                <ion-input formControlName="tagline" type="text"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Website</ion-label>
+                <ion-input formControlName="website" type="text"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Email</ion-label>
+                <ion-input formControlName="email" type="email"></ion-input>
+              </ion-item>
+
+              <div *ngIf="organisationForm.controls.email.hasErrors && organisationForm.controls.email.dirty " class="alert alert-danger">
+                Enter Valid Email Address!!!
+              </div>
+              <ion-item-divider>
+                <button ion-button full type="submit" [disabled]="!organisationForm.valid">Next</button>
+              </ion-item-divider>
+            </form>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-row>
+        <ion-col col-8 offset-2>
+          <div class="slide-heading">
+            <div *ngIf="formState.type == 'individual'">
+              Please submit a photo of your face
+            </div>
+            <div *ngIf="formState.type == 'organisation'">
+              Please submit a picture of your logo
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+      <form [formGroup]="picForm" (ngSubmit)="onSubmit(picForm.value, picForm.valid)">
+        <ion-row>
+          <ion-col col-6 offset-3>
+            <ion-input hidden formControlName="profilePicURL" type="text"></ion-input>
+            <ion-item>
+              <ion-label stacked>Profile Picture</ion-label>
+              <!-- <div class="circle-crop" [ngStyle]="{'background-image': 'url(' + profilePicURL + ')'}"> -->
+                <div item-content>
+                  <img [src]="sanitizer.bypassSecurityTrustResourceUrl(profilePicURL)">
+                </div>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-8 offset-2>
+
+          <input ion-input *ngIf="storageService.isUploadSupported()" (change)="fileChangeEvent($event)" id="file" type="file" accept="image/*">
+          <button ion-button *ngIf="this.base64ImageData" (click)="fileUpload()">Upload Photo</button>
+            <ion-item-divider>
+              <button ion-button full type="submit" [disabled]="!picForm.valid">Next</button>
+            </ion-item-divider>
+          </ion-col>
+        </ion-row>
+      </form>
+
+    </ion-slide>
+
+    <ion-slide>
+      <form [formGroup]="disclaimerForm" (ngSubmit)="saveForm()">
+        This is a disclaimer about the project being art.
+        <button ion-button type="submit">Agree</button>
+
+      </form>
+    </ion-slide>
+
+  </ion-slides>
+
+</ion-content>

@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-row>
+    <ion-col col-8 offset-2>
+      Send Circles to another user
+    </ion-col>
+  </ion-row>
+
+
+  <form [formGroup]="sendForm" (ngSubmit)="onSubmit(sendForm.value, sendForm.valid)">
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Recipient</ion-label>
+          <ion-input hidden formControlName="toUserKey" type="text"></ion-input>
+          <div item-content>{{ toUser?.displayName }}</div>
+        </ion-item>
+        <ion-item>
+          <ion-label>Amount?</ion-label>
+          <ion-input formControlName="amount" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Message</ion-label>
+          <ion-input formControlName="message" type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item-divider>
+          <button ion-button full type="submit" [disabled]="!sendForm.valid">Send Circles</button>
+        </ion-item-divider>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

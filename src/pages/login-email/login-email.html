@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Email Login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row>
+    <ion-col col-8 offset-2>
+      <div icon="unlock">
+        Log In
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value, loginForm.valid)">
+        <ion-list>
+          <ion-list-header>
+            Enter your credentials below
+          </ion-list-header>
+
+          <span class="error" *ngIf="error">{{ error }}</span>
+
+            <ion-item>
+              <ion-label>Email</ion-label>
+              <ion-input formControlName="email" type="email"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Password</ion-label>
+              <ion-input formControlName="password" type="password"></ion-input>
+            </ion-item>
+
+            <ion-item-divider>
+              <button ion-button [disabled]="!loginForm.valid" type="submit">Log In</button>
+            </ion-item-divider>
+
+          </ion-list>
+      </form>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

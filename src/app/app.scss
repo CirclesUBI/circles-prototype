@@ -1,0 +1,82 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+@import 'css/fonts';
+
+*{
+  font-family: 'avenir';
+}
+
+//global styles
+.gradient-bg{
+  background-color: map-get($colors, primary);
+  background: linear-gradient(-150deg, map-get($colors, primary), #4788C8); /* Standard syntax */
+}
+
+//nav bar
+ion-navbar.toolbar{
+  height: 60px;
+  .bar-buttons{
+    margin-top: 5px;
+  }
+  a{
+    color:white;
+  }
+}
+
+//app content
+.content{
+//  background: linear-gradient(170deg, map-get($colors, primary) 10%, #4788C8 50%, white 50%); /* Standard syntax */
+}
+
+.item-block:first-child {
+  //border: none !important;
+}
+
+.item{
+  background-color: transparent;
+}
+
+//button styles
+button{
+  font-size: 16px;
+  color:map-get($colors, primary);
+  background-color: white;
+  padding: 12px 10px;
+  margin: 5px;
+  border-radius: 8px;
+}
+
+.segment-ios-primary .segment-button{
+  color:white;
+  border-color: white;
+}
+
+.segment-ios-primary .segment-button.segment-activated {
+  color: map-get($colors, primary);
+  background-color: white;
+}
+
+.shadowless-card {
+  box-shadow: 0 0;
+  overflow:visible;
+}
+
+.horizontal-center-wrapper {
+  display: flex;
+  justify-content: center;
+}

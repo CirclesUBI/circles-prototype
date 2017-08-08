@@ -1,0 +1,28 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row>
+    <div *ngIf="searchUsers" class="search-list-backdrop"></div>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems()"></ion-searchbar>
+  </ion-row>
+  <!-- <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher> -->
+  <ion-list>
+    <ion-item *ngFor="let userOrVali of searchSubject$ | async" (click)="goToDetail(userOrVali)">
+      <ion-avatar style="width:48px;height:48px" item-left>
+        <img src="{{userOrVali.profilePicURL}}">
+      </ion-avatar>
+      <h2>{{userOrVali.displayName}}</h2>
+      <p>{{userOrVali.greeting}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

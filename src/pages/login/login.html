@@ -1,0 +1,28 @@
+<!--<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Circles
+    </ion-title>
+  </ion-navbar>
+</ion-header>-->
+<ion-content >
+<div id="login-page" class="gradient-bg">
+
+  <div text-center id="title">
+    <!--<ion-icon name="lock" style="zoom:12.0;">
+    </ion-icon>-->
+    <img src="assets/logos/circles-logo.svg" alt="Circles">
+    Circles
+  </div>
+
+  <span class="error" *ngIf="error">{{ error }}</span>
+
+  <button (click)="loginFB()"><span icon="facebook"></span>Login With Facebook</button>
+  <button (click)="loginGoogle()"><span icon="google"></span>Login With Google</button>
+  <button (click)="loginEmail()"><span icon="mail"></span>Login With Email</button>
+
+  <a (click)="goSignup()" class="signupEmailPageLink">No account? <strong>Create one here</strong></a>
+
+</div>
+
+</ion-content>

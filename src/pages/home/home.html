@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <ion-title></ion-title>
+    <ion-buttons left>
+      <a menuToggle icon-only>
+        <ion-icon name="menu"></ion-icon>
+      </a>
+    </ion-buttons>
+    <ion-buttons right>
+      <a icon-only (click)="openSearch()">
+        <ion-icon name="search"></ion-icon>
+      </a>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding id="home-content">
+
+  <span ion-fixed class="home-fixed" style="">
+
+    <div class="home-pic">
+      <div class="circle-crop"
+        [ngStyle]="{'background-image': 'url(' + user?.profilePicURL + ')'}">
+      </div>
+
+      <div class="user-name">
+        {{user?.displayName}}
+      </div>
+
+      <div>{{user?.greeting}}</div>
+
+      <div class="balance">
+        {{user?.balance}} css
+      </div>
+
+    </div>
+
+    <!-- segment btns -->
+    <div class="segment-btns">
+      <ion-segment [(ngModel)]="view" color="primary">
+        <ion-segment-button class="offer-segment-button" value="network" (ionSelect)="selectNetwork()">
+          Network
+        </ion-segment-button>
+        <ion-segment-button class="offer-segment-button" value="wants" (ionSelect)="selectNews()">
+          News
+        </ion-segment-button>
+        <ion-segment-button class="offer-segment-button" value="validators" (ionSelect)="selectValidators()">
+          Validators
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <div id="balance-detail" *ngIf="userService.type == 'organisation'">
+      <div class="received">
+        <h1>Circles Received</h1>
+        <h2>0</h2>
+      </div>
+      <div class="sent">
+        <h1>Circles Sent</h1>
+        <h2>0</h2>
+      </div>
+    </div>
+    <div id="balance-detail" *ngIf="userService.type == 'individual'">
+      <div class="received">
+        <h1>My Coins Balance</h1>
+        <h2>{{myCoinBalance}} {{myCoinName}}</h2>
+      </div>
+      <div class="sent">
+        <h1>All Coins Balance</h1>
+        <h2>{{allCoinBalance}} Circles</h2>
+      </div>
+    </div>
+
+    <ion-content overflow-scroll="true" class="scrolling-list">
+      <span *ngIf="selectedView == 'network' && userService.trustedUsers">
+        <ion-item *ngFor="let networkUser of userService.trustedUsers" (click)="goToUserDetail(networkUser)">
+          <ion-avatar style="width:48px;height:48px" item-left>
+            <img src="{{networkUser.profilePicURL}}">
+          </ion-avatar>
+          <h2>{{networkUser.displayName}}</h2>
+          <p>{{networkUser.greeting}}</p>
+        </ion-item>
+      </span>
+
+      <span *ngIf="selectedView == 'news'">
+        <!--<ion-item *ngFor="let newsItem of newsService.allnewsItemsReversed$ | async"> -->
+          <news-card [newsItem]="newsItem" *ngFor="let newsItem of newsService.allnewsItemsReversed$ | async"></news-card>
+        <!--</ion-item>-->
+      </span>
+
+      <span *ngIf="selectedView == 'validators'">
+        <ion-item *ngFor="let validator of validatorService.userValidators" (click)="goToValidatorDetail(validator)">
+          <ion-avatar style="width:48px;height:48px" item-left>
+            <img src="{{validator?.profilePicURL}}">
+          </ion-avatar>
+          <h2>{{validator?.displayName}}</h2>
+          <p>{{validator?.description}}</p>
+        </ion-item>
+      </span>
+    </ion-content>
+
+  </span>
+
+</ion-content>
