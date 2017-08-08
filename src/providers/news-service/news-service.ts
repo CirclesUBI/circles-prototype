@@ -16,7 +16,6 @@ import { Individual } from '../../interfaces/individual-interface';
 import { Organisation } from '../../interfaces/organisation-interface';
 import { NewsItem } from '../../interfaces/news-item-interface';
 import { Validator } from '../../interfaces/validator-interface';
-import { PushService } from '../../providers/push-service/push-service';
 
 @Injectable()
 export class NewsService implements OnDestroy {
@@ -32,7 +31,6 @@ export class NewsService implements OnDestroy {
   constructor(
     private db: AngularFireDatabase,
     private notificationsService: NotificationsService,
-    private pushService: PushService,
     private userService: UserService
   ) {
 
@@ -92,11 +90,6 @@ export class NewsService implements OnDestroy {
 
   public addTransaction(toUser:User, amount:number, message?:string):void {
     //this will only be called for sending to someone else
-
-    // this.notificationsService.create('Send Success','','success');
-    // let msg = 'Sent ' + txItem.amount + ' Circles to ' + txItem.toUser.displayName;
-    // this.notificationsService.create('Transaction', msg, 'info');
-
     let newsItem = {
       timestamp: firebase.database['ServerValue']['TIMESTAMP'],
       from: this.user.uid,
@@ -109,14 +102,11 @@ export class NewsService implements OnDestroy {
 
     this.db.list('/users/'+toUser.uid+'/news/').push(newsItem);
 
-    //send push notification to other user
-    let msg = 'Receieved ' + amount + ' Circles from ' + this.user.displayName;
-    this.pushService.pushToUser(toUser,msg);
   }
 
 
   public addValidatorTrustRequest(validator: Validator):void {
-    //this.notificationsService.create('Join Success','','success');
+
     let msg = 'You applied for validation from: ' +validator.displayName;
     this.notificationsService.create('Apply', msg, 'info');
 
@@ -150,7 +140,7 @@ export class NewsService implements OnDestroy {
   }
 
   public addValidatorTrustAccept(validator: Validator):void {
-    //this.notificationsService.create('Join Success','','success');
+
     let msg = 'You have been validated by: ' +validator.displayName;
     this.notificationsService.create('Validation', msg, 'success');
 
@@ -163,7 +153,7 @@ export class NewsService implements OnDestroy {
   }
 
   public addTrust(user: User):void {
-    //this.notificationsService.create('Join Success','','success');
+
     let msg = 'You have started trusting: ' +user.displayName;
     this.notificationsService.create('Trust', msg, 'info');
 
@@ -176,7 +166,7 @@ export class NewsService implements OnDestroy {
   }
 
   public revokeUserTrust(user: User):void {
-    //this.notificationsService.create('Join Success','','success');
+
     let msg = 'You have stopped trusting: ' +user.displayName;
     this.notificationsService.create('Revoke', msg, 'warn');
 
@@ -189,7 +179,7 @@ export class NewsService implements OnDestroy {
   }
 
   public revokeValidatorTrust(vali: Validator):void {
-    //this.notificationsService.create('Join Success','','success');
+
     let msg = 'You are no longer validated by: ' +vali.displayName;
     this.notificationsService.create('Revoke', msg, 'warn');
 

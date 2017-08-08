@@ -6,7 +6,6 @@ import { CirclesApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { OneSignal } from '@ionic-native/onesignal';
 
 //vendor
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -41,7 +40,6 @@ import { UserService } from '../providers/user-service/user-service';
 import { TransactionService } from '../providers/transaction-service/transaction-service';
 import { NewsService } from '../providers/news-service/news-service';
 import { ValidatorService } from '../providers/validator-service/validator-service';
-import { PushService } from '../providers/push-service/push-service';
 
 //configs
 import { environment } from '../environments/environment';
@@ -100,11 +98,8 @@ import { environment } from '../environments/environment';
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    // PushService,
     AuthService,
     NewsService,
-    OneSignal,
-    PushService,
     SplashScreen,
     StatusBar,
     StorageService,
