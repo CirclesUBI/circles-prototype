@@ -234,10 +234,16 @@ export class UserService implements OnDestroy {
   }
 
   public signOut() {
-    //this.clearUser();
-    this.userSub$.unsubscribe();
-    this.usersSub$.unsubscribe();
-    this.combinedSub$.unsubscribe();
+    //todo: better way to do this?
+    if (this.userSub$)
+      this.userSub$.unsubscribe();
+
+    if (this.usersSub$)
+      this.usersSub$.unsubscribe();
+
+    if (this.combinedSub$)
+      this.combinedSub$.unsubscribe();
+
     return this.afAuth.auth.signOut();
   }
 

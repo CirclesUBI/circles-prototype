@@ -250,7 +250,8 @@ export class ValidatorService {
   }
 
   public signOut() {
-    this.combinedSub$.unsubscribe();
+    if (this.combinedSub$)
+      this.combinedSub$.unsubscribe();
   }
 
 }

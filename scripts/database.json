@@ -96,6 +96,7 @@
   },
   "users": {
     "du6jisreecQL3ok81WDLXyKdS9T2": {
+      "loggedIn": false,
       "userData": {
         "agreedToDisclaimer": true,
         "uid": "du6jisreecQL3ok81WDLXyKdS9T2",
@@ -154,9 +155,9 @@
       }
     },
     "jSu2I20VwcgesCvTCsAb2wsTqNG2": {
+      "loggedIn": false,
       "userData": {
-  "agreedToDisclaimer": true,
-        "uid": "jSu2I20VwcgesCvTCsAb2wsTqNG2",
+        "agreedToDisclaimer": true,
         "balance": 100,
         "createdAt": 1497078643916,
         "firstName": "Jack",
@@ -209,8 +210,9 @@
       }
     },
     "5jrFiCphYKbDZ4FeSMFuhMM8wzw2": {
+      "loggedIn": false,
       "userData": {
-  "agreedToDisclaimer": true,
+        "agreedToDisclaimer": true,
         "uid": "5jrFiCphYKbDZ4FeSMFuhMM8wzw2",
         "balance": 650,
         "createdAt": 1496781495492,
@@ -238,8 +240,9 @@
       }
     },
     "7H0ByozNeBgwy2ZdQjWnTk2ZbCN2": {
+      "loggedIn": false,
       "userData": {
-  "agreedToDisclaimer": true,
+        "agreedToDisclaimer": true,
         "uid": "7H0ByozNeBgwy2ZdQjWnTk2ZbCN2",
         "balance": 143,
         "createdAt": 1496952402440,
@@ -265,8 +268,9 @@
       }]
     },
     "J56XFbhioecI8PTQb90NKe5bwB13": {
+      "loggedIn": false,
       "userData": {
-  "agreedToDisclaimer": true,
+        "agreedToDisclaimer": true,
         "uid": "J56XFbhioecI8PTQb90NKe5bwB13",
         "balance": 143,
         "createdAt": 1496952177281,
@@ -292,8 +296,9 @@
       }]
     },
     "SKMdyuZc5cRdje6GHiXzcEL7wQs1": {
+      "loggedIn": false,
       "userData": {
-  "agreedToDisclaimer": true,
+        "agreedToDisclaimer": true,
         "uid": "SKMdyuZc5cRdje6GHiXzcEL7wQs1",
         "balance": 143,
         "createdAt": 1496952304626,
@@ -318,8 +323,9 @@
       }]
     },
     "8tmyxjdsXOWQM6YLCGeYwLfqU4I3": {
+      "loggedIn": false,
       "userData": {
-  "agreedToDisclaimer": true,
+        "agreedToDisclaimer": true,
         "uid": "8tmyxjdsXOWQM6YLCGeYwLfqU4I3",
         "balance": 857,
         "createdAt": 1497089064339,
@@ -352,8 +358,9 @@
       }
     },
     "Ea793jse7XNcSrMMmO8GvRPLlbU2": {
+      "loggedIn": false,
       "userData": {
-  "agreedToDisclaimer": true,
+        "agreedToDisclaimer": true,
         "uid": "Ea793jse7XNcSrMMmO8GvRPLlbU2",
         "balance": 857,
         "createdAt": 1497078641926,
@@ -379,8 +386,9 @@
       }]
     },
     "ZSbGLxzQwgfYMQ5Xy98dyqlL8JA3": {
+      "loggedIn": false,
       "userData": {
-  "agreedToDisclaimer": true,
+        "agreedToDisclaimer": true,
         "uid": "ZSbGLxzQwgfYMQ5Xy98dyqlL8JA3",
         "balance": 857,
         "createdAt": 1497089879370,

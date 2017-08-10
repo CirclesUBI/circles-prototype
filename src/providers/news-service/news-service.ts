@@ -192,7 +192,8 @@ export class NewsService implements OnDestroy {
   }
 
   public signOut() {
-    this.newsItemsSub$.unsubscribe();
+    if (this.newsItemsSub$)
+      this.newsItemsSub$.unsubscribe();
   }
 
   ngOnDestroy () {
