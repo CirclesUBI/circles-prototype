@@ -54,12 +54,12 @@
         <ion-item id="auth-providers">
           <ion-label stacked>Authentication Providers</ion-label>
           <div item-content>
-            <span *ngFor="let provider of providers">
-              <button ion-button outline *ngIf="!provider.completed">
+            <span *ngFor="let provider of providers" (click)="gotoProvider(provider)">
+              <button type="button" ion-button outline *ngIf="!provider.completed">
                 <ion-icon name="{{provider.icon}}"></ion-icon>
                 {{provider.displayName}}
               </button>
-              <button ion-button *ngIf="provider.completed">
+              <button type="button" ion-button *ngIf="provider.completed">
                 <ion-icon name="{{provider.icon}}"></ion-icon>
                 {{provider.displayName}}
               </button>

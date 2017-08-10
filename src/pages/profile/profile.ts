@@ -135,4 +135,11 @@ export class ProfilePage {
     this.navCtrl.pop();
   }
 
+  private gotoProvider (prov) {
+    if (prov.completed)
+      return;
+
+    
+  }
+
 }

@@ -135,10 +135,11 @@ export class ValidatorService {
     this.valRequirements = [];
     for (let req of vali.requirements) {
       let r = Object.assign({}, this.allProviders[req]) as any;
-      if (user.authProviders.find(auth => {
-        return req == auth;
-      })) {
+      if (user.authProviders.find(auth => req == auth)) {
         r.completed = true;
+      }
+      else {
+        r.completed = false;
       }
       this.valRequirements.push(r);
     }

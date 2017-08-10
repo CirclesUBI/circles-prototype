@@ -7,6 +7,8 @@ import { User } from '../../interfaces/user-interface';
 import { NewsService } from '../../providers/news-service/news-service';
 import { UserService } from '../../providers/user-service/user-service';
 
+import { HomePage } from '../../pages/home/home';
+import { ProfilePage } from '../../pages/profile/profile';
 
 import { ConfirmModal } from '../../pages/confirm-modal/confirm-modal';
 
@@ -82,6 +84,17 @@ export class ApplyPage {
         this.loading.dismiss();
       }
     });
+  }
+
+  private gotoProvider (req) {
+    if (req.completed)
+      return;
+
+    if (req.displayName == 'Email' || req.displayName == 'Profile Photo' || req.displayName == 'Name') {
+      this.navCtrl.setRoot(HomePage).then( (res) => {
+        this.navCtrl.push(ProfilePage);
+      });
+    }
   }
 
   ionViewDidLoad() {
