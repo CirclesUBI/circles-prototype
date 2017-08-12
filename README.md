@@ -2,8 +2,11 @@ This is a starter template for [Ionic](http://ionicframework.com/docs/) projects
 
 ## easy setup
 1. if you don't already have ionic installed run `sudo npm install -g ionic cordova`
-2. `sudo npm install` to install other packages
-3. `ionic serve` to compile and run the app on a webserver.
+2. run `sudo npm install` to install other packages
+3. You will need to get the directory `src/environments` from one of the project owners - ask Ed or Jack
+3. run `ionic serve` to compile and run the app on a webserver.
+4. http://localhost:8100/ should open automatically
+5. Create a new account using email address - Google and Facebook logins are currently not working, I think? (jk)
 
 ## to run on ios / android:
 1. to install deployment tool: `npm install -g ios-deploy`
