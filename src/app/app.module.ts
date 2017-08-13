@@ -71,10 +71,10 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     BrowserModule,
     IonicModule.forRoot(CirclesApp,{
-            scrollPadding: false,
-            scrollAssist: true,
-            autoFocusAssist: false
-        }), //{mode: 'ios'}) //this will force 'ios' style on all platforms
+        scrollPadding: false,
+        scrollAssist: true,
+        autoFocusAssist: false,
+        mode: 'ios'}), //this will force 'ios' style on all platforms
     Ng2PicaModule,
     SimpleNotificationsModule.forRoot()
   ],
