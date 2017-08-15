@@ -54,6 +54,7 @@ export class HomePage {
   ) { }
 
   private openSearch(): void {
+    console.log("clicked openSearch");
     this.navCtrl.push(SearchPage);
   }
 

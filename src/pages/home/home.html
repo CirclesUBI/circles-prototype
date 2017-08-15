@@ -1,15 +1,17 @@
 <ion-header>
   <ion-navbar color="secondary">
-    <ion-title></ion-title>
+    <!--<ion-title></ion-title>-->
     <ion-buttons left>
       <a menuToggle icon-only>
         <ion-icon name="menu"></ion-icon>
       </a>
     </ion-buttons>
     <ion-buttons right>
-      <a icon-only (click)="openSearch()">
-        <ion-icon name="search"></ion-icon>
-      </a>
+      <div (click)="openSearch()">
+        <a icon-only>
+          <ion-icon name="search"></ion-icon>
+        </a>
+      </div>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
