@@ -70,7 +70,6 @@ export class NewsService implements OnDestroy {
 
       this.newsItemsSub$ = this.newsItemsFirebaseList$.subscribe(
         newsitems => {
-          debugger;
           let rev = newsitems.sort((a,b) => a.timestamp < b.timestamp ? 1 : -1);
           this.newsItemsReversed$.next(rev);
         },

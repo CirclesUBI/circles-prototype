@@ -46,7 +46,7 @@ export class ValidatorService {
       //const initStreams = [this.userService.initUserSubject$, this.providersFirebaseObj$, this.validatorsFirebaseObj$];
 
       const combinator = (user, providers, validators) => {
-        debugger;
+
         this.user = user;
         this.providers = providers;
         this.userProviders = [];

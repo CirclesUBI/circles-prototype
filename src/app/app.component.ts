@@ -50,7 +50,6 @@ export class CirclesApp {
       this.authService.authState$.subscribe(
         auth => {
           if (auth) {
-            debugger;
             let authUserObs$ = this.db.object('/users/' + auth.uid);
             let authUserSub$ = authUserObs$.subscribe(
               user => {
