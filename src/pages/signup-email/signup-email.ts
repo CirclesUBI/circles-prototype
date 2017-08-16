@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 
 import { AngularFireAuth } from 'angularfire2/auth';
 
-import { UserService } from '../../providers/user-service/user-service';
+import { AuthService } from '../../providers/auth-service/auth-service';
 import { User } from '../../interfaces/user-interface';
 import { HomePage } from '../home/home';
 
@@ -19,10 +19,11 @@ export class SignupEmailPage {
   private loading: Loading;
 
   constructor(
+    private authService: AuthService,
     private formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController,
-    private userService: UserService
+    private toastCtrl: ToastController
+
   ) {
 
     this.createUserForm = formBuilder.group({
@@ -36,7 +37,7 @@ export class SignupEmailPage {
     if (!formValid)
       return;
 
-    this.userService.createAuthUser(formData.email,formData.password1).then(
+    this.authService.createAuthUser(formData.email,formData.password1).then(
       (success) => {},
       (error) => {
         this.toast = this.toastCtrl.create({

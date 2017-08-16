@@ -41,12 +41,12 @@ export class ValidatorService {
     this.validatorsFirebaseObj$ = this.db.list('/validators/');
     this.providersFirebaseObj$ = this.db.list('/static/authProviders/');
 
-    this.userService.initUserSubject$.take(1).subscribe( initUser => {
+    this.userService.initUserSubject$.subscribe( initUser => {
 
-      const initStreams = [this.userService.initUserSubject$, this.providersFirebaseObj$, this.validatorsFirebaseObj$];
+      //const initStreams = [this.userService.initUserSubject$, this.providersFirebaseObj$, this.validatorsFirebaseObj$];
 
       const combinator = (user, providers, validators) => {
-
+        debugger;
         this.user = user;
         this.providers = providers;
         this.userProviders = [];
@@ -72,18 +72,18 @@ export class ValidatorService {
         }
       };
 
-      this.combinedSub$ = Observable.combineLatest(initStreams, combinator).first().subscribe(
-        (result) => console.log('initStreams'),
-        (error) => console.log(error),
-        () => {
+      // this.combinedSub$ = Observable.combineLatest(initStreams, combinator).first().subscribe(
+      //   (result) => console.log('initStreams'),
+      //   (error) => console.log(error),
+      //   () => {
           const userStreams = [this.userService.user$, this.providersFirebaseObj$, this.validatorsFirebaseObj$];
           this.combinedSub$ = Observable.combineLatest(userStreams, combinator).subscribe(
             (result) => console.log('userStreams'),
             (error) => console.log(error),
             () => console.log('userStreams close')
           );
-        }
-      );
+      //   }
+      // );
     });
   }
 

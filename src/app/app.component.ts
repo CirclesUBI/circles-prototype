@@ -47,9 +47,10 @@ export class CirclesApp {
 
       }
       statusBar.styleDefault();
-      this.userService.authState$.subscribe(
+      this.authService.authState$.subscribe(
         auth => {
           if (auth) {
+            debugger;
             let authUserObs$ = this.db.object('/users/' + auth.uid);
             let authUserSub$ = authUserObs$.subscribe(
               user => {

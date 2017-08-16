@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 
-import { UserService } from '../../providers/user-service/user-service';
+import { AuthService } from '../../providers/auth-service/auth-service';
 import { User } from '../../interfaces/user-interface';
 
 @Component({
@@ -21,7 +21,7 @@ export class LoginEmailPage {
     private formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-    private userService: UserService
+    private AuthService: AuthService
   ) {
 
     this.loginForm = formBuilder.group({
@@ -41,7 +41,7 @@ export class LoginEmailPage {
 
     this.loading.present()
 
-    this.userService.signInEmail(
+    this.AuthService.signInEmail(
       formData.email,
       formData.password
     ).then(

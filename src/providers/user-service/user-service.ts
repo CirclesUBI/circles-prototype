@@ -1,7 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -23,7 +22,6 @@ export class UserService implements OnDestroy {
 
   public users: any;
   public type: string;
-  public authState$: any;
 
   public initUserSubject$: ReplaySubject<any> = new ReplaySubject<any>(1);
   public user$: Observable<User>;
@@ -44,12 +42,11 @@ export class UserService implements OnDestroy {
   private trustedUsers: any;
 
   constructor(
-    private afAuth: AngularFireAuth,
+
     private db: AngularFireDatabase
   ) {
 
     this.user.createdAt = 0;
-    this.authState$ = this.afAuth.authState;
 
     this.usersFirebaseList$ = this.db.list('/users/');
     this.usersSub$ = this.usersFirebaseList$.subscribe(
@@ -63,8 +60,10 @@ export class UserService implements OnDestroy {
       error => console.log('Could not load users.')
     );
 
-    this.initUserSubject$.take(1).subscribe(
+    this.initUserSubject$.subscribe(
       initUser => {
+
+        this.initUserSubject$.unsubscribe();
 
         if (!this.isOrg(initUser))
           this.type = 'individual';
@@ -72,7 +71,6 @@ export class UserService implements OnDestroy {
           this.type = 'organisation';
 
         this.user$ = this.userSubject$.asObservable();
-
         this.userFirebaseObj$ = this.db.object('/users/' + initUser.uid + '/userData');
         this.userSub$ = this.userFirebaseObj$.subscribe(
           user => {
@@ -105,11 +103,6 @@ export class UserService implements OnDestroy {
       error => console.log(error),
       () => {}
     );
-  }
-
-
-  public createAuthUser(email:string, password:string) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
   public createCirclesUser(formUser): Individual | Organisation {
@@ -182,14 +175,6 @@ export class UserService implements OnDestroy {
     });
   }
 
-  public signInEmail(email, password) {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
-  }
-
-  public signInRedirect(provider) {
-    return this.afAuth.auth.signInWithRedirect(provider);
-  }
-
   public addTrustedUser(userKey) {
     if (this.user.trustedUsers)
       this.user.trustedUsers.push(userKey);
@@ -244,7 +229,6 @@ export class UserService implements OnDestroy {
     if (this.combinedSub$)
       this.combinedSub$.unsubscribe();
 
-    return this.afAuth.auth.signOut();
   }
 
   private clearUser() {
