@@ -32,19 +32,16 @@ export class NewsService implements OnDestroy {
     private db: AngularFireDatabase,
     private notificationsService: NotificationsService,
     private userService: UserService
-  ) {
+  ) { }
 
-    this.userService.initUserSubject$.subscribe(
-      initUser => {
-        this.setupDBQuery(initUser.uid);
-        if (!initUser.agreedToDisclaimer)
-          this.addCreateUser(initUser);
+  public initialise (initUser) {
+    this.setupDBQuery(initUser.uid);
+    if (!initUser.agreedToDisclaimer)
+      this.addCreateUser(initUser);
 
-        this.userService.user$.subscribe(
-          (user) => this.user = user
-        );
-      },
-      error => console.error(error),
+    this.userService.user$.subscribe(
+      (user) => this.user = user,
+      (error) => console.error(error),
       () => console.log('news-service constructor user$ obs complete')
     );
   }

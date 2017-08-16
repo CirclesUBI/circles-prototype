@@ -23,7 +23,6 @@ export class UserService implements OnDestroy {
   public users: any;
   public type: string;
 
-  public initUserSubject$: ReplaySubject<any> = new ReplaySubject<any>(1);
   public user$: Observable<User>;
   public userFirebaseObj$: FirebaseObjectObservable<User>;
   public usersFirebaseList$: FirebaseListObservable<any>;
@@ -41,13 +40,10 @@ export class UserService implements OnDestroy {
   private allCoins: { [key: string]: Coin };
   private trustedUsers: any;
 
-  constructor(
-
-    private db: AngularFireDatabase
-  ) {
+  constructor(private db: AngularFireDatabase) {
 
     this.user.createdAt = 0;
-
+    this.user$ = this.userSubject$.asObservable();
     this.usersFirebaseList$ = this.db.list('/users/');
     this.usersSub$ = this.usersFirebaseList$.subscribe(
       users => {
@@ -59,49 +55,42 @@ export class UserService implements OnDestroy {
       },
       error => console.log('Could not load users.')
     );
+  }
 
-    this.initUserSubject$.subscribe(
-      initUser => {
+  public initialise(initUser) {
 
-        this.initUserSubject$.unsubscribe();
+    if (!this.isOrg(initUser))
+      this.type = 'individual';
+    else
+      this.type = 'organisation';
 
-        if (!this.isOrg(initUser))
-          this.type = 'individual';
-        else
-          this.type = 'organisation';
-
-        this.user$ = this.userSubject$.asObservable();
-        this.userFirebaseObj$ = this.db.object('/users/' + initUser.uid + '/userData');
-        this.userSub$ = this.userFirebaseObj$.subscribe(
-          user => {
-            this.user = user;
-            this.setBalance(user);
-            this.userSubject$.next(this.user);
-          },
-          error => console.log('Could not load current user record.')
-        );
-
-        this.combinedSub$  = Observable.combineLatest(this.userFirebaseObj$, this.usersFirebaseList$).subscribe(
-          (result) => {
-            let user = result[0];
-            let users = result[1];
-
-            if (!this.users) {
-              this.users = [];
-              for (let u of users) {
-                this.users[u.$key] = u.userData;
-              }
-              this.usersSubject$.next(users);
-            }
-
-            if (user.trustedUsers) {
-              this.trustedUsers = user.trustedUsers.map( (uKey:string) => this.keyToUser(uKey));
-            }
-          }
-        );
+    this.userFirebaseObj$ = this.db.object('/users/' + initUser.uid + '/userData');
+    this.userSub$ = this.userFirebaseObj$.subscribe(
+      user => {
+        this.user = user;
+        this.setBalance(user);
+        this.userSubject$.next(this.user);
       },
-      error => console.log(error),
-      () => {}
+      error => console.log('Could not load current user record.')
+    );
+
+    this.combinedSub$  = Observable.combineLatest(this.userFirebaseObj$, this.usersFirebaseList$).subscribe(
+      (result) => {
+        let user = result[0];
+        let users = result[1];
+
+        if (!this.users) {
+          this.users = [];
+          for (let u of users) {
+            this.users[u.$key] = u.userData;
+          }
+          this.usersSubject$.next(users);
+        }
+
+        if (user.trustedUsers) {
+          this.trustedUsers = user.trustedUsers.map( (uKey:string) => this.keyToUser(uKey));
+        }
+      }
     );
   }
 

@@ -41,55 +41,6 @@ export class ValidatorService {
     this.validatorsFirebaseObj$ = this.db.list('/validators/');
     this.providersFirebaseObj$ = this.db.list('/static/authProviders/');
 
-    this.userService.initUserSubject$.subscribe( initUser => {
-
-      //const initStreams = [this.userService.initUserSubject$, this.providersFirebaseObj$, this.validatorsFirebaseObj$];
-
-      const combinator = (user, providers, validators) => {
-
-        this.user = user;
-        this.providers = providers;
-        this.userProviders = [];
-
-        for (let provider of this.providers) {
-          this.allProviders[provider.$key] = provider;
-          let p = Object.assign({}, provider) as any;
-          if (user.authProviders.find(aKey => provider.$key == aKey)) {
-            p.completed = true;
-          }
-          this.userProviders.push(p);
-        }
-
-        this.validators = validators;
-        for (let v of this.validators) {
-          this.allValidators[v.$key] = v;
-        }
-        if (this.user.validators) {
-          this.userValidators = this.user.validators.map( (vKey:string) => this.keyToValidator(vKey));
-        }
-        else {
-          this.userValidators = [];
-        }
-      };
-
-      // this.combinedSub$ = Observable.combineLatest(initStreams, combinator).first().subscribe(
-      //   (result) => console.log('initStreams'),
-      //   (error) => console.log(error),
-      //   () => {
-          const userStreams = [this.userService.user$, this.providersFirebaseObj$, this.validatorsFirebaseObj$];
-          this.combinedSub$ = Observable.combineLatest(userStreams, combinator).subscribe(
-            (result) => console.log('userStreams'),
-            (error) => console.log(error),
-            () => console.log('userStreams close')
-          );
-      //   }
-      // );
-    });
-  }
-
-  public initialise () {
-    const initStreams = [this.userService.initUserSubject$, this.providersFirebaseObj$, this.validatorsFirebaseObj$];
-
     const combinator = (user, providers, validators) => {
 
       this.user = user;
@@ -116,6 +67,13 @@ export class ValidatorService {
         this.userValidators = [];
       }
     };
+
+    const userStreams = [this.userService.user$, this.providersFirebaseObj$, this.validatorsFirebaseObj$];
+    this.combinedSub$ = Observable.combineLatest(userStreams, combinator).subscribe(
+      (result) => console.log('userStreams'),
+      (error) => console.log(error),
+      () => console.log('userStreams close')
+    );
   }
 
   public getUserProviders(user: User) {
