@@ -38,7 +38,7 @@ export class UserService implements OnDestroy {
   private weeklyGrant: number = 100;
   private myCoins: Coin = {} as Coin;
   private allCoins: { [key: string]: Coin };
-  private trustedUsers: any;
+  private trustedUsersNetwork: Array<any> = [];
 
   constructor(private db: AngularFireDatabase) {
 
@@ -78,6 +78,7 @@ export class UserService implements OnDestroy {
       (result) => {
         let user = result[0];
         let users = result[1];
+        this.trustedUsersNetwork = [];
 
         if (!this.users) {
           this.users = [];
@@ -87,23 +88,64 @@ export class UserService implements OnDestroy {
           this.usersSubject$.next(users);
         }
 
-        if (user.trustedUsers) {
-          this.trustedUsers = user.trustedUsers.map( (uKey:string) => this.keyToUser(uKey));
+        if (user.trustedUsers || user.trustedBy) { //arrow-dropright-circle
+          //this.trustedUsersNetwork = user.trustedUsers.map( (uKey:string) => this.keyToUser(uKey));
+          let tToUsers = user.trustedUsers.slice(0);
+          let tByUsers = user.trustedBy.slice(0);
+          tToUsers =  tToUsers.filter(
+            (tUser:string) => {
+              let found = false;
+              tByUsers = tByUsers.filter(
+                (tByUser:string) => {
+                  if (tByUser === tUser) {
+                    let u = this.keyToUser(tByUser) as any;
+                    u.icon = "checkmark-circle";
+                    this.trustedUsersNetwork.push(u);
+                    found = true;
+                    return false;
+                  }
+                  return true;
+                }
+              );
+              return !found;
+            }
+          );
+          tToUsers.map((tUserKey:string) => {
+            let u = this.keyToUser(tUserKey) as any;
+            u.icon = "arrow-dropleft-circle";
+            this.trustedUsersNetwork.push(u);
+          });
+          tByUsers.map((tUserKey:string) => {
+            let u = this.keyToUser(tUserKey) as any;
+            u.icon = "arrow-dropright-circle";
+            this.trustedUsersNetwork.push(u);
+          });
         }
       }
     );
   }
 
-  public createCirclesUser(formUser): Individual | Organisation {
+  public createCirclesUser(authUser,formUser): Individual | Organisation {
 
     formUser.createdAt = firebase.database['ServerValue']['TIMESTAMP'];
-    if (!formUser.authProviders) {
-      formUser.authProviders = ["email","name"];
+
+    let providers = ['name'];
+    if (formUser.email === authUser.email && authUser.emailVerified) {
+      providers.push('email');
+    }
+    if (formUser.profilePicURL) {
+      providers.push('photo');
     }
     else {
-      formUser.authProviders.push("email");
-      formUser.authProviders.push("name");
+      formUser.profilePicURL = "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a";
     }
+    switch (authUser.providerData[0].providerId) {
+      case 'google.com': {
+        providers.push('google');
+      }
+      break;
+    }
+    formUser.authProviders = providers;
 
     formUser.agreedToDisclaimer = false;
 
@@ -217,7 +259,6 @@ export class UserService implements OnDestroy {
 
     if (this.combinedSub$)
       this.combinedSub$.unsubscribe();
-
   }
 
   private clearUser() {

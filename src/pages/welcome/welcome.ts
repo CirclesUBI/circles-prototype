@@ -211,7 +211,6 @@ export class WelcomePage {
         (profileURL) => {
           user.profilePicURL = profileURL;
           progressIntervalObs$.unsubscribe();
-          user.authProviders = ['photo'];
           this.saveUser(user);
         },
         (error) => {
@@ -228,7 +227,6 @@ export class WelcomePage {
     }
     else {
       //save w generic profile pic
-      user.profilePicURL = this.profilePicURL;
       this.saveUser(user);
     }
   }
@@ -236,7 +234,7 @@ export class WelcomePage {
   private saveUser(formUser) {
     //sends us back to app.component's auth observer
 
-    let user = this.userService.createCirclesUser(formUser);
+    let user = this.userService.createCirclesUser(this.authUser,formUser);
 
     this.userObs$.set({userData:user}).then(
       (result) => {

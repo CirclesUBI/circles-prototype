@@ -82,7 +82,6 @@ export class HomePage {
 
     this.userSub$ = this.userService.user$.subscribe(
       user => {
-
         if (!user.agreedToDisclaimer) {
           //if they got this far then they have agreed to the disclaimer
           this.userService.updateUser({agreedToDisclaimer:true});

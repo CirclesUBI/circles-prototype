@@ -14,7 +14,7 @@
       "description": "Berlin Basic Income is a local group that explores strategies to implement a universal basic income (UBI), including unconventional methods that may start outside of the usual political process (e.g. the basic income cryptocurrency Circles). ",
       "displayName": "Berlin Basic Income Lab",
       "email": "basicincomeberlin@gmail.com",
-      "trustedUsers": ["du6jisreecQL3ok81WDLXyKdS9T2"],
+      "trustedUsers": ["qM7YGEggomY8hjmZKk5aS2XXqhq2"],
       "profilePicURL": "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Flab.png?alt=media&token=062c962c-9826-4714-98df-ba6c9d4fb166",
       "requirements": ["email", "name", "photo", "facebook"]
     },
@@ -32,7 +32,7 @@
       "description": "Radwerk is a collective of Berlin bike shops. We share resources, time and knowledge :)",
       "displayName": "Radwerk",
       "email": "Radwerk@Radwerk.com",
-      "trustedUsers": ["du6jisreecQL3ok81WDLXyKdS9T2"],
+      "trustedUsers": ["qM7YGEggomY8hjmZKk5aS2XXqhq2"],
       "profilePicURL": "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Frepair.png?alt=media&token=4d837bc7-7f92-4255-943a-5b34778e5a7d",
       "requirements": ["name", "photo"]
     },
@@ -95,11 +95,11 @@
     }
   },
   "users": {
-    "du6jisreecQL3ok81WDLXyKdS9T2": {
+    "qM7YGEggomY8hjmZKk5aS2XXqhq2": {
 
       "userData": {
         "agreedToDisclaimer": true,
-        "uid": "du6jisreecQL3ok81WDLXyKdS9T2",
+        "uid": "qM7YGEggomY8hjmZKk5aS2XXqhq2",
         "authProviders": ["email", "name", "photo"],
         "createdAt": 1497078643926,
         "balance": 100,
@@ -112,9 +112,9 @@
           "-Kk1Xr2ytzY1xPWUVXWQ"
         ],
         "wallet": {
-          "du6jisreecQL3ok81WDLXyKdS9T2": {
+          "qM7YGEggomY8hjmZKk5aS2XXqhq2": {
             "amount": 100,
-            "owner": "du6jisreecQL3ok81WDLXyKdS9T2",
+            "owner": "qM7YGEggomY8hjmZKk5aS2XXqhq2",
             "priority": 0,
             "title": "Quentin Coin"
           },
@@ -137,6 +137,9 @@
             "title": "Jane Coin"
           }
         },
+        "trustedBy": [
+          "jSu2I20VwcgesCvTCsAb2wsTqNG2"
+        ],
         "trustedUsers": [
           "jSu2I20VwcgesCvTCsAb2wsTqNG2",
           "5jrFiCphYKbDZ4FeSMFuhMM8wzw2",
@@ -175,9 +178,11 @@
             "title": "Jack Coin"
           }
         },
+        "trustedBy": [
+          "qM7YGEggomY8hjmZKk5aS2XXqhq2"
+        ],
         "trustedUsers": [
-          "jSu2I20VwcgesCvTCsAb2wsTqNG2",
-          "du6jisreecQL3ok81WDLXyKdS9T2",
+          "qM7YGEggomY8hjmZKk5aS2XXqhq2",
           "5jrFiCphYKbDZ4FeSMFuhMM8wzw2",
           "7H0ByozNeBgwy2ZdQjWnTk2ZbCN2",
           "8tmyxjdsXOWQM6YLCGeYwLfqU4I3",

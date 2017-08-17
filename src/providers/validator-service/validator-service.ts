@@ -41,7 +41,7 @@ export class ValidatorService {
     this.validatorsFirebaseObj$ = this.db.list('/validators/');
     this.providersFirebaseObj$ = this.db.list('/static/authProviders/');
 
-    const combinator = (user, providers, validators) => {
+    const combinator = (user, validators, providers) => {
 
       this.user = user;
       this.providers = providers;
@@ -68,7 +68,7 @@ export class ValidatorService {
       }
     };
 
-    const userStreams = [this.userService.user$, this.providersFirebaseObj$, this.validatorsFirebaseObj$];
+    const userStreams = [this.userService.user$, this.validatorsFirebaseObj$, this.providersFirebaseObj$];
     this.combinedSub$ = Observable.combineLatest(userStreams, combinator).subscribe(
       (result) => console.log('userStreams'),
       (error) => console.log(error),
