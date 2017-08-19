@@ -65,7 +65,7 @@ export class UserService implements OnDestroy {
       }
     );
     this.authProviders = this.authProviders.concat(initUser.authProviders);
-    debugger;
+
     if (!this.isOrg(initUser))
       this.type = 'individual';
     else
