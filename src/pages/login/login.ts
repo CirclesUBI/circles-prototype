@@ -34,7 +34,6 @@ export class LoginPage {
     var provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('public_profile');
     provider.addScope('email');
-
     this.authService.signInRedirect(provider);
   }
 

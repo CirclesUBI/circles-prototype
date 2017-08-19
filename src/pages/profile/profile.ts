@@ -10,6 +10,7 @@ import 'firebase/storage';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
+import { AuthService } from '../../providers/auth-service/auth-service';
 import { UserService } from '../../providers/user-service/user-service';
 import { NewsService } from '../../providers/news-service/news-service';
 import { ValidatorService } from '../../providers/validator-service/validator-service';
@@ -41,6 +42,7 @@ export class ProfilePage {
 
   constructor(
     private db: AngularFireDatabase,
+    private authService: AuthService,
     private ds: DomSanitizer,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
@@ -136,10 +138,69 @@ export class ProfilePage {
   }
 
   private gotoProvider (prov) {
-    if (prov.completed)
+    //todo: deal with photo/email etc
+    if (
+      prov.completed ||
+      prov.displayName == 'Profile Photo' ||
+      prov.displayName == 'Email' ||
+      prov.displayName == 'Passport' ||
+      prov.displayName == 'Steam' ||
+      prov.displayName == 'SoundCloud'
+    )
       return;
+    else {
+      var provider;
 
-    
+      //todo: not firing
+      // firebase.auth().getRedirectResult().then(
+      //   (result) => {
+      //     console.log(result);
+      //     debugger;
+      //     if (result.credential) {
+      //       // Accounts successfully linked.
+      //       var credential = result.credential;
+      //       var user = result.user;
+      //       // ...
+      //     }
+      //   },
+      //   (error) => {
+      //     console.log(error);
+      //   }
+      // );
+
+      switch(prov.displayName) {
+        case 'Facebook': {
+          provider = new firebase.auth.FacebookAuthProvider();
+        }
+        break;
+        case 'Google': {
+          provider = new firebase.auth.GoogleAuthProvider();
+        }
+        break;
+        case 'Github': {
+          provider = new firebase.auth.GithubAuthProvider();
+        }
+        break;
+        case 'Twitter': {
+          provider = new firebase.auth.TwitterAuthProvider();
+        }
+        break;
+      }
+
+      this.authService.linkRedirect(provider).then(function(result) {
+        var credential = result.credential;
+        var user = result.user;
+        // ...
+      }).catch(
+        (error) => {
+          this.toast = this.toastCtrl.create({
+            message: 'Error linking accounts: ' + error,
+            duration: 2500,
+            position: 'middle'
+          });
+          console.error(error);
+          this.toast.present();
+        });
+    }
   }
-
 }

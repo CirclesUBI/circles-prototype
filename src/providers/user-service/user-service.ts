@@ -22,6 +22,7 @@ export class UserService implements OnDestroy {
 
   public users: any;
   public type: string;
+  public authProviders: Array<string>;
 
   public user$: Observable<User>;
   public userFirebaseObj$: FirebaseObjectObservable<User>;
@@ -57,8 +58,14 @@ export class UserService implements OnDestroy {
     );
   }
 
-  public initialise(initUser) {
-
+  public initialise(authProviders, initUser) {
+    this.authProviders = authProviders.map(
+      (provider) => {
+        return provider.providerId.split('.')[0];
+      }
+    );
+    this.authProviders = this.authProviders.concat(initUser.authProviders);
+    debugger;
     if (!this.isOrg(initUser))
       this.type = 'individual';
     else
@@ -68,6 +75,7 @@ export class UserService implements OnDestroy {
     this.userSub$ = this.userFirebaseObj$.subscribe(
       user => {
         this.user = user;
+        this.user.authProviders = this.authProviders;
         this.setBalance(user);
         this.userSubject$.next(this.user);
       },
@@ -139,14 +147,8 @@ export class UserService implements OnDestroy {
     else {
       formUser.profilePicURL = "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a";
     }
-    switch (authUser.providerData[0].providerId) {
-      case 'google.com': {
-        providers.push('google');
-      }
-      break;
-    }
+    //providers.push(authUser.providerData[0].providerId);
     formUser.authProviders = providers;
-
     formUser.agreedToDisclaimer = false;
 
     if (!this.isOrg(formUser)) {

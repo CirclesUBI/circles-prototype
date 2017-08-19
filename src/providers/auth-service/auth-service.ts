@@ -33,6 +33,14 @@ export class AuthService {
     return this.afAuth.auth.signInWithRedirect(provider);
   }
 
+  public linkRedirect(provider) {
+    return this.afAuth.auth.currentUser.linkWithRedirect(provider);
+  }
+
+  public linkPopup(provider) {
+    return this.afAuth.auth.currentUser.linkWithPopup(provider);
+  }
+
   signOut() {
     this.newsService.signOut();
     this.validatorService.signOut();

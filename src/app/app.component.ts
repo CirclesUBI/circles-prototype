@@ -60,7 +60,7 @@ export class CirclesApp {
                 }
                 else {
                   authUserSub$.unsubscribe();
-                  this.userService.initialise(user.userData);
+                  this.userService.initialise(auth.providerData,user.userData);
                   this.newsService.initialise(user.userData);
                   this.nav.setRoot(HomePage);
                 }
