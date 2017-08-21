@@ -31,6 +31,7 @@ export class ProfilePage {
   private base64ImageData: string;
   private imageBlob: Blob;
   private profilePicURL: any;
+  public debugText: string = '';
 
   private userSub$: Subscription;
   private providers: Array<any>;
@@ -65,19 +66,28 @@ export class ProfilePage {
         this.providers = this.validatorService.userProviders;
       }
     );
+
+    // document.addEventListener('DOMContentLoaded',function() {
+    //   debugger;
+      document.getElementById('file').onchange = this.fileChangeEvent.bind(this);
+      //   debugger;
+      // }
+    //});
   }
 
   public fileChangeEvent(fileInput: any) {
+    debugger;
     if (fileInput.target.files && fileInput.target.files[0]) {
-
+      this.debugText += 'fileChangeEvent';
       var reader = new FileReader();
       reader.onload = (e) => {
         let img = new Image;
         img.src = reader.result;
         img.onload = ( (file) => {
-
+          this.debugText += 'onload';
           this.storageService.resizePicFile(fileInput.target.files, img.height, img.width).subscribe(
             imageBlob => {
+              this.debugText += 'imageBlob: '+imageBlob;
               this.profilePicURL = URL.createObjectURL(imageBlob);
               this.base64ImageData = this.profilePicURL.substring(23);
               this.profilePicUpload = new UploadFile(imageBlob as File, this.user.uid);

@@ -23,6 +23,29 @@ export class LoginPage {
     private authService: AuthService
   ) { }
 
+
+  private loginTwitter():void {
+    this.loading = this.loadingCtrl.create({
+      content: 'Logging in ...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+    var provider = new firebase.auth.TwitterAuthProvider();
+    this.authService.signInRedirect(provider);
+  }
+
+  private loginGithub():void {
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Logging in ...',
+      dismissOnPageChange: true,
+    });
+    this.loading.present();
+
+    var provider = new firebase.auth.GithubAuthProvider();
+    this.authService.signInRedirect(provider);
+  }
+
   private loginFB():void {
 
     this.loading = this.loadingCtrl.create({
@@ -42,6 +65,7 @@ export class LoginPage {
       content: 'Logging in ...',
       dismissOnPageChange: true
     });
+    this.loading.present();
     var provider = new firebase.auth.GoogleAuthProvider();
     this.authService.signInRedirect(provider);
   }
