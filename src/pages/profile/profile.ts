@@ -16,7 +16,7 @@ import { NewsService } from '../../providers/news-service/news-service';
 import { ValidatorService } from '../../providers/validator-service/validator-service';
 import { StorageService, UploadImage, UploadFile } from '../../providers/storage-service/storage-service';
 import { User } from '../../interfaces/user-interface';
-import { Individual  } from '../../interfaces/individual-interface';
+import { Individual } from '../../interfaces/individual-interface';
 
 import { SearchPage } from '../search/search';
 import { UserDetailPage } from '../user-detail/user-detail';
@@ -47,6 +47,7 @@ export class ProfilePage {
     private ds: DomSanitizer,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
+    private notificationsService: NotificationsService,
     private sanitizer: DomSanitizer,
     private storageService: StorageService,
     private toastCtrl: ToastController,
@@ -69,34 +70,45 @@ export class ProfilePage {
 
     // document.addEventListener('DOMContentLoaded',function() {
     //   debugger;
-      document.getElementById('file').onchange = this.fileChangeEvent.bind(this);
-      //   debugger;
-      // }
+    document.getElementById('file').onchange = this.fileChangeEvent.bind(this);
+    //   debugger;
+    // }
     //});
   }
 
   public fileChangeEvent(fileInput: any) {
-    debugger;
     if (fileInput.target.files && fileInput.target.files[0]) {
       this.debugText += 'fileChangeEvent';
+
       var reader = new FileReader();
+
       reader.onload = (e) => {
-        let img = new Image;
-        img.src = reader.result;
-        img.onload = ( (file) => {
-          this.debugText += 'onload';
-          this.storageService.resizePicFile(fileInput.target.files, img.height, img.width).subscribe(
-            imageBlob => {
-              this.debugText += 'imageBlob: '+imageBlob;
-              this.profilePicURL = URL.createObjectURL(imageBlob);
-              this.base64ImageData = this.profilePicURL.substring(23);
-              this.profilePicUpload = new UploadFile(imageBlob as File, this.user.uid);
-            }
-          );
-        });
+        this.profilePicURL = e.target['result'];
+        this.base64ImageData = this.profilePicURL.substring(23);
+        this.profilePicUpload = new UploadImage(this.base64ImageData, this.user.uid);
       }
 
       reader.readAsDataURL(fileInput.target.files[0]);
+
+      // var reader = new FileReader();
+      // reader.onload = (e) => {
+      //   let img = new Image;
+      //   img.src = reader.result;
+      //   img.onload = ( (file) => {
+      //     this.debugText += 'onload:' +img.height+','+img.width;
+      //     this.storageService.resizePicFile(fileInput.target.files, img.height, img.width).subscribe(
+      //       (imageBlob) => {
+      //         this.debugText += 'imageBlob: '+imageBlob;
+      //         this.profilePicURL = URL.createObjectURL(imageBlob);
+      //         this.base64ImageData = this.profilePicURL.substring(23);
+      //         this.profilePicUpload = new UploadFile(imageBlob as File, this.user.uid);
+      //       },
+      //       (error) => this.debugText += error
+      //     );
+      //   });
+      //}
+
+      //reader.readAsDataURL(fileInput.target.files[0]);
     }
   }
 
@@ -109,18 +121,19 @@ export class ProfilePage {
     });
     this.loading.present();
 
-    let progressIntervalObs$ = Observable.interval(200).subscribe( () => {
+    let progressIntervalObs$ = Observable.interval(200).subscribe(() => {
       this.loading.data.content = this.sanitizer.bypassSecurityTrustHtml(
-        '<p>Saving Profile ...</p><progress value="'+this.profilePicUpload.progress+'" max="100"></progress>'
+        '<p>Saving Profile ...</p><progress value="' + this.profilePicUpload.progress + '" max="100"></progress>'
       );
     });
 
     this.storageService.uploadFile(this.profilePicUpload).then(
+      //this.storageService.uploadFile(this.profilePicUpload).then(
       (profileURL) => {
         this.user.profilePicURL = profileURL;
         progressIntervalObs$.unsubscribe();
         this.loading.dismiss();
-        this.userService.updateUser({profilePicURL:this.user.profilePicURL});
+        this.userService.updateUser({ profilePicURL: this.user.profilePicURL });
       },
       (error) => {
         progressIntervalObs$.unsubscribe();
@@ -143,21 +156,40 @@ export class ProfilePage {
     else {
 
     }
+
+    if (this.user.email != firebase.auth().currentUser.email) {
+      firebase.auth().currentUser.updateEmail(this.user.email).then(
+        (result) => this.sendEmailVerif(),
+        (error) => {
+          this.toast = this.toastCtrl.create({
+            message: 'Error updating email: ' + error,
+            duration: 2500,
+            position: 'middle'
+          });
+          console.error(error);
+          this.toast.present();
+        }
+      );
+    }
+
     this.userService.saveUser();
     this.navCtrl.pop();
   }
 
-  private gotoProvider (prov) {
+  private gotoProvider(prov) {
     //todo: deal with photo/email etc
     if (
       prov.completed ||
       prov.displayName == 'Profile Photo' ||
-      prov.displayName == 'Email' ||
       prov.displayName == 'Passport' ||
       prov.displayName == 'Steam' ||
       prov.displayName == 'SoundCloud'
-    )
+    ) {
       return;
+    }
+    else if (prov.displayName == 'Email') {
+      this.sendEmailVerif();
+    }
     else {
       var provider;
 
@@ -178,30 +210,31 @@ export class ProfilePage {
       //   }
       // );
 
-      switch(prov.displayName) {
+      switch (prov.displayName) {
         case 'Facebook': {
           provider = new firebase.auth.FacebookAuthProvider();
         }
-        break;
+          break;
         case 'Google': {
           provider = new firebase.auth.GoogleAuthProvider();
         }
-        break;
+          break;
         case 'Github': {
           provider = new firebase.auth.GithubAuthProvider();
         }
-        break;
+          break;
         case 'Twitter': {
           provider = new firebase.auth.TwitterAuthProvider();
         }
-        break;
+          break;
       }
 
-      this.authService.linkRedirect(provider).then(function(result) {
-        var credential = result.credential;
-        var user = result.user;
-        // ...
-      }).catch(
+      this.authService.linkRedirect(provider).then(
+        (result) => {
+          var credential = result.credential;
+          var user = result.user;
+          // ...
+        },
         (error) => {
           this.toast = this.toastCtrl.create({
             message: 'Error linking accounts: ' + error,
@@ -210,7 +243,27 @@ export class ProfilePage {
           });
           console.error(error);
           this.toast.present();
-        });
+        }
+      );
     }
   }
+
+  sendEmailVerif() {
+    firebase.auth().currentUser.sendEmailVerification().then(
+      (result) => {
+        let msg = 'Verification Email sent to: ' +this.user.email;
+        this.notificationsService.create('Email', msg, 'info');
+      },
+      (error) => {
+        this.toast = this.toastCtrl.create({
+          message: 'Error sending email verification: ' + error,
+          duration: 2500,
+          position: 'middle'
+        });
+        console.error(error);
+        this.toast.present();
+      }
+    );
+  }
+
 }

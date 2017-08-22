@@ -77,7 +77,7 @@ export class ValidatorService {
   }
 
   public getUserProviders(user: User) {
-
+    debugger;
     this.userProviders = [];
     for (let pKey in this.allProviders) {
       let p = Object.assign({}, this.allProviders[pKey]) as any;
