@@ -89,7 +89,7 @@ export class ProfilePage {
         this.profilePicURL = e.target['result'];
         this.base64ImageData = this.profilePicURL.substring(22);
         this.profilePicUpload = new UploadImage(this.base64ImageData, this.user.uid);
-        this.storageService.resizeProfilePic(this.profilePicUpload, 768, 1024).then(
+        this.storageService.resizeImage(this.profilePicUpload, 768, 1024).then(
           (result) => {debugger},
           (error) => {
             this.toast = this.toastCtrl.create({

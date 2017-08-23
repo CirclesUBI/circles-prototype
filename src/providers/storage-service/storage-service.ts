@@ -94,6 +94,38 @@ export class StorageService {
     return this.pica.resize(fileList, w, h);
   }
 
+  public resizeImage(img,maxHeight,maxWidth) {
+    // Create a canvas element
+    var canvas = document.createElement('canvas');
+    canvas.width = 3264;
+    canvas.height = 2448;
+
+    // Get the drawing context
+    var ctx = canvas.getContext('2d');
+    var canvasCopy = document.createElement("canvas");
+    var copyContext = canvasCopy.getContext("2d");
+
+    img.onload = function()
+    {
+        var ratio = 1;
+
+        if(img.width > maxWidth)
+            ratio = maxWidth / img.width;
+        else if(img.height > maxHeight)
+            ratio = maxHeight / img.height;
+
+        canvasCopy.width = img.width;
+        canvasCopy.height = img.height;
+        copyContext.drawImage(img, 0, 0);
+
+        canvas.width = img.width * ratio;
+        canvas.height = img.height * ratio;
+        ctx.drawImage(canvasCopy, 0, 0, canvasCopy.width, canvasCopy.height, 0, 0, canvas.width, canvas.height);
+    };
+
+    img.src = reader.result;
+  }
+
   public async resizeProfilePic(upload: UploadImage, maxHeight:number, maxWidth:number): Promise<Upload>{
     return new Promise<Upload>((resolve, reject) => {
 
