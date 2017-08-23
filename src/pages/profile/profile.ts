@@ -32,6 +32,7 @@ export class ProfilePage {
   private imageBlob: Blob;
   private profilePicURL: any;
   public debugText: string = '';
+  private emailVerified: boolean = false;
 
   private userSub$: Subscription;
   private providers: Array<any>;
@@ -68,6 +69,8 @@ export class ProfilePage {
       }
     );
 
+    this.emailVerified = firebase.auth().currentUser.emailVerified;
+
     // document.addEventListener('DOMContentLoaded',function() {
     //   debugger;
     document.getElementById('file').onchange = this.fileChangeEvent.bind(this);
@@ -84,8 +87,20 @@ export class ProfilePage {
 
       reader.onload = (e) => {
         this.profilePicURL = e.target['result'];
-        this.base64ImageData = this.profilePicURL.substring(23);
+        this.base64ImageData = this.profilePicURL.substring(22);
         this.profilePicUpload = new UploadImage(this.base64ImageData, this.user.uid);
+        this.storageService.resizeProfilePic(this.profilePicUpload, 768, 1024).then(
+          (result) => {debugger},
+          (error) => {
+            this.toast = this.toastCtrl.create({
+              message: 'Error resizing: ' + error,
+              duration: 2500,
+              position: 'middle'
+            });
+            console.error(error);
+            this.toast.present();
+          }
+        );
       }
 
       reader.readAsDataURL(fileInput.target.files[0]);
