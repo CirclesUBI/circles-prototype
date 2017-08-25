@@ -31,6 +31,14 @@
           </ion-item>
         </span>
 
+        <!-- Email -->
+        <ion-item>
+          <ion-label stacked>Email</ion-label>
+          <ion-input type="text" [(ngModel)]="user.email" name="email"></ion-input>
+        </ion-item>
+        <ion-badge *ngIf="emailVerified">Verified</ion-badge>
+        <ion-badge *ngIf="!emailVerified">Not Verified</ion-badge>
+
         <!-- Greeting -->
         <ion-item>
           <ion-label stacked>Greeting</ion-label>
