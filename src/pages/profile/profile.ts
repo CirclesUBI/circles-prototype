@@ -89,41 +89,8 @@ export class ProfilePage {
         this.profilePicURL = e.target['result'];
         this.base64ImageData = this.profilePicURL.substring(22);
         this.profilePicUpload = new UploadImage(this.base64ImageData, this.user.uid);
-        this.storageService.resizeImage(this.profilePicUpload, 768, 1024).then(
-          (result) => {debugger},
-          (error) => {
-            this.toast = this.toastCtrl.create({
-              message: 'Error resizing: ' + error,
-              duration: 2500,
-              position: 'middle'
-            });
-            console.error(error);
-            this.toast.present();
-          }
-        );
+        this.storageService.simpleResizeImage(this.profilePicUpload, 768, 1024);
       }
-
-      reader.readAsDataURL(fileInput.target.files[0]);
-
-      // var reader = new FileReader();
-      // reader.onload = (e) => {
-      //   let img = new Image;
-      //   img.src = reader.result;
-      //   img.onload = ( (file) => {
-      //     this.debugText += 'onload:' +img.height+','+img.width;
-      //     this.storageService.resizePicFile(fileInput.target.files, img.height, img.width).subscribe(
-      //       (imageBlob) => {
-      //         this.debugText += 'imageBlob: '+imageBlob;
-      //         this.profilePicURL = URL.createObjectURL(imageBlob);
-      //         this.base64ImageData = this.profilePicURL.substring(23);
-      //         this.profilePicUpload = new UploadFile(imageBlob as File, this.user.uid);
-      //       },
-      //       (error) => this.debugText += error
-      //     );
-      //   });
-      //}
-
-      //reader.readAsDataURL(fileInput.target.files[0]);
     }
   }
 

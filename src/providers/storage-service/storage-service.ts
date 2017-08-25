@@ -94,36 +94,33 @@ export class StorageService {
     return this.pica.resize(fileList, w, h);
   }
 
-  public resizeImage(img,maxHeight,maxWidth) {
-    // Create a canvas element
+  public simpleResizeImage(img,maxHeight,maxWidth) {
+
     var canvas = document.createElement('canvas');
-    canvas.width = 3264;
-    canvas.height = 2448;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
 
-    // Get the drawing context
-    var ctx = canvas.getContext('2d');
-    var canvasCopy = document.createElement("canvas");
-    var copyContext = canvasCopy.getContext("2d");
+    var width = img.width;
+    var height = img.height;
+    
+    if (width > height) {
+      if (width > maxWidth) {
+        height *= maxWidth / width;
+        width = maxWidth;
+      }
+    } else {
+      if (height > maxHeight) {
+        width *= maxHeight / height;
+        height = maxHeight;
+      }
+    }
+    canvas.width = width;
+    canvas.height = height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, width, height);
 
-    img.onload = function()
-    {
-        var ratio = 1;
-
-        if(img.width > maxWidth)
-            ratio = maxWidth / img.width;
-        else if(img.height > maxHeight)
-            ratio = maxHeight / img.height;
-
-        canvasCopy.width = img.width;
-        canvasCopy.height = img.height;
-        copyContext.drawImage(img, 0, 0);
-
-        canvas.width = img.width * ratio;
-        canvas.height = img.height * ratio;
-        ctx.drawImage(canvasCopy, 0, 0, canvasCopy.width, canvasCopy.height, 0, 0, canvas.width, canvas.height);
-    };
-
-    img.src = reader.result;
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL;
   }
 
   public async resizeProfilePic(upload: UploadImage, maxHeight:number, maxWidth:number): Promise<Upload>{
