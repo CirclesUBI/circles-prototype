@@ -32,19 +32,16 @@ export class NewsService implements OnDestroy {
     private db: AngularFireDatabase,
     private notificationsService: NotificationsService,
     private userService: UserService
-  ) {
+  ) { }
 
-    this.userService.initUserSubject$.take(1).subscribe(
-      initUser => {
-        this.setupDBQuery(initUser.uid);
-        if (!initUser.agreedToDisclaimer)
-          this.addCreateUser(initUser);
+  public initialise (initUser) {
+    this.setupDBQuery(initUser.uid);
+    if (!initUser.agreedToDisclaimer)
+      this.addCreateUser(initUser);
 
-        this.userService.user$.subscribe(
-          (user) => this.user = user
-        );
-      },
-      error => console.error(error),
+    this.userService.user$.subscribe(
+      (user) => this.user = user,
+      (error) => console.error(error),
       () => console.log('news-service constructor user$ obs complete')
     );
   }
@@ -121,6 +118,9 @@ export class NewsService implements OnDestroy {
   public addCreateUser(initUserData: Individual | Organisation):void {
     let msg = 'Welcome to Circles ' +initUserData.displayName +'!';
     this.notificationsService.create('User Created', msg, 'success');
+
+    msg = 'Verification Email sent to: ' +this.user.email;
+    this.notificationsService.create('Email', msg, 'info');
 
     let n = {
       timestamp: firebase.database['ServerValue']['TIMESTAMP'],

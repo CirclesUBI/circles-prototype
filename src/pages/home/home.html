@@ -77,21 +77,22 @@
 
       <!-- NETWORK LIST -->
       <span *ngIf="selectedView == 'network'">
-        <ion-item *ngFor="let networkUser of userService.trustedUsers" (click)="goToUserDetail(networkUser)">
+        <ion-item *ngFor="let networkUser of userService.trustedUsersNetwork" (click)="goToUserDetail(networkUser)">
           <ion-avatar style="width:48px;height:48px" item-left>
             <img src="{{networkUser.profilePicURL}}">
           </ion-avatar>
+          <ion-icon item-start name="{{networkUser.icon}}"></ion-icon>
           <h2>{{networkUser.displayName}}</h2>
           <p>{{networkUser.greeting}}</p>
         </ion-item>
         <!-- placeholder text -->
-        <div *ngIf="!userService.trustedUsers" class="disclaimer">
+        <div *ngIf="userService.trustedUsersNetwork.length == 0" class="disclaimer">
           There's nobody in your network...yet!<br>
           Tap the search icon <ion-icon name="search"></ion-icon> in the top-right of the screen to build your network.
         </div>
       </span>
 
-      <!-- NEWs LIST -->
+      <!-- NEWS LIST -->
       <span *ngIf="selectedView == 'news'">
         <news-card [newsItem]="newsItem" *ngFor="let newsItem of newsService.allnewsItemsReversed$ | async"></news-card>
       </span>

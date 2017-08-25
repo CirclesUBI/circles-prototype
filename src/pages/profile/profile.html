@@ -44,7 +44,7 @@
               <img [src]="sanitizer.bypassSecurityTrustResourceUrl(profilePicURL)">
             </div>
         </ion-item>
-        <input ion-input *ngIf="storageService.isUploadSupported()" (change)="fileChangeEvent($event)" id="file" type="file" accept="image/*">
+        <input ion-input *ngIf="storageService.isUploadSupported()" id="file" type="file" accept="image/*">
         <button ion-button type="button" *ngIf="this.base64ImageData" (click)="fileUpload()">Upload Photo</button>
         <ion-item>
           <ion-label stacked>Trade Message</ion-label>
@@ -72,6 +72,9 @@
       </form>
 
     </ion-col>
+    <ion-item>
+      {{debugText}}
+    </ion-item>
   </ion-row>
 
 </ion-content>

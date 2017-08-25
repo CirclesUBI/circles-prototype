@@ -1,7 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -23,9 +22,8 @@ export class UserService implements OnDestroy {
 
   public users: any;
   public type: string;
-  public authState$: any;
+  public authProviders: Array<string>;
 
-  public initUserSubject$: ReplaySubject<any> = new ReplaySubject<any>(1);
   public user$: Observable<User>;
   public userFirebaseObj$: FirebaseObjectObservable<User>;
   public usersFirebaseList$: FirebaseListObservable<any>;
@@ -41,16 +39,12 @@ export class UserService implements OnDestroy {
   private weeklyGrant: number = 100;
   private myCoins: Coin = {} as Coin;
   private allCoins: { [key: string]: Coin };
-  private trustedUsers: any;
+  private trustedUsersNetwork: Array<any> = [];
 
-  constructor(
-    private afAuth: AngularFireAuth,
-    private db: AngularFireDatabase
-  ) {
+  constructor(private db: AngularFireDatabase) {
 
     this.user.createdAt = 0;
-    this.authState$ = this.afAuth.authState;
-
+    this.user$ = this.userSubject$.asObservable();
     this.usersFirebaseList$ = this.db.list('/users/');
     this.usersSub$ = this.usersFirebaseList$.subscribe(
       users => {
@@ -62,67 +56,99 @@ export class UserService implements OnDestroy {
       },
       error => console.log('Could not load users.')
     );
+  }
 
-    this.initUserSubject$.take(1).subscribe(
-      initUser => {
+  public initialise(authProviders, initUser) {
+    this.authProviders = authProviders.map(
+      (provider) => {
+        return provider.providerId.split('.')[0];
+      }
+    );
+    this.authProviders = this.authProviders.concat(initUser.authProviders);
 
-        if (!this.isOrg(initUser))
-          this.type = 'individual';
-        else
-          this.type = 'organisation';
+    if (!this.isOrg(initUser))
+      this.type = 'individual';
+    else
+      this.type = 'organisation';
 
-        this.user$ = this.userSubject$.asObservable();
-
-        this.userFirebaseObj$ = this.db.object('/users/' + initUser.uid + '/userData');
-        this.userSub$ = this.userFirebaseObj$.subscribe(
-          user => {
-            this.user = user;
-            this.setBalance(user);
-            this.userSubject$.next(this.user);
-          },
-          error => console.log('Could not load current user record.')
-        );
-
-        this.combinedSub$  = Observable.combineLatest(this.userFirebaseObj$, this.usersFirebaseList$).subscribe(
-          (result) => {
-            let user = result[0];
-            let users = result[1];
-
-            if (!this.users) {
-              this.users = [];
-              for (let u of users) {
-                this.users[u.$key] = u.userData;
-              }
-              this.usersSubject$.next(users);
-            }
-
-            if (user.trustedUsers) {
-              this.trustedUsers = user.trustedUsers.map( (uKey:string) => this.keyToUser(uKey));
-            }
-          }
-        );
+    this.userFirebaseObj$ = this.db.object('/users/' + initUser.uid + '/userData');
+    this.userSub$ = this.userFirebaseObj$.subscribe(
+      user => {
+        this.user = user;
+        this.user.authProviders = this.authProviders;
+        this.setBalance(user);
+        this.userSubject$.next(this.user);
       },
-      error => console.log(error),
-      () => {}
+      error => console.log('Could not load current user record.')
+    );
+
+    this.combinedSub$  = Observable.combineLatest(this.userFirebaseObj$, this.usersFirebaseList$).subscribe(
+      (result) => {
+        let user = result[0];
+        let users = result[1];
+        this.trustedUsersNetwork = [];
+
+        if (!this.users) {
+          this.users = [];
+          for (let u of users) {
+            this.users[u.$key] = u.userData;
+          }
+          this.usersSubject$.next(users);
+        }
+
+        if (user.trustedUsers || user.trustedBy) { //arrow-dropright-circle
+          //this.trustedUsersNetwork = user.trustedUsers.map( (uKey:string) => this.keyToUser(uKey));
+          let tToUsers = user.trustedUsers.slice(0);
+          let tByUsers = user.trustedBy.slice(0);
+          tToUsers =  tToUsers.filter(
+            (tUser:string) => {
+              let found = false;
+              tByUsers = tByUsers.filter(
+                (tByUser:string) => {
+                  if (tByUser === tUser) {
+                    let u = this.keyToUser(tByUser) as any;
+                    u.icon = "checkmark-circle";
+                    this.trustedUsersNetwork.push(u);
+                    found = true;
+                    return false;
+                  }
+                  return true;
+                }
+              );
+              return !found;
+            }
+          );
+          tToUsers.map((tUserKey:string) => {
+            let u = this.keyToUser(tUserKey) as any;
+            u.icon = "arrow-dropleft-circle";
+            this.trustedUsersNetwork.push(u);
+          });
+          tByUsers.map((tUserKey:string) => {
+            let u = this.keyToUser(tUserKey) as any;
+            u.icon = "arrow-dropright-circle";
+            this.trustedUsersNetwork.push(u);
+          });
+        }
+      }
     );
   }
 
-
-  public createAuthUser(email:string, password:string) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-  }
-
-  public createCirclesUser(formUser): Individual | Organisation {
+  public createCirclesUser(authUser,formUser): Individual | Organisation {
 
     formUser.createdAt = firebase.database['ServerValue']['TIMESTAMP'];
-    if (!formUser.authProviders) {
-      formUser.authProviders = ["email","name"];
+
+    let providers = ['name'];
+    if (formUser.email === authUser.email && authUser.emailVerified) {
+      providers.push('email');
+    }
+    if (formUser.profilePicURL) {
+      providers.push('photo');
     }
     else {
-      formUser.authProviders.push("email");
-      formUser.authProviders.push("name");
+      formUser.profilePicURL = "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a";
     }
-
+    //providers.push(authUser.providerData[0].providerId);
+    formUser.authProviders = providers;
     formUser.agreedToDisclaimer = false;
 
     if (!this.isOrg(formUser)) {
@@ -182,14 +208,6 @@ export class UserService implements OnDestroy {
     });
   }
 
-  public signInEmail(email, password) {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
-  }
-
-  public signInRedirect(provider) {
-    return this.afAuth.auth.signInWithRedirect(provider);
-  }
-
   public addTrustedUser(userKey) {
     if (this.user.trustedUsers)
       this.user.trustedUsers.push(userKey);
@@ -243,8 +261,6 @@ export class UserService implements OnDestroy {
 
     if (this.combinedSub$)
       this.combinedSub$.unsubscribe();
-
-    return this.afAuth.auth.signOut();
   }
 
   private clearUser() {

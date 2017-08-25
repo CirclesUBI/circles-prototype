@@ -6,8 +6,7 @@ import * as firebase from 'firebase/app';
 
 import { LoginEmailPage } from '../../pages/login-email/login-email';
 import { SignupEmailPage } from '../../pages/signup-email/signup-email';
-import { UserService } from '../../providers/user-service/user-service';
-import { User } from '../../interfaces/user-interface';
+import { AuthService } from '../../providers/auth-service/auth-service';
 
 @Component({
   selector: 'page-login',
@@ -21,8 +20,31 @@ export class LoginPage {
   constructor(
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
-    private userService: UserService
+    private authService: AuthService
   ) { }
+
+
+  private loginTwitter():void {
+    this.loading = this.loadingCtrl.create({
+      content: 'Logging in ...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+    var provider = new firebase.auth.TwitterAuthProvider();
+    this.authService.signInRedirect(provider);
+  }
+
+  private loginGithub():void {
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Logging in ...',
+      dismissOnPageChange: true,
+    });
+    this.loading.present();
+
+    var provider = new firebase.auth.GithubAuthProvider();
+    this.authService.signInRedirect(provider);
+  }
 
   private loginFB():void {
 
@@ -35,8 +57,7 @@ export class LoginPage {
     var provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('public_profile');
     provider.addScope('email');
-
-    this.userService.signInRedirect(provider);
+    this.authService.signInRedirect(provider);
   }
 
   private loginGoogle():void {
@@ -44,8 +65,9 @@ export class LoginPage {
       content: 'Logging in ...',
       dismissOnPageChange: true
     });
+    this.loading.present();
     var provider = new firebase.auth.GoogleAuthProvider();
-    this.userService.signInRedirect(provider);
+    this.authService.signInRedirect(provider);
   }
 
   private loginEmail():void {
@@ -54,10 +76,6 @@ export class LoginPage {
 
   private goSignup():void {
     this.navCtrl.push(SignupEmailPage);
-  }
-
-  ionViewDidLoad() {
-
   }
 
 }

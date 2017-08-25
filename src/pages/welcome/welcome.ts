@@ -3,6 +3,8 @@ import { Loading, LoadingController, NavController, NavParams, Slides, Toast, To
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
+import * as firebase from 'firebase/app';
+
 import { FirebaseObjectObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import "rxjs/add/observable/interval";
@@ -211,7 +213,6 @@ export class WelcomePage {
         (profileURL) => {
           user.profilePicURL = profileURL;
           progressIntervalObs$.unsubscribe();
-          user.authProviders = ['photo'];
           this.saveUser(user);
         },
         (error) => {
@@ -228,7 +229,6 @@ export class WelcomePage {
     }
     else {
       //save w generic profile pic
-      user.profilePicURL = this.profilePicURL;
       this.saveUser(user);
     }
   }
@@ -236,7 +236,12 @@ export class WelcomePage {
   private saveUser(formUser) {
     //sends us back to app.component's auth observer
 
-    let user = this.userService.createCirclesUser(formUser);
+    let user = this.userService.createCirclesUser(this.authUser,formUser);
+
+    firebase.auth().currentUser.sendEmailVerification().then(
+      (result) => console.log('email verif sent'),
+      (error) => console.log(error)
+    );
 
     this.userObs$.set({userData:user}).then(
       (result) => {

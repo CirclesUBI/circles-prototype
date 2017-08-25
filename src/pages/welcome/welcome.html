@@ -196,8 +196,7 @@
         <ion-row>
           <ion-col col-8 offset-2>
 
-          <input ion-input *ngIf="storageService.isUploadSupported()" (change)="fileChangeEvent($event)" id="file" type="file" accept="image/*">
-          <button ion-button *ngIf="this.base64ImageData" (click)="fileUpload()">Upload Photo</button>
+          <input ion-input *ngIf="storageService.isUploadSupported()" (change)="fileChangeEvent($event)" id="file" type="file" accept="image/*">          
             <ion-item-divider>
               <button ion-button full type="submit" [disabled]="!picForm.valid">Next</button>
             </ion-item-divider>

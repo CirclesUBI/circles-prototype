@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../providers/auth-service/auth-service';
 import { UserService } from '../providers/user-service/user-service';
+import { NewsService } from '../providers/news-service/news-service';
 
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
@@ -35,6 +36,7 @@ export class CirclesApp {
     private db: AngularFireDatabase,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
+    private newsService: NewsService,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
@@ -47,7 +49,7 @@ export class CirclesApp {
 
       }
       statusBar.styleDefault();
-      this.userService.authState$.subscribe(
+      this.authService.authState$.subscribe(
         auth => {
           if (auth) {
             let authUserObs$ = this.db.object('/users/' + auth.uid);
@@ -58,7 +60,8 @@ export class CirclesApp {
                 }
                 else {
                   authUserSub$.unsubscribe();
-                  this.userService.initUserSubject$.next(user.userData);
+                  this.userService.initialise(auth.providerData,user.userData);
+                  this.newsService.initialise(user.userData);
                   this.nav.setRoot(HomePage);
                 }
               },
