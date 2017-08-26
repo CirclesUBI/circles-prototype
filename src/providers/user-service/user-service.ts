@@ -96,10 +96,9 @@ export class UserService implements OnDestroy {
           this.usersSubject$.next(users);
         }
 
-        if (user.trustedUsers || user.trustedBy) { //arrow-dropright-circle
-          //this.trustedUsersNetwork = user.trustedUsers.map( (uKey:string) => this.keyToUser(uKey));
-          let tToUsers = user.trustedUsers.slice(0);
-          let tByUsers = user.trustedBy.slice(0);
+        if (user.trustedUsers || user.trustedBy) {
+          let tToUsers = (user.trustedUsers) ? user.trustedUsers.slice(0) : [];
+          let tByUsers = (user.trustedBy) ? user.trustedBy.slice(0) : [];
           tToUsers =  tToUsers.filter(
             (tUser:string) => {
               let found = false;
@@ -128,6 +127,10 @@ export class UserService implements OnDestroy {
             u.icon = "arrow-dropright-circle";
             this.trustedUsersNetwork.push(u);
           });
+        }
+
+        if (user.validators) {
+          debugger;
         }
       }
     );

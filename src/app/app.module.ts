@@ -1,7 +1,7 @@
 //core
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, DeepLinkConfig } from 'ionic-angular';
 import { CirclesApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -13,6 +13,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { Ng2PicaModule } from 'ng2-pica';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 
 //pages
 import { HomePage } from '../pages/home/home';
@@ -44,6 +45,11 @@ import { ValidatorService } from '../providers/validator-service/validator-servi
 //configs
 import { environment } from '../environments/environment';
 
+export const deepLinkConfig: DeepLinkConfig = {
+  links: [
+    { component: ProfilePage, name: 'profile', segment: 'profile' }
+  ]
+};
 
 @NgModule({
   declarations: [
@@ -74,8 +80,9 @@ import { environment } from '../environments/environment';
         scrollPadding: false,
         scrollAssist: true,
         autoFocusAssist: false,
-        mode: 'ios'}), //this will force 'ios' style on all platforms
+        mode: 'ios'}, deepLinkConfig), //this will force 'ios' style on all platforms
     Ng2PicaModule,
+    Ng2ImgMaxModule,
     SimpleNotificationsModule.forRoot()
   ],
   bootstrap: [IonicApp],

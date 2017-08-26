@@ -62,6 +62,7 @@ export class ValidatorService {
       }
       if (this.user.validators) {
         this.userValidators = this.user.validators.map( (vKey:string) => this.keyToValidator(vKey));
+        //this.validatorUsers = this.userValidators.map( (val:Validator) => trustedUsers)
       }
       else {
         this.userValidators = [];

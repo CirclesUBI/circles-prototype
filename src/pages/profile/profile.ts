@@ -33,6 +33,8 @@ export class ProfilePage {
   private profilePicURL: any;
   public debugText: string = '';
   private emailVerified: boolean = false;
+  private imageLoading: boolean = false;
+  private imageFile: File;
 
   private userSub$: Subscription;
   private providers: Array<any>;
@@ -82,15 +84,24 @@ export class ProfilePage {
   public fileChangeEvent(fileInput: any) {
     if (fileInput.target.files && fileInput.target.files[0]) {
       this.debugText += 'fileChangeEvent';
+      this.imageLoading = true;
 
-      var reader = new FileReader();
-
-      reader.onload = (e) => {
-        this.profilePicURL = e.target['result'];
-        this.base64ImageData = this.profilePicURL.substring(22);
-        this.profilePicUpload = new UploadImage(this.base64ImageData, this.user.uid);
-        this.storageService.simpleResizeImage(this.profilePicUpload, 768, 1024);
-      }
+      this.storageService.ngResize(fileInput.target.files[0]).subscribe(
+        (imageFile) => {
+          var reader = new FileReader();
+          reader.onload = (e) => {
+            this.imageLoading = false;
+            this.profilePicURL = e.target['result'];
+            this.base64ImageData = this.profilePicURL.substring(23);
+            this.profilePicUpload = new UploadImage(this.base64ImageData, this.user.uid);
+            //this.imageFile = imageFile;
+          }
+          reader.readAsDataURL(imageFile);
+        },
+        (error) => {
+          //todo: error msg
+        }
+      );
     }
   }
 
@@ -115,7 +126,9 @@ export class ProfilePage {
         this.user.profilePicURL = profileURL;
         progressIntervalObs$.unsubscribe();
         this.loading.dismiss();
-        this.userService.updateUser({ profilePicURL: this.user.profilePicURL });
+        if (!this.user.authProviders['photo'])
+          this.user.authProviders.push('photo');
+        this.userService.updateUser({ profilePicURL: this.user.profilePicURL, authProviders:this.user.authProviders });
       },
       (error) => {
         progressIntervalObs$.unsubscribe();
