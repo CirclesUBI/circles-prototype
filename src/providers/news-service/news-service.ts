@@ -119,8 +119,10 @@ export class NewsService implements OnDestroy {
     let msg = 'Welcome to Circles ' +initUserData.displayName +'!';
     this.notificationsService.create('User Created', msg, 'success');
 
-    msg = 'Verification Email sent to: ' +initUserData.email;
-    this.notificationsService.create('Email', msg, 'info');
+    if (!initUserData.authProviders.find( (prov) => prov == 'email')) {
+      msg = 'Verification Email sent to: ' +initUserData.email;
+      this.notificationsService.create('Email', msg, 'info');
+    }
 
     let n = {
       timestamp: firebase.database['ServerValue']['TIMESTAMP'],

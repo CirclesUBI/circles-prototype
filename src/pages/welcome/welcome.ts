@@ -238,10 +238,12 @@ export class WelcomePage {
 
     let user = this.userService.createCirclesUser(this.authUser,formUser);
 
-    firebase.auth().currentUser.sendEmailVerification().then(
-      (result) => console.log('email verif sent'),
-      (error) => console.log(error)
-    );
+    if (!user.authProviders.find( (prov) => prov == 'email')) {
+      firebase.auth().currentUser.sendEmailVerification().then(
+        (result) => console.log('email verif sent'),
+        (error) => console.log(error)
+      );
+    }
 
     this.userObs$.set({userData:user}).then(
       (result) => {

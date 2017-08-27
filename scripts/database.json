@@ -14,7 +14,7 @@
       "description": "Berlin Basic Income is a local group that explores strategies to implement a universal basic income (UBI), including unconventional methods that may start outside of the usual political process (e.g. the basic income cryptocurrency Circles). ",
       "displayName": "Berlin Basic Income Lab",
       "email": "basicincomeberlin@gmail.com",
-      "trustedUsers": ["qM7YGEggomY8hjmZKk5aS2XXqhq2"],
+      "trustedUsers": [],
       "profilePicURL": "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Flab.png?alt=media&token=062c962c-9826-4714-98df-ba6c9d4fb166",
       "requirements": ["email", "name", "photo", "facebook"]
     },
@@ -32,7 +32,7 @@
       "description": "Radwerk is a collective of Berlin bike shops. We share resources, time and knowledge :)",
       "displayName": "Radwerk",
       "email": "Radwerk@Radwerk.com",
-      "trustedUsers": ["qM7YGEggomY8hjmZKk5aS2XXqhq2"],
+      "trustedUsers": [],
       "profilePicURL": "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Frepair.png?alt=media&token=4d837bc7-7f92-4255-943a-5b34778e5a7d",
       "requirements": ["name", "photo"]
     },

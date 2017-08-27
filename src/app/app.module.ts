@@ -30,6 +30,7 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { ConfirmModal } from '../pages/confirm-modal/confirm-modal';
 import { WalletPage } from '../pages/wallet/wallet';
 import { SettingsPage } from '../pages/settings/settings';
+import { EmailConfirmationPage } from '../pages/email-confirmation/email-confirmation';
 
 //components
 import { NewsCard } from '../components/news-card/news-card';
@@ -45,17 +46,12 @@ import { ValidatorService } from '../providers/validator-service/validator-servi
 //configs
 import { environment } from '../environments/environment';
 
-export const deepLinkConfig: DeepLinkConfig = {
-  links: [
-    { component: ProfilePage, name: 'profile', segment: 'profile' }
-  ]
-};
-
 @NgModule({
   declarations: [
     ApplyPage,
     CirclesApp,
     ConfirmModal,
+    EmailConfirmationPage,
     HomePage,
     LoginEmailPage,
     LoginPage,
@@ -80,7 +76,7 @@ export const deepLinkConfig: DeepLinkConfig = {
         scrollPadding: false,
         scrollAssist: true,
         autoFocusAssist: false,
-        mode: 'ios'}, deepLinkConfig), //this will force 'ios' style on all platforms
+        mode: 'ios'}), //this will force 'ios' style on all platforms
     Ng2PicaModule,
     Ng2ImgMaxModule,
     SimpleNotificationsModule.forRoot()
@@ -90,6 +86,7 @@ export const deepLinkConfig: DeepLinkConfig = {
     ApplyPage,
     CirclesApp,
     ConfirmModal,
+    EmailConfirmationPage,
     HomePage,
     LoginEmailPage,
     LoginPage,

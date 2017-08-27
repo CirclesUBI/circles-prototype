@@ -68,15 +68,16 @@ export class ProfilePage {
           this.profilePicURL = this.user.profilePicURL;
         }
         this.providers = this.validatorService.userProviders;
+        this.emailVerified  = (this.user.authProviders.filter(prov => prov == 'email').length > 0);
       }
     );
 
-    this.emailVerified = firebase.auth().currentUser.emailVerified;
+    //this.emailVerified = firebase.auth().currentUser.emailVerified;
 
     // document.addEventListener('DOMContentLoaded',function() {
-    //   debugger;
+
     document.getElementById('file').onchange = this.fileChangeEvent.bind(this);
-    //   debugger;
+
     // }
     //});
   }
@@ -151,7 +152,6 @@ export class ProfilePage {
     else {
 
     }
-
     if (this.user.email != firebase.auth().currentUser.email) {
       firebase.auth().currentUser.updateEmail(this.user.email).then(
         (result) => this.sendEmailVerif(),
@@ -192,7 +192,6 @@ export class ProfilePage {
       // firebase.auth().getRedirectResult().then(
       //   (result) => {
       //     console.log(result);
-      //     debugger;
       //     if (result.credential) {
       //       // Accounts successfully linked.
       //       var credential = result.credential;

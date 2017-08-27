@@ -53,12 +53,14 @@ export class UserService implements OnDestroy {
           this.users[u.$key] = u.userData;
         }
         this.usersSubject$.next(users);
+        this.usersSub$.unsubscribe();
       },
       error => console.log('Could not load users.')
     );
   }
 
   public initialise(authProviders, initUser) {
+
     this.authProviders = authProviders.map(
       (provider) => {
         return provider.providerId.split('.')[0];
@@ -84,17 +86,15 @@ export class UserService implements OnDestroy {
 
     this.combinedSub$  = Observable.combineLatest(this.userFirebaseObj$, this.usersFirebaseList$).subscribe(
       (result) => {
+
         let user = result[0];
         let users = result[1];
         this.trustedUsersNetwork = [];
-
-        if (!this.users) {
-          this.users = [];
-          for (let u of users) {
-            this.users[u.$key] = u.userData;
-          }
-          this.usersSubject$.next(users);
+        this.users = [];
+        for (let u of users) {
+          this.users[u.$key] = u.userData;
         }
+        this.usersSubject$.next(users);
 
         if (user.trustedUsers || user.trustedBy) {
           let tToUsers = (user.trustedUsers) ? user.trustedUsers.slice(0) : [];
@@ -105,8 +105,9 @@ export class UserService implements OnDestroy {
               tByUsers = tByUsers.filter(
                 (tByUser:string) => {
                   if (tByUser === tUser) {
-                    let u = this.keyToUser(tByUser) as any;
+                    let u = Object.assign({}, this.keyToUser(tByUser)) as any;
                     u.icon = "checkmark-circle";
+                    u.networkType = 'direct';
                     this.trustedUsersNetwork.push(u);
                     found = true;
                     return false;
@@ -118,22 +119,26 @@ export class UserService implements OnDestroy {
             }
           );
           tToUsers.map((tUserKey:string) => {
-            let u = this.keyToUser(tUserKey) as any;
+            let u = Object.assign({}, this.keyToUser(tUserKey)) as any;
             u.icon = "arrow-dropleft-circle";
+            u.networkType = 'direct';
             this.trustedUsersNetwork.push(u);
           });
           tByUsers.map((tUserKey:string) => {
-            let u = this.keyToUser(tUserKey) as any;
+            let u = Object.assign({}, this.keyToUser(tUserKey)) as any;
             u.icon = "arrow-dropright-circle";
+            u.networkType = 'direct';
             this.trustedUsersNetwork.push(u);
           });
         }
-
-        if (user.validators) {
-          debugger;
-        }
       }
     );
+  }
+
+  public addValidatorUsers(users:Array<User>) {
+    users.map((user) => {
+      this.trustedUsersNetwork.push(user)
+    });
   }
 
   public createCirclesUser(authUser,formUser): Individual | Organisation {

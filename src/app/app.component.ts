@@ -45,6 +45,13 @@ export class CirclesApp {
   ) {
     platform.ready().then(() => {
 
+      // Take a look at the query params.  If they exist, override the values from storage
+      console.log('Segments', this.nav._linker.segments);
+      if (this.nav._linker.segments && this.nav._linker.segments[0]) {
+        let split = this.nav._linker.segments[0].id.split('\/');
+        console.log('Split', split);
+      }
+
       if (this.platform.is('cordova')) {
 
       }
@@ -52,9 +59,11 @@ export class CirclesApp {
       this.authService.authState$.subscribe(
         auth => {
           if (auth) {
+
             let authUserObs$ = this.db.object('/users/' + auth.uid);
             let authUserSub$ = authUserObs$.subscribe(
               user => {
+
                 if (!user.$exists()) {
                   this.nav.push(WelcomePage, { authUser: auth, obs: authUserObs$ });
                 }
