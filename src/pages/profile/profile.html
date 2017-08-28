@@ -59,11 +59,12 @@
           <ion-input type="text" [(ngModel)]="user.tradeMessage" name="title"></ion-input>
         </ion-item>
 
+        <!-- PROVIDERS -->
         <ion-item id="auth-providers">
           <ion-label stacked>Authentication Providers</ion-label>
           <div item-content>
             <span *ngFor="let provider of providers" (click)="gotoProvider(provider)">
-              <button type="button" ion-button outline *ngIf="!provider.completed">
+              <button ion-button round outline *ngIf="!provider.completed">
                 <ion-icon name="{{provider.icon}}"></ion-icon>
                 {{provider.displayName}}
               </button>
