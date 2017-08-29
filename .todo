@@ -1,5 +1,5 @@
 Main:
-☐ list validator users in network
+✔ list validator users in network @done(2017-08-29 18:13)
 ☐ cloud function to do issuance
 ☐ move balance creation to cloud function
 ☐ no sidemenu on welcome pages

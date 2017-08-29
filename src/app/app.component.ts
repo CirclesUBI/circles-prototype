@@ -30,6 +30,7 @@ export class CirclesApp {
 
   private loading: Loading;
   private toast: Toast;
+  private isInApp: boolean = false;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -71,6 +72,7 @@ export class CirclesApp {
                   authUserSub$.unsubscribe();
                   this.userService.initialise(auth.providerData,user.userData);
                   this.newsService.initialise(user.userData);
+                  this.isInApp = true;
                   this.nav.setRoot(HomePage);
                 }
               },
@@ -86,6 +88,10 @@ export class CirclesApp {
           }
           else {
             this.nav.setRoot(LoginPage);
+            //todo: hacky, this needs to fire on menu animation end
+            setTimeout( () => {
+              this.isInApp = false;
+            },500);
           }
         },
         error => {

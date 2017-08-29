@@ -23,7 +23,7 @@ export class UserDetailPage {
   private userSub$: Subscription;
   private trustTo: boolean = false;
   private trustFrom: boolean = false;
-  private validatorTrust: boolean = false;
+  private validatorTrusted: boolean = false;
   private trusted: boolean = false;
   private validatedBy: Validator = {} as Validator;
 
@@ -68,6 +68,16 @@ export class UserDetailPage {
         if (this.viewUser.trustedUsers) {
           this.trusted = this.trustFrom = this.viewUser.trustedUsers.some(tUserKey => {
             return tUserKey == this.user.uid;
+          });
+        }
+        if (this.user.validators && this.viewUser.validators) {
+          this.user.validators.map( (valKey:string) => {
+             this.validatorTrusted = this.viewUser.validators.some( tUserValKey => {
+               if (tUserValKey == valKey) {
+                this.validatedBy = this.validatorService.keyToValidator(valKey);
+                return true;
+              }
+             });
           });
         }
       }
