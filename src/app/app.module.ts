@@ -1,7 +1,7 @@
 //core
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, DeepLinkConfig } from 'ionic-angular';
 import { CirclesApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -13,6 +13,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { Ng2PicaModule } from 'ng2-pica';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 
 //pages
 import { HomePage } from '../pages/home/home';
@@ -26,12 +27,15 @@ import { SignupEmailPage } from '../pages/signup-email/signup-email';
 import { SendPage } from '../pages/send/send';
 import { ApplyPage } from '../pages/apply/apply';
 import { WelcomePage } from '../pages/welcome/welcome';
-import { ConfirmModal } from '../pages/confirm-modal/confirm-modal';
 import { WalletPage } from '../pages/wallet/wallet';
 import { SettingsPage } from '../pages/settings/settings';
+import { EmailConfirmationPage } from '../pages/email-confirmation/email-confirmation';
+import { ConfirmModal } from '../pages/confirm-modal/confirm-modal';
+import { WaitModal } from '../pages/wait-modal/wait-modal';
 
 //components
 import { NewsCard } from '../components/news-card/news-card';
+import { AutoresizeDirective } from '../directives/autoresize/autoresize';
 
 //services
 import { StorageService } from '../providers/storage-service/storage-service';
@@ -44,12 +48,13 @@ import { ValidatorService } from '../providers/validator-service/validator-servi
 //configs
 import { environment } from '../environments/environment';
 
-
 @NgModule({
   declarations: [
     ApplyPage,
+    AutoresizeDirective,
     CirclesApp,
     ConfirmModal,
+    EmailConfirmationPage,
     HomePage,
     LoginEmailPage,
     LoginPage,
@@ -61,6 +66,7 @@ import { environment } from '../environments/environment';
     SignupEmailPage,
     UserDetailPage,
     ValidatorDetailPage,
+    WaitModal,
     WalletPage,
     WelcomePage
   ],
@@ -76,6 +82,7 @@ import { environment } from '../environments/environment';
         autoFocusAssist: false,
         mode: 'ios'}), //this will force 'ios' style on all platforms
     Ng2PicaModule,
+    Ng2ImgMaxModule,
     SimpleNotificationsModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -83,6 +90,7 @@ import { environment } from '../environments/environment';
     ApplyPage,
     CirclesApp,
     ConfirmModal,
+    EmailConfirmationPage,
     HomePage,
     LoginEmailPage,
     LoginPage,
@@ -93,6 +101,7 @@ import { environment } from '../environments/environment';
     SignupEmailPage,
     UserDetailPage,
     ValidatorDetailPage,
+    WaitModal,
     WalletPage,
     WelcomePage
   ],

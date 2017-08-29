@@ -3,7 +3,6 @@ import { Loading, LoadingController, Platform, Toast, ToastController } from 'io
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -19,7 +18,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { ProfilePage } from '../pages/profile/profile';
 import { WelcomePage } from '../pages/welcome/welcome';
 
-var authUserObs$: FirebaseObjectObservable<any>;
+//var authUserObs$: FirebaseObjectObservable<any>;
 
 @Component({
   templateUrl: 'app.html'
@@ -30,9 +29,9 @@ export class CirclesApp {
 
   private loading: Loading;
   private toast: Toast;
+  private isInApp: boolean = false;
 
   constructor(
-    private afAuth: AngularFireAuth,
     private db: AngularFireDatabase,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
@@ -45,6 +44,13 @@ export class CirclesApp {
   ) {
     platform.ready().then(() => {
 
+      // Take a look at the query params.  If they exist, override the values from storage
+      console.log('Segments', this.nav._linker.segments);
+      if (this.nav._linker.segments && this.nav._linker.segments[0]) {
+        let split = this.nav._linker.segments[0].id.split('\/');
+        console.log('Split', split);
+      }
+
       if (this.platform.is('cordova')) {
 
       }
@@ -52,6 +58,12 @@ export class CirclesApp {
       this.authService.authState$.subscribe(
         auth => {
           if (auth) {
+            this.loading = this.loadingCtrl.create({
+              content: 'Logging in ...',
+              dismissOnPageChange: true
+            });
+            this.loading.present();
+
             let authUserObs$ = this.db.object('/users/' + auth.uid);
             let authUserSub$ = authUserObs$.subscribe(
               user => {
@@ -62,6 +74,7 @@ export class CirclesApp {
                   authUserSub$.unsubscribe();
                   this.userService.initialise(auth.providerData,user.userData);
                   this.newsService.initialise(user.userData);
+                  this.isInApp = true;
                   this.nav.setRoot(HomePage);
                 }
               },
@@ -77,6 +90,10 @@ export class CirclesApp {
           }
           else {
             this.nav.setRoot(LoginPage);
+            //todo: hacky, this needs to fire on menu animation end
+            setTimeout( () => {
+              this.isInApp = false;
+            },500);
           }
         },
         error => {
@@ -93,18 +110,22 @@ export class CirclesApp {
     });
   }
 
+  // tslint:disable-next-line
   private goToWallet(): void {
     this.nav.push(WalletPage);
   }
 
+  // tslint:disable-next-line
   private goToSettings(): void {
     this.nav.push(SettingsPage);
   }
 
+  // tslint:disable-next-line
   private goToProfile(): void {
     this.nav.push(ProfilePage);
   }
 
+  // tslint:disable-next-line
   private logout(): void {
     this.authService.signOut();
   }

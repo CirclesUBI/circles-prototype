@@ -16,6 +16,7 @@ import { Provider } from '../../interfaces/provider-interface'
 @Injectable()
 export class ValidatorService {
 
+  private validatorUsers: Array<User>;
   private user: User;
   public validatorsFirebaseObj$: FirebaseListObservable<Validator[]>;
   public providersFirebaseObj$: FirebaseListObservable<Provider[]>;
@@ -42,7 +43,6 @@ export class ValidatorService {
     this.providersFirebaseObj$ = this.db.list('/static/authProviders/');
 
     const combinator = (user, validators, providers) => {
-
       this.user = user;
       this.providers = providers;
       this.userProviders = [];
@@ -62,6 +62,20 @@ export class ValidatorService {
       }
       if (this.user.validators) {
         this.userValidators = this.user.validators.map( (vKey:string) => this.keyToValidator(vKey));
+        this.validatorUsers = this.userValidators.map( (val:Validator) => {
+          return val.trustedUsers.map( (tUserKey) => {
+            let u = Object.assign({}, this.userService.keyToUser(tUserKey)) as any;
+            u.networkType = 'validator';
+            u.image = val.profilePicURL;
+            return u;
+          })
+        }).reduce( (a,b) => {
+          return a.concat(b);
+        });
+        let vUsers = this.validatorUsers.filter( (vUser) => {
+          return vUser.uid != this.user.uid;
+        });
+        this.userService.addValidatorUsers(vUsers);
       }
       else {
         this.userValidators = [];
@@ -77,7 +91,6 @@ export class ValidatorService {
   }
 
   public getUserProviders(user: User) {
-    debugger;
     this.userProviders = [];
     for (let pKey in this.allProviders) {
       let p = Object.assign({}, this.allProviders[pKey]) as any;
@@ -202,6 +215,7 @@ export class ValidatorService {
     else
       user.validators.push(validator.$key);
 
+    this.userService.updateUser({validators:user.validators});
   }
 
   public saveValidator(validator: Validator) {

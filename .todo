@@ -1,0 +1,11 @@
+Main:
+✔ list validator users in network @done(2017-08-29 18:13)
+☐ cloud function to do issuance
+☐ move balance creation to cloud function
+✔ no sidemenu on welcome pages @done(2017-08-29 18:31)
+☐ fix UI issue with photo upload on both profile and welcome pages
+☐ loading screen on login/relogin
+
+CSS/Styling:
+☐ Loading spinner should be centered on the profile page profile pic
+☐ File input / file upload buttons need stlying

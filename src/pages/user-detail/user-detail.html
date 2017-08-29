@@ -15,29 +15,29 @@
     <ion-card-content style="padding: 0;">
        <img src="{{profilePicURL}}">
        <span>
-         <div class="center-wrapper" *ngIf="(trustTo&&!trustFrom)||validatorTrust">
+         <div class="center-wrapper" *ngIf="(trustTo&&!trustFrom)||validatorTrusted">
            <div class="center-item"><span class="arrow">↑</span></div>
-           <div class="center-text" *ngIf="!validatorTrust">You trust</div>
-           <div class="center-text" *ngIf="validatorTrust">Trusts them</div>
+           <div class="center-text" *ngIf="!validatorTrusted">You trust</div>
+           <div class="center-text" *ngIf="validatorTrusted">Trusts them</div>
          </div>
 
-         <div class="center-wrapper" *ngIf="validatorTrust">
+         <div class="center-wrapper" *ngIf="validatorTrusted">
            <ion-avatar class="center-item" style="width:85px;" item-center>
              <img src="{{validatedBy.profilePicURL}}">
             </ion-avatar>
          </div>
 
-         <div class="center-wrapper" *ngIf="(trustFrom&&!trustTo)||validatorTrust">
+         <div class="center-wrapper" *ngIf="(trustFrom&&!trustTo)||validatorTrusted">
            <div class="center-item"><span class="arrow">↓</span></div>
            <div class="center-text">Trusts you</div>
          </div>
 
-         <div class="center-wrapper" *ngIf="(trustFrom&&trustTo)&&!validatorTrust">
+         <div class="center-wrapper" *ngIf="(trustFrom&&trustTo)&&!validatorTrusted">
            <div class="center-item"><span class="arrow">↕</span></div>
            <div class="center-text">Trust each other</div>
          </div>
 
-         <div class="center-wrapper" *ngIf="trustTo||trustFrom||validatorTrust">
+         <div class="center-wrapper" *ngIf="trustTo||trustFrom||validatorTrusted">
             <ion-avatar class="center-item" style="width:85px;" item-center>
               <img src="{{user.profilePicURL || genericProfilePicURL}}">
            </ion-avatar>

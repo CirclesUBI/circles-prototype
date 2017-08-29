@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Loading, LoadingController, NavController, NavParams, Slides, Toast, ToastController } from 'ionic-angular';
+import { Loading, LoadingController, ModalController, NavController, NavParams, Slides, Toast, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -16,6 +16,8 @@ import { Organisation } from '../../interfaces/organisation-interface';
 import { StorageService, UploadFile } from '../../providers/storage-service/storage-service';
 import { UserService } from '../../providers/user-service/user-service';
 import { NewsService } from '../../providers/news-service/news-service';
+
+import { WaitModal } from '../wait-modal/wait-modal'
 
 @Component({
   selector: 'page-welcome',
@@ -56,6 +58,7 @@ export class WelcomePage {
     private sanitizer: DomSanitizer,
     private formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
+    private modalController: ModalController,
     private navCtrl: NavController,
     private navParams: NavParams,
     private newsService: NewsService,
@@ -236,28 +239,96 @@ export class WelcomePage {
   private saveUser(formUser) {
     //sends us back to app.component's auth observer
 
-    let user = this.userService.createCirclesUser(this.authUser,formUser);
+    let circlesUser = this.userService.createCirclesUser(this.authUser,formUser);
 
-    firebase.auth().currentUser.sendEmailVerification().then(
-      (result) => console.log('email verif sent'),
-      (error) => console.log(error)
-    );
+    if (!circlesUser.authProviders.find( (prov) => prov == 'email')) {
+      let waitModal = this.modalController.create(WaitModal);
+      this.userService.sendAndWaitEmailVerification(waitModal).then(
+       (user) => {
+         circlesUser.authProviders.push('email');
+         waitModal.dismiss();          
+       },
+       (error) => {
+         waitModal.dismiss();
+         this.toast = this.toastCtrl.create({
+           message: 'Error verifying email: ' + error,
+           duration: 2500,
+           position: 'middle'
+         });
+         console.error(error);
+         this.toast.present();
+       }
+     ).then( () => {
+       this.userObs$.set({userData:circlesUser}).then(
+         (result) => {
+           this.loading.dismiss();
+         },
+         (error) => {
+           this.loading.dismiss();
+           this.toast = this.toastCtrl.create({
+             message: 'Error saving User record: ' + error,
+             duration: 2500,
+             position: 'middle'
+           });
+           console.error(error);
+           this.toast.present();
+         }
+       );
+     });
+    }
+    else {
+      this.userObs$.set({userData:circlesUser}).then(
+        (result) => {
+          this.loading.dismiss();
+        },
+        (error) => {
+          this.loading.dismiss();
+          this.toast = this.toastCtrl.create({
+            message: 'Error saving User record: ' + error,
+            duration: 2500,
+            position: 'middle'
+          });
+          console.error(error);
+          this.toast.present();
+        }
+      );
+    }
+  }
 
-    this.userObs$.set({userData:user}).then(
-      (result) => {
-        this.loading.dismiss();
-      },
-      (error) => {
-        this.loading.dismiss();
-        this.toast = this.toastCtrl.create({
-          message: 'Error saving User record: ' + error,
-          duration: 2500,
-          position: 'middle'
-        });
-        console.error(error);
-        this.toast.present();
-      }
-    );
+  public sendAndWaitEmailVerification(showWaitUI) {
+    return new Promise((resolve, reject) => {
+      let interval=null;
+      let user = firebase.auth().currentUser;
+      user.sendEmailVerification().then(
+        () => {
+          if (showWaitUI) showWaitUI();
+          interval = setInterval(
+            () => {
+              user.reload().then(
+                () => {
+                  if (interval && user.emailVerified) {
+                    clearInterval(interval);
+                    interval=null;
+                    resolve(user);
+                  }
+                },
+                error => {
+                  if (interval) {
+                    clearInterval(interval);
+                    interval=null;
+                    console.log('sendAndWaitEmailVerification: reload failed ! '+error);
+                    reject(error);
+                  }
+                }
+              );
+            }, 1000);
+        },
+        error => {
+          console.log('sendAndWaitEmailVerification: sendEmailVerification failed ! '+error);
+          reject(error);
+        }
+      );
+    });
   }
 
   ionViewDidLoad() {

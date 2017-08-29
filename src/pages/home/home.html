@@ -81,7 +81,10 @@
           <ion-avatar style="width:48px;height:48px" item-left>
             <img src="{{networkUser.profilePicURL}}">
           </ion-avatar>
-          <ion-icon item-start name="{{networkUser.icon}}"></ion-icon>
+          <ion-icon *ngIf="networkUser.networkType == 'direct'" item-start name="{{networkUser.icon}}"></ion-icon>
+          <ion-avatar *ngIf="networkUser.networkType == 'validator'" item-start>
+            <img src="{{networkUser.image}}">
+          </ion-avatar>
           <h2>{{networkUser.displayName}}</h2>
           <p>{{networkUser.greeting}}</p>
         </ion-item>

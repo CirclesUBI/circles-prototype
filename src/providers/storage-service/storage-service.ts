@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Toast, ToastController } from 'ionic-angular';
 
 import { Ng2PicaService } from 'ng2-pica';
+import { Ng2ImgMaxService } from 'ng2-img-max';
 import * as firebase from 'firebase/app';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import 'rxjs/add/operator/map';
@@ -54,6 +55,7 @@ export class StorageService {
 
   constructor(
     private db: AngularFireDatabase,
+    private ng2ImgMaxService: Ng2ImgMaxService,
     private pica: Ng2PicaService,
     private toastCtrl: ToastController
   ) {
@@ -70,6 +72,10 @@ export class StorageService {
         return this.uploadFile(uploadResized);
       }
     )
+  }
+
+  public ngResize(file) {
+    return this.ng2ImgMaxService.resizeImage(file, 500, 500);
   }
 
   public resizePicFile(files: File[], sourceHeight:number, sourceWidth:number): Observable<any> { //}: Promise<Upload>{
@@ -94,7 +100,10 @@ export class StorageService {
     return this.pica.resize(fileList, w, h);
   }
 
-  public simpleResizeImage(img,maxHeight,maxWidth) {
+  public simpleResizeImage(imgUpload,maxHeight,maxWidth) {
+
+    var img = document.createElement("img");
+    img.src = imgUpload;
 
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext("2d");
@@ -102,7 +111,7 @@ export class StorageService {
 
     var width = img.width;
     var height = img.height;
-    
+
     if (width > height) {
       if (width > maxWidth) {
         height *= maxWidth / width;

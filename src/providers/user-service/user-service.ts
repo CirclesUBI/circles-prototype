@@ -39,7 +39,8 @@ export class UserService implements OnDestroy {
   private weeklyGrant: number = 100;
   private myCoins: Coin = {} as Coin;
   private allCoins: { [key: string]: Coin };
-  private trustedUsersNetwork: Array<any> = [];
+  public trustedUsersNetwork: Array<any> = [];
+  public trustedByValidator: Array<any> = [];
 
   constructor(private db: AngularFireDatabase) {
 
@@ -53,18 +54,22 @@ export class UserService implements OnDestroy {
           this.users[u.$key] = u.userData;
         }
         this.usersSubject$.next(users);
+        this.usersSub$.unsubscribe();
       },
       error => console.log('Could not load users.')
     );
   }
 
   public initialise(authProviders, initUser) {
+
     this.authProviders = authProviders.map(
       (provider) => {
         return provider.providerId.split('.')[0];
       }
     );
-    this.authProviders = this.authProviders.concat(initUser.authProviders);
+    this.authProviders = this.authProviders.concat(initUser.authProviders).filter((elem, pos, arr) => {
+      return arr.indexOf(elem) == pos;
+    });
 
     if (!this.isOrg(initUser))
       this.type = 'individual';
@@ -84,30 +89,27 @@ export class UserService implements OnDestroy {
 
     this.combinedSub$  = Observable.combineLatest(this.userFirebaseObj$, this.usersFirebaseList$).subscribe(
       (result) => {
+
         let user = result[0];
         let users = result[1];
         this.trustedUsersNetwork = [];
-
-        if (!this.users) {
-          this.users = [];
-          for (let u of users) {
-            this.users[u.$key] = u.userData;
-          }
-          this.usersSubject$.next(users);
+        this.users = [];
+        for (let u of users) {
+          this.users[u.$key] = u.userData;
         }
-
-        if (user.trustedUsers || user.trustedBy) { //arrow-dropright-circle
-          //this.trustedUsersNetwork = user.trustedUsers.map( (uKey:string) => this.keyToUser(uKey));
-          let tToUsers = user.trustedUsers.slice(0);
-          let tByUsers = user.trustedBy.slice(0);
+        this.usersSubject$.next(users);
+        if (user.trustedUsers || user.trustedBy) {
+          let tToUsers = (user.trustedUsers) ? user.trustedUsers.slice(0) : [];
+          let tByUsers = (user.trustedBy) ? user.trustedBy.slice(0) : [];
           tToUsers =  tToUsers.filter(
             (tUser:string) => {
               let found = false;
               tByUsers = tByUsers.filter(
                 (tByUser:string) => {
                   if (tByUser === tUser) {
-                    let u = this.keyToUser(tByUser) as any;
+                    let u = Object.assign({}, this.keyToUser(tByUser)) as any;
                     u.icon = "checkmark-circle";
+                    u.networkType = 'direct';
                     this.trustedUsersNetwork.push(u);
                     found = true;
                     return false;
@@ -119,18 +121,26 @@ export class UserService implements OnDestroy {
             }
           );
           tToUsers.map((tUserKey:string) => {
-            let u = this.keyToUser(tUserKey) as any;
+            let u = Object.assign({}, this.keyToUser(tUserKey)) as any;
             u.icon = "arrow-dropleft-circle";
+            u.networkType = 'direct';
             this.trustedUsersNetwork.push(u);
           });
           tByUsers.map((tUserKey:string) => {
-            let u = this.keyToUser(tUserKey) as any;
+            let u = Object.assign({}, this.keyToUser(tUserKey)) as any;
             u.icon = "arrow-dropright-circle";
+            u.networkType = 'direct';
             this.trustedUsersNetwork.push(u);
           });
+          this.trustedUsersNetwork = this.trustedUsersNetwork.concat(this.trustedByValidator);
         }
       }
     );
+  }
+
+  public addValidatorUsers(users:Array<User>) {
+    this.trustedByValidator = users;
+    this.trustedUsersNetwork = this.trustedUsersNetwork.concat(this.trustedByValidator);
   }
 
   public createCirclesUser(authUser,formUser): Individual | Organisation {
@@ -159,6 +169,42 @@ export class UserService implements OnDestroy {
       this.user = formUser;
     }
     return this.user;
+  }
+
+  public sendAndWaitEmailVerification(waitModal) {
+    return new Promise((resolve, reject) => {
+      let interval=null;
+      let user = firebase.auth().currentUser;
+      user.sendEmailVerification().then(
+        () => {
+          if (waitModal) waitModal.present();
+          interval = setInterval(
+            () => {
+              user.reload().then(
+                () => {
+                  if (interval && user.emailVerified) {
+                    clearInterval(interval);
+                    interval=null;
+                    resolve(user);
+                  }
+                },
+                error => {
+                  if (interval) {
+                    clearInterval(interval);
+                    interval=null;
+                    console.log('sendAndWaitEmailVerification: reload failed ! '+error);
+                    reject(error);
+                  }
+                }
+              );
+            }, 1000);
+        },
+        error => {
+          console.log('sendAndWaitEmailVerification: sendEmailVerification failed ! '+error);
+          reject(error);
+        }
+      );
+    });
   }
 
   public keyToUser$(key: string): Observable<User> {

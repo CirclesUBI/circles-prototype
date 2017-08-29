@@ -29,6 +29,7 @@ export class HomePage {
   private base64ImageData: string;
   private user: User;
   private userSub$: Subscription;
+  private trustedUsersNetwork: Array<any> = [];
 
   private selectedView: string = 'network';
   private view: string = 'network';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Loading, LoadingController, NavController, NavParams, Toast, ToastController } from 'ionic-angular';
+import { Loading, LoadingController, ModalController, NavController, NavParams, Toast, ToastController } from 'ionic-angular';
 import { NotificationsService } from 'angular2-notifications';
 
 import { DomSanitizer } from '@angular/platform-browser';
@@ -18,8 +18,10 @@ import { StorageService, UploadImage, UploadFile } from '../../providers/storage
 import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 
+
 import { SearchPage } from '../search/search';
 import { UserDetailPage } from '../user-detail/user-detail';
+import { WaitModal } from '../wait-modal/wait-modal'
 
 @Component({
   selector: 'page-profile',
@@ -33,6 +35,8 @@ export class ProfilePage {
   private profilePicURL: any;
   public debugText: string = '';
   private emailVerified: boolean = false;
+  private imageLoading: boolean = false;
+  private imageFile: File;
 
   private userSub$: Subscription;
   private providers: Array<any>;
@@ -47,6 +51,7 @@ export class ProfilePage {
     private authService: AuthService,
     private ds: DomSanitizer,
     private loadingCtrl: LoadingController,
+    private modalController: ModalController,
     private navCtrl: NavController,
     private notificationsService: NotificationsService,
     private sanitizer: DomSanitizer,
@@ -66,15 +71,16 @@ export class ProfilePage {
           this.profilePicURL = this.user.profilePicURL;
         }
         this.providers = this.validatorService.userProviders;
+        //this.emailVerified  = (this.user.authProviders.filter(prov => prov == 'email').length > 0);
       }
     );
 
     this.emailVerified = firebase.auth().currentUser.emailVerified;
 
     // document.addEventListener('DOMContentLoaded',function() {
-    //   debugger;
+
     document.getElementById('file').onchange = this.fileChangeEvent.bind(this);
-    //   debugger;
+
     // }
     //});
   }
@@ -82,15 +88,24 @@ export class ProfilePage {
   public fileChangeEvent(fileInput: any) {
     if (fileInput.target.files && fileInput.target.files[0]) {
       this.debugText += 'fileChangeEvent';
+      this.imageLoading = true;
 
-      var reader = new FileReader();
-
-      reader.onload = (e) => {
-        this.profilePicURL = e.target['result'];
-        this.base64ImageData = this.profilePicURL.substring(22);
-        this.profilePicUpload = new UploadImage(this.base64ImageData, this.user.uid);
-        this.storageService.simpleResizeImage(this.profilePicUpload, 768, 1024);
-      }
+      this.storageService.ngResize(fileInput.target.files[0]).subscribe(
+        (imageFile) => {
+          var reader = new FileReader();
+          reader.onload = (e) => {
+            this.imageLoading = false;
+            this.profilePicURL = e.target['result'];
+            this.base64ImageData = this.profilePicURL.substring(23);
+            this.profilePicUpload = new UploadImage(this.base64ImageData, this.user.uid);
+            //this.imageFile = imageFile;
+          }
+          reader.readAsDataURL(imageFile);
+        },
+        (error) => {
+          //todo: error msg
+        }
+      );
     }
   }
 
@@ -115,7 +130,9 @@ export class ProfilePage {
         this.user.profilePicURL = profileURL;
         progressIntervalObs$.unsubscribe();
         this.loading.dismiss();
-        this.userService.updateUser({ profilePicURL: this.user.profilePicURL });
+        if (!this.user.authProviders['photo'])
+          this.user.authProviders.push('photo');
+        this.userService.updateUser({ profilePicURL: this.user.profilePicURL, authProviders:this.user.authProviders });
       },
       (error) => {
         progressIntervalObs$.unsubscribe();
@@ -138,7 +155,6 @@ export class ProfilePage {
     else {
 
     }
-
     if (this.user.email != firebase.auth().currentUser.email) {
       firebase.auth().currentUser.updateEmail(this.user.email).then(
         (result) => this.sendEmailVerif(),
@@ -179,7 +195,6 @@ export class ProfilePage {
       // firebase.auth().getRedirectResult().then(
       //   (result) => {
       //     console.log(result);
-      //     debugger;
       //     if (result.credential) {
       //       // Accounts successfully linked.
       //       var credential = result.credential;
@@ -231,21 +246,21 @@ export class ProfilePage {
   }
 
   sendEmailVerif() {
-    firebase.auth().currentUser.sendEmailVerification().then(
-      (result) => {
-        let msg = 'Verification Email sent to: ' +this.user.email;
-        this.notificationsService.create('Email', msg, 'info');
-      },
-      (error) => {
-        this.toast = this.toastCtrl.create({
-          message: 'Error sending email verification: ' + error,
-          duration: 2500,
-          position: 'middle'
-        });
-        console.error(error);
-        this.toast.present();
-      }
-    );
+    let waitModal = this.modalController.create(WaitModal);
+    this.userService.sendAndWaitEmailVerification(waitModal).then(
+     (user) => {
+        waitModal.dismiss();
+     },
+     (error) => {
+       waitModal.dismiss();
+       this.toast = this.toastCtrl.create({
+         message: 'Error verifying email: ' + error,
+         duration: 2500,
+         position: 'middle'
+       });
+       console.error(error);
+       this.toast.present();
+     }
+   );
   }
-
 }
