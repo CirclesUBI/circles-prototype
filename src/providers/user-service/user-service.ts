@@ -66,7 +66,9 @@ export class UserService implements OnDestroy {
         return provider.providerId.split('.')[0];
       }
     );
-    this.authProviders = this.authProviders.concat(initUser.authProviders);
+    this.authProviders = this.authProviders.concat(initUser.authProviders).filter((elem, pos, arr) => {
+      return arr.indexOf(elem) == pos;
+    });
 
     if (!this.isOrg(initUser))
       this.type = 'individual';

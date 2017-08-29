@@ -95,27 +95,7 @@ export class HomePage {
           this.myCoinName = user.wallet[user.uid].title;
           this.myCoinBalance = user.wallet[user.uid].amount;
           this.allCoinBalance = user.balance;
-        }
-
-        let emailProv = this.user.authProviders.filter(prov => prov == 'email');
-        if (window.location.search && emailProv.length == 0) {
-          let keyValPairs = window.location.search.slice(1).split('&');
-          if (keyValPairs) {
-            let urlParams = [];
-            for (let i=0; i<keyValPairs.length; i++) {
-              let splitted = keyValPairs[i].split('=');
-              let key = splitted[0];
-              let value = splitted[1];
-              urlParams[key] = value;
-            }
-            if (urlParams && urlParams['mode'] == 'verifyEmail') {
-              let msg = 'Your email address has been confirmed';
-              this.notificationsService.create('Email Confirmed', msg, 'success');
-              this.user.authProviders.push('email');
-              this.userService.updateUser({authProviders:this.user.authProviders});
-            }
-          }
-        }
+        }      
       }
     );
   }
