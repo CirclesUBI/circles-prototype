@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Toast, ToastController } from 'ionic-angular';
-import { AngularFireDatabase } from 'angularfire2/database';
+
 import { Subscription } from 'rxjs/Subscription';
 
 import { UserService } from '../../providers/user-service/user-service';
@@ -19,7 +19,6 @@ export class WalletPage {
   private displayWallet: Array<Coin>;
 
   constructor(
-    private db: AngularFireDatabase,
     public navCtrl: NavController,
     public navParams: NavParams,
     private userService: UserService,
@@ -27,6 +26,7 @@ export class WalletPage {
   )
   { }
 
+  // tslint:disable-next-line:no-unused-variable
   private priorityUp(coin) {
     coin.priority--;
     let c1 = this.displayWallet[coin.priority];
@@ -35,6 +35,7 @@ export class WalletPage {
     this.displayWallet[c1.priority] = c1;
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private priorityDown(coin) {
     coin.priority++;
     let c1 = this.displayWallet[coin.priority];
@@ -58,6 +59,7 @@ export class WalletPage {
     });
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private async save() {
     for (let c of this.displayWallet) {
       this.user.wallet[c.owner] = c;

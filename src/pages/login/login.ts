@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, Loading, LoadingController, NavParams, NavController } from 'ionic-angular';
+import { Loading, LoadingController, NavController } from 'ionic-angular';
 
-import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 
 import { LoginEmailPage } from '../../pages/login-email/login-email';
@@ -15,7 +14,6 @@ import { AuthService } from '../../providers/auth-service/auth-service';
 export class LoginPage {
 
   private loading: Loading;
-  private loading2: Loading;
 
   constructor(
     private loadingCtrl: LoadingController,
@@ -23,7 +21,7 @@ export class LoginPage {
     private authService: AuthService
   ) { }
 
-
+  // tslint:disable-next-line:no-unused-variable
   private loginTwitter():void {
     this.loading = this.loadingCtrl.create({
       content: 'Logging in ...',
@@ -34,6 +32,7 @@ export class LoginPage {
     this.authService.signInRedirect(provider);
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private loginGithub():void {
 
     this.loading = this.loadingCtrl.create({
@@ -46,11 +45,12 @@ export class LoginPage {
     this.authService.signInRedirect(provider);
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private loginFB():void {
 
     this.loading = this.loadingCtrl.create({
       content: 'Logging in ...',
-      dismissOnPageChange: true,
+      dismissOnPageChange: true
     });
     this.loading.present();
 
@@ -60,6 +60,7 @@ export class LoginPage {
     this.authService.signInRedirect(provider);
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private loginGoogle():void {
     this.loading = this.loadingCtrl.create({
       content: 'Logging in ...',
@@ -70,10 +71,12 @@ export class LoginPage {
     this.authService.signInRedirect(provider);
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private loginEmail():void {
     this.navCtrl.push(LoginEmailPage);
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private goSignup():void {
     this.navCtrl.push(SignupEmailPage);
   }

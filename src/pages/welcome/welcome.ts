@@ -1,21 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
-import { Loading, LoadingController, ModalController, NavController, NavParams, Slides, Toast, ToastController } from 'ionic-angular';
+import { Loading, LoadingController, ModalController, NavParams, Slides, Toast, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-
-import * as firebase from 'firebase/app';
 
 import { FirebaseObjectObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import "rxjs/add/observable/interval";
 
-import { HomePage } from '../home/home';
 import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 import { Organisation } from '../../interfaces/organisation-interface';
 import { StorageService, UploadFile } from '../../providers/storage-service/storage-service';
 import { UserService } from '../../providers/user-service/user-service';
-import { NewsService } from '../../providers/news-service/news-service';
 
 import { WaitModal } from '../wait-modal/wait-modal'
 
@@ -60,39 +56,37 @@ export class WelcomePage {
     private formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
     private modalController: ModalController,
-    private navCtrl: NavController,
     private navParams: NavParams,
-    private newsService: NewsService,
     private storageService: StorageService,
     private toastCtrl: ToastController,
     private userService: UserService
   ) {
 
-    this.authUser = navParams.get('authUser');
-    this.userObs$ = navParams.get('obs');
+    this.authUser = this.navParams.get('authUser');
+    this.userObs$ = this.navParams.get('obs');
 
-    this.userTypeForm = formBuilder.group({
+    this.userTypeForm = this.formBuilder.group({
       type: [null, Validators.required],
     });
 
-    this.individualForm = formBuilder.group({
+    this.individualForm = this.formBuilder.group({
       firstName: [null, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       lastName: [null, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       email: [this.authUser.email, Validators.email]
     });
 
-    this.organisationForm = formBuilder.group({
+    this.organisationForm = this.formBuilder.group({
       organisation: [null, Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z0-9 ]*'), Validators.required])],
       tagline: [null, Validators.compose([Validators.maxLength(60)])],
       website: [null],
       email: [this.authUser.email, Validators.email]
     });
 
-    this.picForm = formBuilder.group({
+    this.picForm = this.formBuilder.group({
       profilePicURL: [null, Validators.minLength(24)],
     });
 
-    this.disclaimerForm = formBuilder.group({
+    this.disclaimerForm = this.formBuilder.group({
 
     });
 
@@ -101,18 +95,21 @@ export class WelcomePage {
 
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private onFirstSlideSubmit() {
     if (this.userTypeForm.controls.type.value)
       this.setUserTypeSlides();
     this.welcomeSlider.slideNext();
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private onSecondSlideSubmit() {
     this.setUserTypeSlides();
     this.welcomeSlider.lockSwipeToNext(false);
     this.welcomeSlider.slideNext();
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private onSubmit(formData: any, formValid: boolean): void {
     if (!formValid)
       return;
@@ -121,11 +118,9 @@ export class WelcomePage {
     this.welcomeSlider.slideNext();
   }
 
-
   private setUserTypeSlides(): void {
 
     this.formState.type = this.userTypeForm.controls.type.value;
-
     //we have the user type so build the formgroup array to fit the form path
     if (this.formState.type == 'individual') {
       this.formGroups[2] = this.individualForm;
@@ -135,6 +130,7 @@ export class WelcomePage {
     }
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private onSlideWillChange(): void {
     // this returns the slide we are going to
     let i = this.welcomeSlider.getActiveIndex();
@@ -147,9 +143,10 @@ export class WelcomePage {
 
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private onSlideDidChange(): void {
     let i = this.welcomeSlider.getActiveIndex();
-    let slideName = this.profilePageViewNames[i];
+    //let slideName = this.profilePageViewNames[i];
     //this.analytics.trackPageView('Profile Page: ' + slideName);
   }
 
@@ -190,7 +187,7 @@ export class WelcomePage {
   }
 }
 
-
+  // tslint:disable-next-line:no-unused-variable
   private saveForm(): void {
 
     this.loading = this.loadingCtrl.create({

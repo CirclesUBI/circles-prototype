@@ -106,22 +106,22 @@ export class CirclesApp {
     });
   }
 
-  // tslint:disable-next-line
+  // tslint:disable-next-line:no-unused-variable
   private goToWallet(): void {
     this.nav.push(WalletPage);
   }
 
-  // tslint:disable-next-line
+  // tslint:disable-next-line:no-unused-variable
   private goToSettings(): void {
     this.nav.push(SettingsPage);
   }
 
-  // tslint:disable-next-line
+  // tslint:disable-next-line:no-unused-variable
   private goToProfile(): void {
     this.nav.push(ProfilePage);
   }
 
-  // tslint:disable-next-line
+  // tslint:disable-next-line:no-unused-variable
   private logout(): void {
     this.authService.signOut();
   }

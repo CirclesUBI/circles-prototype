@@ -53,8 +53,7 @@
               <ion-spinner [ngClass]="{'center':true}" *ngIf="isImageLoading"></ion-spinner>
             </div>
         </ion-item>
-        <input ion-input *ngIf="storageService.isUploadSupported()" id="file" type="file" accept="image/*">
-        <button ion-button type="button" *ngIf="profilePicUpload" (click)="fileUpload()">Upload Photo</button>
+        <input ion-input *ngIf="storageService.isUploadSupported()" id="file" type="file" accept="image/*">        
         <ion-item>
           <ion-label stacked>Trade Message</ion-label>
           <ion-textarea autoresize [(ngModel)]="user.tradeMessage" name="tradeMessage"></ion-textarea>
