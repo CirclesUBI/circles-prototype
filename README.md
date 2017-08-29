@@ -16,6 +16,9 @@ Hosted on: [http://circles.cafe-grundeinkommen.org/](http://circles.cafe-grundei
 4. run the app in a simulator, or if you have an Apple Developers License, you can run it on a device
 5. more useful info here: http://ionicframework.com/docs/v1/guide/testing.html
 
+## Firebase DB is here:
+https://console.firebase.google.com/u/0/project/circles-testnet/database/data
+
 
 ## How to use this template
 
