@@ -29,6 +29,7 @@ export class HomePage {
   private base64ImageData: string;
   private user: User;
   private userSub$: Subscription;
+  private trustedUsersNetwork: Array<any> = [];
 
   private selectedView: string = 'network';
   private view: string = 'network';
@@ -95,7 +96,7 @@ export class HomePage {
           this.myCoinName = user.wallet[user.uid].title;
           this.myCoinBalance = user.wallet[user.uid].amount;
           this.allCoinBalance = user.balance;
-        }      
+        }
       }
     );
   }

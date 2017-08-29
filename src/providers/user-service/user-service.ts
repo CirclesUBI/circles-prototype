@@ -39,7 +39,8 @@ export class UserService implements OnDestroy {
   private weeklyGrant: number = 100;
   private myCoins: Coin = {} as Coin;
   private allCoins: { [key: string]: Coin };
-  private trustedUsersNetwork: Array<any> = [];
+  public trustedUsersNetwork: Array<any> = [];
+  public trustedByValidator: Array<any> = [];
 
   constructor(private db: AngularFireDatabase) {
 
@@ -97,7 +98,6 @@ export class UserService implements OnDestroy {
           this.users[u.$key] = u.userData;
         }
         this.usersSubject$.next(users);
-
         if (user.trustedUsers || user.trustedBy) {
           let tToUsers = (user.trustedUsers) ? user.trustedUsers.slice(0) : [];
           let tByUsers = (user.trustedBy) ? user.trustedBy.slice(0) : [];
@@ -132,15 +132,15 @@ export class UserService implements OnDestroy {
             u.networkType = 'direct';
             this.trustedUsersNetwork.push(u);
           });
+          this.trustedUsersNetwork = this.trustedUsersNetwork.concat(this.trustedByValidator);
         }
       }
     );
   }
 
   public addValidatorUsers(users:Array<User>) {
-    users.map((user) => {
-      this.trustedUsersNetwork.push(user)
-    });
+    this.trustedByValidator = users;
+    this.trustedUsersNetwork = this.trustedUsersNetwork.concat(this.trustedByValidator);
   }
 
   public createCirclesUser(authUser,formUser): Individual | Organisation {

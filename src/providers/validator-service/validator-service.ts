@@ -43,7 +43,6 @@ export class ValidatorService {
     this.providersFirebaseObj$ = this.db.list('/static/authProviders/');
 
     const combinator = (user, validators, providers) => {
-
       this.user = user;
       this.providers = providers;
       this.userProviders = [];
@@ -73,7 +72,10 @@ export class ValidatorService {
         }).reduce( (a,b) => {
           return a.concat(b);
         });
-        this.userService.addValidatorUsers(this.validatorUsers);
+        let vUsers = this.validatorUsers.filter( (vUser) => {
+          return vUser.uid != this.user.uid;
+        });
+        this.userService.addValidatorUsers(vUsers);
       }
       else {
         this.userValidators = [];

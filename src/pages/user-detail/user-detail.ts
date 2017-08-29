@@ -38,7 +38,6 @@ export class UserDetailPage {
     private validatorService: ValidatorService
   ) {
     this.viewUser = navParams.data;
-    console.log(navParams.data);
   }
 
   private revokeTrust() {
