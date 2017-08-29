@@ -169,6 +169,42 @@ export class UserService implements OnDestroy {
     return this.user;
   }
 
+  public sendAndWaitEmailVerification(waitModal) {
+    return new Promise((resolve, reject) => {
+      let interval=null;
+      let user = firebase.auth().currentUser;
+      user.sendEmailVerification().then(
+        () => {
+          if (waitModal) waitModal.present();
+          interval = setInterval(
+            () => {
+              user.reload().then(
+                () => {
+                  if (interval && user.emailVerified) {
+                    clearInterval(interval);
+                    interval=null;
+                    resolve(user);
+                  }
+                },
+                error => {
+                  if (interval) {
+                    clearInterval(interval);
+                    interval=null;
+                    console.log('sendAndWaitEmailVerification: reload failed ! '+error);
+                    reject(error);
+                  }
+                }
+              );
+            }, 1000);
+        },
+        error => {
+          console.log('sendAndWaitEmailVerification: sendEmailVerification failed ! '+error);
+          reject(error);
+        }
+      );
+    });
+  }
+
   public keyToUser$(key: string): Observable<User> {
     return this.users$.map(
       users => users.find(user => user.uid === key).userData

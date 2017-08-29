@@ -27,10 +27,11 @@ import { SignupEmailPage } from '../pages/signup-email/signup-email';
 import { SendPage } from '../pages/send/send';
 import { ApplyPage } from '../pages/apply/apply';
 import { WelcomePage } from '../pages/welcome/welcome';
-import { ConfirmModal } from '../pages/confirm-modal/confirm-modal';
 import { WalletPage } from '../pages/wallet/wallet';
 import { SettingsPage } from '../pages/settings/settings';
 import { EmailConfirmationPage } from '../pages/email-confirmation/email-confirmation';
+import { ConfirmModal } from '../pages/confirm-modal/confirm-modal';
+import { WaitModal } from '../pages/wait-modal/wait-modal';
 
 //components
 import { NewsCard } from '../components/news-card/news-card';
@@ -63,6 +64,7 @@ import { environment } from '../environments/environment';
     SignupEmailPage,
     UserDetailPage,
     ValidatorDetailPage,
+    WaitModal,
     WalletPage,
     WelcomePage
   ],
@@ -97,6 +99,7 @@ import { environment } from '../environments/environment';
     SignupEmailPage,
     UserDetailPage,
     ValidatorDetailPage,
+    WaitModal,
     WalletPage,
     WelcomePage
   ],
