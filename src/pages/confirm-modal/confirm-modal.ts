@@ -18,7 +18,7 @@ export class ConfirmModal {
     this.title = navParams.get('title');
   }
 
-  // tslint:disable-next-line
+  // tslint:disable-next-line:no-unused-variable
   private confirm (decision): void {
     this.viewCtrl.dismiss(decision).catch((err) => console.log('view was not dismissed: '+err));;
   }

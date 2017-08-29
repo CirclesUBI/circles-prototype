@@ -3,7 +3,6 @@ import { Loading, LoadingController, Toast, ToastController } from 'ionic-angula
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../providers/auth-service/auth-service';
-import { User } from '../../interfaces/user-interface';
 
 @Component({
   selector: 'page-login-email',
@@ -28,7 +27,7 @@ export class LoginEmailPage {
     });
   }
 
-  // tslint:disable-next-line
+  // tslint:disable-next-line:no-unused-variable
   private onSubmit(formData: any, formValid: boolean): void {
     if (!formValid)
       return;

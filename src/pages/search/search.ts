@@ -1,21 +1,14 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
-import { FormBuilder, FormGroup, FormControl, Validators, } from '@angular/forms';
-
-import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-import 'rxjs/add/operator/merge';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/first';
-import 'rxjs/add/observable/empty';
 
 import { UserService } from '../../providers/user-service/user-service';
 import { ValidatorService } from '../../providers/validator-service/validator-service'
-import { User } from '../../interfaces/user-interface';
-import { Validator } from '../../interfaces/validator-interface';
 
 import { ValidatorDetailPage } from '../validator-detail/validator-detail';
 import { UserDetailPage } from '../user-detail/user-detail';
@@ -29,15 +22,9 @@ export class SearchPage {
   private searchTerm: string = '';
   private search$: Observable<any[]>;
   private searchSubject$: Subject<any[]>;
-  private searchControl: FormControl;
-
-  private toUser: User;
-  private user: User;
-  private userSub$: Subscription;
 
   constructor(
     private navCtrl: NavController,
-    private formBuilder: FormBuilder,
     private userService: UserService,
     private validatorService: ValidatorService
   ) {
@@ -46,6 +33,7 @@ export class SearchPage {
     this.search$ = this.searchSubject$ as Observable<any>;
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private setFilteredItems(): void {
     if (this.searchTerm == '') {
       this.searchSubject$.next([]);
@@ -72,6 +60,7 @@ export class SearchPage {
     )
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private goToDetail(userOrVali): void {
     if (userOrVali.requirements) {
       //validator

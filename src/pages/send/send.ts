@@ -46,7 +46,7 @@ export class SendPage {
       message: [null]
     });
   }
-  // tslint:disable-next-line
+  // tslint:disable-next-line:no-unused-variable
   private onSubmit(formData: any, formValid: boolean): void {
 
     if (!formValid)

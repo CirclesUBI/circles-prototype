@@ -326,7 +326,7 @@ export class UserService implements OnDestroy {
 
   public async saveUser() {
     try {
-      let result = await this.userFirebaseObj$.set(this.user);
+      await this.userFirebaseObj$.set(this.user);
       console.log('saveUser success');
     } catch (error) {
       console.error(error);

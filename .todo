@@ -3,7 +3,8 @@ Main:
 ☐ cloud function to do issuance
 ☐ move balance creation to cloud function
 ✔ no sidemenu on welcome pages @done(2017-08-29 18:31)
-☐ fix UI issue with photo upload on both profile and welcome pages
+✔ fix UI issue with photo upload on both profile and welcome pages @done(2017-08-29 22:02)
+☐ removed unused libs etc
 ☐ loading screen on login/relogin
 
 CSS/Styling:

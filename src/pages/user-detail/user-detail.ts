@@ -38,19 +38,19 @@ export class UserDetailPage {
     this.viewUser = navParams.data;
   }
 
-  // tslint:disable-next-line
+  // tslint:disable-next-line:no-unused-variable
   private revokeTrust() {
     this.newsService.revokeUserTrust(this.viewUser);
     this.userService.removeTrustedUser(this.viewUser.uid);
   }
 
-  // tslint:disable-next-line
+  // tslint:disable-next-line:no-unused-variable
   private affordTrust() {
     this.newsService.addTrust(this.viewUser);
     this.userService.addTrustedUser(this.viewUser.uid);
   }
 
-  // tslint:disable-next-line
+  // tslint:disable-next-line:no-unused-variable
   private sendCircles () {
     this.navCtrl.push(SendPage, this.viewUser);
   }

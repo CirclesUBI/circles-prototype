@@ -62,8 +62,8 @@ export class StorageService {
 
     let fileList = Array.from(files);
 
-    let maxHeight = 1024;
-    let maxWidth = 768;
+    let maxHeight = 800;
+    let maxWidth = 600;
     let h,w;
 
     if (sourceHeight > sourceWidth) {

@@ -36,6 +36,7 @@ export class ValidatorDetailPage {
     this.validator = navParams.data;
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private revokeTrust() {
     this.validator.trustedUsers.filter(
       user => user !== this.user.uid
@@ -47,6 +48,7 @@ export class ValidatorDetailPage {
     this.validatorService.saveValidator(this.validator);
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private checkRequirements() {
     let rqs = this.validatorService.getValidatorRequirements(this.validator, this.user);
     this.navCtrl.push(ApplyPage, {validator:this.validator, user:this.user, reqs: rqs});
@@ -55,7 +57,6 @@ export class ValidatorDetailPage {
   ionViewDidLoad() {
     this.userSub$ = this.userService.user$.subscribe(
       user => {
-
         this.user = user;
         this.trustedUsers = [];
         this.trusted = false;
