@@ -3,8 +3,7 @@ import { Loading, LoadingController, Platform, Toast, ToastController } from 'io
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
-import { Subscription } from 'rxjs/Subscription';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 import { AuthService } from '../providers/auth-service/auth-service';
 import { UserService } from '../providers/user-service/user-service';
@@ -12,13 +11,10 @@ import { NewsService } from '../providers/news-service/news-service';
 
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
-
 import { WalletPage } from '../pages/wallet/wallet';
 import { SettingsPage } from '../pages/settings/settings';
 import { ProfilePage } from '../pages/profile/profile';
 import { WelcomePage } from '../pages/welcome/welcome';
-
-//var authUserObs$: FirebaseObjectObservable<any>;
 
 @Component({
   templateUrl: 'app.html'
@@ -81,7 +77,7 @@ export class CirclesApp {
               error => {
                 this.toast = this.toastCtrl.create({
                   message: 'Error saving user: ' + error,
-                  duration: 2500,
+                  duration: 4000,
                   position: 'middle'
                 });
                 console.error(error);
@@ -99,7 +95,7 @@ export class CirclesApp {
         error => {
           this.toast = this.toastCtrl.create({
             message: 'User auth error: ' + error,
-            duration: 2500,
+            duration: 4000,
             position: 'middle'
           });
           console.error(error);

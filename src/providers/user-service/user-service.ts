@@ -4,7 +4,6 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import 'rxjs/add/operator/find';
 import 'rxjs/add/operator/map';
@@ -14,8 +13,6 @@ import { Individual } from '../../interfaces/individual-interface';
 import { Organisation } from '../../interfaces/organisation-interface';
 
 import { Coin } from '../../interfaces/coin-interface';
-//import { Validator } from '../../interfaces/validator-interface';
-import { NewsItem } from '../../interfaces/news-item-interface';
 
 @Injectable()
 export class UserService implements OnDestroy {
@@ -319,7 +316,7 @@ export class UserService implements OnDestroy {
 
   public async updateUser(updateObject: Object) {
     try {
-      let result = await this.userFirebaseObj$.update(updateObject);
+      await this.userFirebaseObj$.update(updateObject);
       console.log('updateUser success');
     } catch (error) {
       console.error(error);

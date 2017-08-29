@@ -49,7 +49,8 @@ export class WelcomePage {
     type: <string>null,
     submitAttempt: <boolean>false,
     profilePicRequired: <boolean>false,
-    profilePicSelected: <boolean>false
+    profilePicSelected: <boolean>false,
+    isResizingImage:  <boolean>false
   };
 
   private profilePageViewNames: Array<string> = ['Intro', 'User Type', 'User Info', 'Picture', 'Disclaimer'];
@@ -156,6 +157,9 @@ export class WelcomePage {
   public fileChangeEvent(fileInput: any) {
     if (fileInput.target.files && fileInput.target.files[0]) {
 
+      this.welcomeSlider.lockSwipeToNext(true);
+      this.formState.isResizingImage = true;
+
       var reader = new FileReader();
       reader.onload = (e) => {
         let img = new Image;
@@ -163,15 +167,25 @@ export class WelcomePage {
         img.onload = ( (file) => {
 
           this.storageService.resizePicFile(fileInput.target.files, img.height, img.width).subscribe(
-            imageBlob => {
+            (imageBlob) => {
               this.profilePicURL = URL.createObjectURL(imageBlob);
-              this.base64ImageData = this.profilePicURL.substring(23);
+              this.base64ImageData = this.profilePicURL.split(',')[1];
               this.profilePicUpload = new UploadFile(imageBlob as File, this.authUser.uid);
+              this.formState.isResizingImage = false;
+              this.welcomeSlider.lockSwipeToNext(false);
+            },
+            (error) => {
+              this.toast = this.toastCtrl.create({
+                message: error.message + ': ' + error.details,
+                duration: 4000,
+                position: 'middle'
+              });
+              console.error(error);
+              this.toast.present();
             }
           );
         });
       }
-
       reader.readAsDataURL(fileInput.target.files[0]);
   }
 }
@@ -209,7 +223,7 @@ export class WelcomePage {
       let progressIntervalObs$ = Observable.interval(200).subscribe( () => {
         this.loading.data.content = this.sanitizer.bypassSecurityTrustHtml(
           '<p>Saving Profile ...</p><progress value="'+this.profilePicUpload.progress+'" max="100"></progress>'
-        )
+        );
       });
 
       this.storageService.uploadFile(this.profilePicUpload).then(
@@ -222,7 +236,7 @@ export class WelcomePage {
           progressIntervalObs$.unsubscribe();
           this.toast = this.toastCtrl.create({
             message: error.message + ': ' + error.details,
-            duration: 2500,
+            duration: 4000,
             position: 'middle'
           });
           console.error(error);
@@ -246,13 +260,13 @@ export class WelcomePage {
       this.userService.sendAndWaitEmailVerification(waitModal).then(
        (user) => {
          circlesUser.authProviders.push('email');
-         waitModal.dismiss();          
+         waitModal.dismiss();
        },
        (error) => {
          waitModal.dismiss();
          this.toast = this.toastCtrl.create({
            message: 'Error verifying email: ' + error,
-           duration: 2500,
+           duration: 4000,
            position: 'middle'
          });
          console.error(error);
@@ -267,7 +281,7 @@ export class WelcomePage {
            this.loading.dismiss();
            this.toast = this.toastCtrl.create({
              message: 'Error saving User record: ' + error,
-             duration: 2500,
+             duration: 4000,
              position: 'middle'
            });
            console.error(error);
@@ -285,7 +299,7 @@ export class WelcomePage {
           this.loading.dismiss();
           this.toast = this.toastCtrl.create({
             message: 'Error saving User record: ' + error,
-            duration: 2500,
+            duration: 4000,
             position: 'middle'
           });
           console.error(error);
@@ -295,41 +309,41 @@ export class WelcomePage {
     }
   }
 
-  public sendAndWaitEmailVerification(showWaitUI) {
-    return new Promise((resolve, reject) => {
-      let interval=null;
-      let user = firebase.auth().currentUser;
-      user.sendEmailVerification().then(
-        () => {
-          if (showWaitUI) showWaitUI();
-          interval = setInterval(
-            () => {
-              user.reload().then(
-                () => {
-                  if (interval && user.emailVerified) {
-                    clearInterval(interval);
-                    interval=null;
-                    resolve(user);
-                  }
-                },
-                error => {
-                  if (interval) {
-                    clearInterval(interval);
-                    interval=null;
-                    console.log('sendAndWaitEmailVerification: reload failed ! '+error);
-                    reject(error);
-                  }
-                }
-              );
-            }, 1000);
-        },
-        error => {
-          console.log('sendAndWaitEmailVerification: sendEmailVerification failed ! '+error);
-          reject(error);
-        }
-      );
-    });
-  }
+  // public sendAndWaitEmailVerification(showWaitUI) {
+  //   return new Promise((resolve, reject) => {
+  //     let interval=null;
+  //     let user = firebase.auth().currentUser;
+  //     user.sendEmailVerification().then(
+  //       () => {
+  //         if (showWaitUI) showWaitUI();
+  //         interval = setInterval(
+  //           () => {
+  //             user.reload().then(
+  //               () => {
+  //                 if (interval && user.emailVerified) {
+  //                   clearInterval(interval);
+  //                   interval=null;
+  //                   resolve(user);
+  //                 }
+  //               },
+  //               error => {
+  //                 if (interval) {
+  //                   clearInterval(interval);
+  //                   interval=null;
+  //                   console.log('sendAndWaitEmailVerification: reload failed ! '+error);
+  //                   reject(error);
+  //                 }
+  //               }
+  //             );
+  //           }, 1000);
+  //       },
+  //       error => {
+  //         console.log('sendAndWaitEmailVerification: sendEmailVerification failed ! '+error);
+  //         reject(error);
+  //       }
+  //     );
+  //   });
+  // }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');

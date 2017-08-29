@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Toast, ToastController } from 'ionic-angular';
 
 import { Ng2PicaService } from 'ng2-pica';
-import { Ng2ImgMaxService } from 'ng2-img-max';
 import * as firebase from 'firebase/app';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import 'rxjs/add/operator/map';
 import { Observer } from 'rxjs/Observer';
 import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
 
 
@@ -45,8 +42,6 @@ export class StorageService {
 
   private profilePicRef: any;
 
-  private toast: Toast;
-
   private uploads: FirebaseListObservable<Upload[]>;
 
   private progressSubject$: Subject<number> = new Subject(); //3 should add smoothing?!?
@@ -55,28 +50,13 @@ export class StorageService {
 
   constructor(
     private db: AngularFireDatabase,
-    private ng2ImgMaxService: Ng2ImgMaxService,
-    private pica: Ng2PicaService,
-    private toastCtrl: ToastController
+    private pica: Ng2PicaService
   ) {
     this.profilePicRef = firebase.storage().ref('/profilepics');
     this.progress$ = this.progressSubject$.asObservable();
-
     this.uploads = this.db.list('/uploads');
   }
 
-  resizeAndUploadProfilePic(upload: UploadImage): Promise<any> {
-
-    return this.resizeProfilePic(upload, 1024, 768).then(
-      uploadResized => {
-        return this.uploadFile(uploadResized);
-      }
-    )
-  }
-
-  public ngResize(file) {
-    return this.ng2ImgMaxService.resizeImage(file, 500, 500);
-  }
 
   public resizePicFile(files: File[], sourceHeight:number, sourceWidth:number): Observable<any> { //}: Promise<Upload>{
 
@@ -98,88 +78,6 @@ export class StorageService {
     }
 
     return this.pica.resize(fileList, w, h);
-  }
-
-  public simpleResizeImage(imgUpload,maxHeight,maxWidth) {
-
-    var img = document.createElement("img");
-    img.src = imgUpload;
-
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-
-    var width = img.width;
-    var height = img.height;
-
-    if (width > height) {
-      if (width > maxWidth) {
-        height *= maxWidth / width;
-        width = maxWidth;
-      }
-    } else {
-      if (height > maxHeight) {
-        width *= maxHeight / height;
-        height = maxHeight;
-      }
-    }
-    canvas.width = width;
-    canvas.height = height;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0, width, height);
-
-    var dataURL = canvas.toDataURL("image/png");
-    return dataURL;
-  }
-
-  public async resizeProfilePic(upload: UploadImage, maxHeight:number, maxWidth:number): Promise<Upload>{
-    return new Promise<Upload>((resolve, reject) => {
-
-      let img = new Image;
-      img.src = upload.base64String;
-
-      img.onload = ( (file) => {
-
-        var canvas = document.createElement('canvas');
-        var ctx = canvas.getContext('2d');
-        let h,w;
-
-        ctx.drawImage(img, 0, 0);
-
-        if (img.height > img.width) {
-          let ratio = img.width/img.height;
-          h = maxHeight;
-          w = img.width * ratio;
-        }
-        else if (img.width >= img.height){
-          let ratio = img.height/img.width;
-          w = maxWidth;
-          h = img.height * ratio;
-        }
-
-        var canvas2 = document.createElement('canvas');
-        var ctx2 = canvas.getContext('2d');
-        // We set the dimensions at the wanted size.
-        canvas.width = w;
-        canvas.height = h;
-        this.pica.resizeCanvas(canvas, canvas2, {
-          unsharpAmount: 80,
-          unsharpRadius: 0.6,
-          unsharpThreshold: 2
-        })
-        .then(
-          result => {
-
-          }
-        )
-        resolve(upload);
-      });
-
-      img.onerror = ((error) => {
-        let err = {details:error,message:'Error loading as image'};
-        reject(err);
-      });
-    });
   }
 
   public async uploadFile(upload: Upload){

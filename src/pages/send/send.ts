@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, Loading, LoadingController, ModalController, NavController, NavParams, Toast, ToastController } from 'ionic-angular';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { FormBuilder, FormGroup, FormControl, Validators, } from '@angular/forms';
+import { Loading, LoadingController, ModalController, NavController, NavParams, Toast, ToastController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 
 import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
 import { NotificationsService } from 'angular2-notifications';
 import 'rxjs/add/operator/debounceTime';
 
@@ -40,15 +38,15 @@ export class SendPage {
     private navParams: NavParams
   ) {
 
-    this.toUser = navParams.data;
+    this.toUser = this.navParams.data;
 
-    this.sendForm = formBuilder.group({
+    this.sendForm = this.formBuilder.group({
       toUserKey: [this.toUser.uid, Validators.required],
       amount: [null, Validators.required],
       message: [null]
     });
   }
-
+  // tslint:disable-next-line
   private onSubmit(formData: any, formValid: boolean): void {
 
     if (!formValid)
@@ -94,7 +92,7 @@ export class SendPage {
       error => {
         this.toast = this.toastCtrl.create({
           message: 'Error getting user: '+error,
-          duration: 2500,
+          duration: 4000,
           position: 'middle'
         });
         console.error(error);

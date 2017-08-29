@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, Loading, LoadingController, Toast, ToastController } from 'ionic-angular';
+import { Loading, LoadingController, Toast, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { AngularFireAuth } from 'angularfire2/auth';
 
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { User } from '../../interfaces/user-interface';
@@ -21,15 +19,16 @@ export class LoginEmailPage {
     private formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-    private AuthService: AuthService
+    private authService: AuthService
   ) {
 
-    this.loginForm = formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       email: [null,  Validators.compose([Validators.required, Validators.email])],
       password: [null, Validators.required]
     });
   }
 
+  // tslint:disable-next-line
   private onSubmit(formData: any, formValid: boolean): void {
     if (!formValid)
       return;
@@ -41,7 +40,7 @@ export class LoginEmailPage {
 
     this.loading.present()
 
-    this.AuthService.signInEmail(
+    this.authService.signInEmail(
       formData.email,
       formData.password
     ).then(
@@ -52,7 +51,7 @@ export class LoginEmailPage {
       error => {
         this.toast = this.toastCtrl.create({
           message: error.toString(),
-          duration: 2500,
+          duration: 4000,
           position: 'middle'
         });
         console.error(error);

@@ -84,7 +84,7 @@ export class WalletPage {
       error => {
         this.toast = this.toastCtrl.create({
           message: 'Error getting user: '+error,
-          duration: 2500,
+          duration: 4000,
           position: 'middle'
         });
         console.error(error);
