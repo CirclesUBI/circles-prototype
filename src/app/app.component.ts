@@ -3,7 +3,6 @@ import { Loading, LoadingController, Platform, Toast, ToastController } from 'io
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -19,7 +18,7 @@ import { SettingsPage } from '../pages/settings/settings';
 import { ProfilePage } from '../pages/profile/profile';
 import { WelcomePage } from '../pages/welcome/welcome';
 
-var authUserObs$: FirebaseObjectObservable<any>;
+//var authUserObs$: FirebaseObjectObservable<any>;
 
 @Component({
   templateUrl: 'app.html'
@@ -33,7 +32,6 @@ export class CirclesApp {
   private isInApp: boolean = false;
 
   constructor(
-    private afAuth: AngularFireAuth,
     private db: AngularFireDatabase,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
@@ -60,11 +58,15 @@ export class CirclesApp {
       this.authService.authState$.subscribe(
         auth => {
           if (auth) {
+            this.loading = this.loadingCtrl.create({
+              content: 'Logging in ...',
+              dismissOnPageChange: true
+            });
+            this.loading.present();
 
             let authUserObs$ = this.db.object('/users/' + auth.uid);
             let authUserSub$ = authUserObs$.subscribe(
               user => {
-
                 if (!user.$exists()) {
                   this.nav.push(WelcomePage, { authUser: auth, obs: authUserObs$ });
                 }
@@ -108,18 +110,22 @@ export class CirclesApp {
     });
   }
 
+  // tslint:disable-next-line
   private goToWallet(): void {
     this.nav.push(WalletPage);
   }
 
+  // tslint:disable-next-line
   private goToSettings(): void {
     this.nav.push(SettingsPage);
   }
 
+  // tslint:disable-next-line
   private goToProfile(): void {
     this.nav.push(ProfilePage);
   }
 
+  // tslint:disable-next-line
   private logout(): void {
     this.authService.signOut();
   }
