@@ -80,3 +80,16 @@ button{
   display: flex;
   justify-content: center;
 }
+
+
+.circle-crop{
+  border-radius: 50%;
+  position:relative;
+  overflow: hidden;
+  width: 156px;
+  height: 156px;
+  margin: auto;
+  background-size:cover;
+  background-position: center;
+  border: 1px solid white;
+}
