@@ -35,6 +35,7 @@ import { WaitModal } from '../pages/wait-modal/wait-modal';
 
 //components
 import { NewsCard } from '../components/news-card/news-card';
+import { AutoresizeDirective } from '../directives/autoresize/autoresize';
 
 //services
 import { StorageService } from '../providers/storage-service/storage-service';
@@ -50,6 +51,7 @@ import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     ApplyPage,
+    AutoresizeDirective,
     CirclesApp,
     ConfirmModal,
     EmailConfirmationPage,

@@ -1,4 +1,4 @@
-,
+
 "users": {
   "qM7YGEggomY8hjmZKk5aS2XXqhq2": {
 
@@ -185,8 +185,8 @@
       "balance": 143,
       "createdAt": 1496952177281,
       "displayName": "Ed Murphy",
-      "email": "edzillion@gmail.com",
-      "firstName": "Ed",
+      "email": "edm@gmail.com",
+      "firstName": "Eddie",
       "lastName": "Murphy",
       "greeting": "Don't just pay it forward, pay it Circles!",
       "profilePicURL": "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FuYtJ8ztAVHN5B3TZKaV8ekNQU2C3?alt=media&token=aad3fa0a-5753-44a0-8854-a25cafd7c28c",
@@ -196,7 +196,7 @@
           "amount": 100,
           "owner": "J56XFbhioecI8PTQb90NKe5bwB13",
           "priority": 0,
-          "title": "Ed Coin"
+          "title": "Eddie Coin"
         }
       }
     },

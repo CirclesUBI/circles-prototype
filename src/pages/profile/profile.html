@@ -8,7 +8,7 @@
 
   <ion-row>
     <ion-col>
-
+<!-- (keydown.enter)="$event.preventDefault()" -->
       <form (ngSubmit)="saveProfile()">
         <!-- First Name -->
         <span *ngIf="userService.type == 'individual'">
@@ -42,7 +42,7 @@
         <!-- Greeting -->
         <ion-item>
           <ion-label stacked>Greeting</ion-label>
-          <ion-input type="text" [(ngModel)]="user.greeting" name="title"></ion-input>
+          <ion-input type="text" [(ngModel)]="user.greeting" name="greeting"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -57,7 +57,7 @@
         <button ion-button type="button" *ngIf="profilePicUpload" (click)="fileUpload()">Upload Photo</button>
         <ion-item>
           <ion-label stacked>Trade Message</ion-label>
-          <ion-input type="text" [(ngModel)]="user.tradeMessage" name="title"></ion-input>
+          <ion-textarea autoresize [(ngModel)]="user.tradeMessage" name="tradeMessage"></ion-textarea>
         </ion-item>
 
         <ion-item id="auth-providers">
