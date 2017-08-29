@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 
-import { UserService } from '../../providers/user-service/user-service';
-import { User } from '../../interfaces/user-interface';
-
 @Component({
   selector: 'page-wait-modal',
   templateUrl: 'wait-modal.html',
@@ -14,8 +11,7 @@ export class WaitModal {
   private title: string;
 
   constructor(
-    public navParams: NavParams,
-    private viewCtrl: ViewController
+    public navParams: NavParams
   ) {
     this.message = navParams.get('message');
     this.title = navParams.get('title');

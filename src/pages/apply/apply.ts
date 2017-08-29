@@ -49,6 +49,7 @@ export class ApplyPage {
     }
   }
 
+  // tslint:disable-next-line
   private apply() {
     let msg = "You are about to apply for validation from  "+this.validator.displayName;
     let conf = this.modalController.create(ConfirmModal, { title: 'Confirm Apply', message: msg });
@@ -86,6 +87,7 @@ export class ApplyPage {
     });
   }
 
+  // tslint:disable-next-line
   private gotoProvider (req) {
     if (req.completed)
       return;

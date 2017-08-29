@@ -3,7 +3,6 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { UserService } from '../../providers/user-service/user-service';
 import { NewsService } from '../../providers/news-service/news-service';
-import { TransactionService } from '../../providers/transaction-service/transaction-service';
 import { ValidatorService } from '../../providers/validator-service/validator-service';
 import { User } from '../../interfaces/user-interface';
 import { Validator } from '../../interfaces/validator-interface';
@@ -34,22 +33,24 @@ export class UserDetailPage {
     public navParams: NavParams,
     private userService: UserService,
     private newsService: NewsService,
-    private transactionService: TransactionService,
     private validatorService: ValidatorService
   ) {
     this.viewUser = navParams.data;
   }
 
+  // tslint:disable-next-line
   private revokeTrust() {
     this.newsService.revokeUserTrust(this.viewUser);
     this.userService.removeTrustedUser(this.viewUser.uid);
   }
 
+  // tslint:disable-next-line
   private affordTrust() {
     this.newsService.addTrust(this.viewUser);
     this.userService.addTrustedUser(this.viewUser.uid);
   }
 
+  // tslint:disable-next-line
   private sendCircles () {
     this.navCtrl.push(SendPage, this.viewUser);
   }

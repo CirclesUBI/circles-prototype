@@ -36,8 +36,8 @@
           <ion-label stacked>Email</ion-label>
           <ion-input type="text" [(ngModel)]="user.email" name="email"></ion-input>
         </ion-item>
-        <ion-badge *ngIf="emailVerified">Verified</ion-badge>
-        <ion-badge *ngIf="!emailVerified">Not Verified</ion-badge>
+        <ion-badge *ngIf="isEmailVerified">Verified</ion-badge>
+        <ion-badge *ngIf="!isEmailVerified">Not Verified</ion-badge>
 
         <!-- Greeting -->
         <ion-item>
@@ -50,7 +50,7 @@
           <!-- <div class="circle-crop" [ngStyle]="{'background-image': 'url(' + profilePicURL + ')'}"> -->
             <div item-content>
               <img [src]="sanitizer.bypassSecurityTrustResourceUrl(profilePicURL)">
-              <ion-spinner [ngClass]="{'center':true}" *ngIf="imageLoading"></ion-spinner>
+              <ion-spinner [ngClass]="{'center':true}" *ngIf="isImageLoading"></ion-spinner>
             </div>
         </ion-item>
         <input ion-input *ngIf="storageService.isUploadSupported()" id="file" type="file" accept="image/*">
@@ -76,15 +76,12 @@
             </span>
           </div>
         </ion-item>
-        <button ion-button type="submit" block>Save</button>
+        <button ion-button type="submit" [disabled]="isImageLoading" block>Save</button>
 
 
       </form>
 
     </ion-col>
-    <ion-item>
-      {{debugText}}
-    </ion-item>
   </ion-row>
 
 </ion-content>

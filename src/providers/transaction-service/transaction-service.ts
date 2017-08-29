@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 import { NewsService } from '../../providers/news-service/news-service';
 import { UserService } from '../../providers/user-service/user-service';
 import { User } from '../../interfaces/user-interface';
-import { NewsItem } from '../../interfaces/news-item-interface';
+
 import { LogItem } from '../../interfaces/log-item-interface';
 
 @Injectable()
