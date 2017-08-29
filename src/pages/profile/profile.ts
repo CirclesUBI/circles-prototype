@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Loading, LoadingController, NavController, NavParams, Toast, ToastController } from 'ionic-angular';
+import { Loading, LoadingController, ModalController, NavController, NavParams, Toast, ToastController } from 'ionic-angular';
 import { NotificationsService } from 'angular2-notifications';
 
 import { DomSanitizer } from '@angular/platform-browser';
@@ -18,8 +18,10 @@ import { StorageService, UploadImage, UploadFile } from '../../providers/storage
 import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 
+
 import { SearchPage } from '../search/search';
 import { UserDetailPage } from '../user-detail/user-detail';
+import { WaitModal } from '../wait-modal/wait-modal'
 
 @Component({
   selector: 'page-profile',
@@ -49,6 +51,7 @@ export class ProfilePage {
     private authService: AuthService,
     private ds: DomSanitizer,
     private loadingCtrl: LoadingController,
+    private modalController: ModalController,
     private navCtrl: NavController,
     private notificationsService: NotificationsService,
     private sanitizer: DomSanitizer,
@@ -68,11 +71,11 @@ export class ProfilePage {
           this.profilePicURL = this.user.profilePicURL;
         }
         this.providers = this.validatorService.userProviders;
-        this.emailVerified  = (this.user.authProviders.filter(prov => prov == 'email').length > 0);
+        //this.emailVerified  = (this.user.authProviders.filter(prov => prov == 'email').length > 0);
       }
     );
 
-    //this.emailVerified = firebase.auth().currentUser.emailVerified;
+    this.emailVerified = firebase.auth().currentUser.emailVerified;
 
     // document.addEventListener('DOMContentLoaded',function() {
 
@@ -243,21 +246,21 @@ export class ProfilePage {
   }
 
   sendEmailVerif() {
-    firebase.auth().currentUser.sendEmailVerification().then(
-      (result) => {
-        let msg = 'Verification Email sent to: ' +this.user.email;
-        this.notificationsService.create('Email', msg, 'info');
-      },
-      (error) => {
-        this.toast = this.toastCtrl.create({
-          message: 'Error sending email verification: ' + error,
-          duration: 2500,
-          position: 'middle'
-        });
-        console.error(error);
-        this.toast.present();
-      }
-    );
+    let waitModal = this.modalController.create(WaitModal);
+    this.userService.sendAndWaitEmailVerification(waitModal).then(
+     (user) => {
+        waitModal.dismiss();
+     },
+     (error) => {
+       waitModal.dismiss();
+       this.toast = this.toastCtrl.create({
+         message: 'Error verifying email: ' + error,
+         duration: 2500,
+         position: 'middle'
+       });
+       console.error(error);
+       this.toast.present();
+     }
+   );
   }
-
 }

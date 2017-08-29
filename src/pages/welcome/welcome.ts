@@ -245,7 +245,8 @@ export class WelcomePage {
       let waitModal = this.modalController.create(WaitModal);
       this.userService.sendAndWaitEmailVerification(waitModal).then(
        (user) => {
-          waitModal.dismiss();
+         circlesUser.authProviders.push('email');
+         waitModal.dismiss();          
        },
        (error) => {
          waitModal.dismiss();
