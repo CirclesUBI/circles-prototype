@@ -140,7 +140,16 @@ export class UserService implements OnDestroy {
     this.trustedUsersNetwork = this.trustedUsersNetwork.concat(this.trustedByValidator);
   }
 
-  public createCirclesUser(authUser,formUser): Individual | Organisation {
+  public createCirclesUser(type,authUser,formUser) {
+
+    if (type == 'organisation') {
+      formUser.organisation = formUser.displayName;
+    }
+    else {
+      formUser.firstName = formUser.firstName.charAt(0).toUpperCase() + formUser.firstName.slice(1).toLowerCase();
+      formUser.lastName = formUser.lastName.charAt(0).toUpperCase() + formUser.lastName.slice(1).toLowerCase();
+      formUser.displayName = formUser.firstName+' '+formUser.lastName;
+    }
 
     formUser.createdAt = firebase.database['ServerValue']['TIMESTAMP'];
 
@@ -158,13 +167,7 @@ export class UserService implements OnDestroy {
     formUser.authProviders = providers;
     formUser.agreedToDisclaimer = false;
 
-    if (!this.isOrg(formUser)) {
-      formUser.displayName = formUser.firstName + ' ' + formUser.lastName;
-      this.user = this.setInitialWallet(formUser);
-    }
-    else {
-      this.user = formUser;
-    }
+    this.user = this.setInitialWallet(formUser);
     return this.user;
   }
 
@@ -267,12 +270,18 @@ export class UserService implements OnDestroy {
     this.updateUser({trustedUsers:this.user.trustedUsers});
   }
 
-  private setInitialWallet(user:Individual): Individual {
+  private setInitialWallet(user:Individual | Organisation): Individual | Organisation {
+
     let now = new Date();
     this.myCoins.amount = 0;
     this.myCoins.owner = user.uid;
-    this.myCoins.title = (user.firstName) ? user.firstName + ' Coin' : 'Circle Coin';
-    //my coins start at the highest priority
+    debugger;
+    if (this.isOrg(user)) {
+      this.myCoins.title = 'Circles';
+    }
+    else {
+      this.myCoins.title = user.firstName + 'Coin';
+    }
     this.myCoins.priority = 0;
     this.myCoins.createdAt = now.getTime();
     this.allCoins = {
@@ -332,7 +341,7 @@ export class UserService implements OnDestroy {
   }
 
   public isOrg(user: Individual | Organisation): user is Organisation {
-    return (<Organisation>user).address !== undefined;
+    return (<Organisation>user).organisation !== undefined;
   }
 
   ngOnDestroy() {

@@ -250,7 +250,7 @@ export class WelcomePage {
   private saveUser(formUser) {
     //sends us back to app.component's auth observer
 
-    let circlesUser = this.userService.createCirclesUser(this.authUser,formUser);
+    let circlesUser = this.userService.createCirclesUser(this.formState.type,this.authUser,formUser);
 
     // if (!circlesUser.authProviders.find( (prov) => prov == 'email')) {
     //   let waitModal = this.modalController.create(WaitModal);
