@@ -1,4 +1,15 @@
 page-user-detail {
+
+    .circle-crop.large{
+      height: 80vw;
+      width: 80vw;
+    }
+
+    .circle-crop.small{
+      height: 40vw;
+      width: 40vw;
+    }
+
     .center-wrapper {
         text-align: center;
         position: relative;

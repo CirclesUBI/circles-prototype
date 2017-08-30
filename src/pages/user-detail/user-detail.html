@@ -13,11 +13,7 @@
       <h2>{{viewUser.greeting}}</h2>
     </ion-card-title>
     <ion-card-content style="padding: 0;">
-
-      <div class="circle-crop"
-        [ngStyle]="{'background-image': 'url(' + profilePicURL + ')'}">
-      </div>
-
+       <img src="{{profilePicURL}}">
        <span>
          <div class="center-wrapper" *ngIf="(trustTo&&!trustFrom)||validatorTrusted">
            <div class="center-item"><span class="arrow">↑</span></div>
@@ -27,9 +23,7 @@
 
          <div class="center-wrapper" *ngIf="validatorTrusted">
            <ion-avatar class="center-item" style="width:85px;" item-center>
-              <div class="circle-crop"
-                [ngStyle]="{'background-image': 'url(' + validatedBy.profilePicURL + ')'}">
-              </div>
+             <img src="{{validatedBy.profilePicURL}}">
             </ion-avatar>
          </div>
 
@@ -39,23 +33,17 @@
          </div>
 
          <div class="center-wrapper" *ngIf="(trustFrom&&trustTo)&&!validatorTrusted">
-            <div class="center-item"><ion-icon name="arrow-round-up"></ion-icon></div>
-            <div class="center-item"><ion-icon name="arrow-round-down"></ion-icon></div>
-            <div class="center-text">Trust each other</div>
+           <div class="center-item"><span class="arrow">↕</span></div>
+           <div class="center-text">Trust each other</div>
          </div>
 
          <div class="center-wrapper" *ngIf="trustTo||trustFrom||validatorTrusted">
-            <ion-avatar class="center-item" item-center>
-              <div class="circle-crop"
-                [ngStyle]="{'background-image': 'url(' + user.profilePicURL || genericProfilePicURL + ')'}">
-              </div>
-             <!-- <img src="{{user.profilePicURL || genericProfilePicURL}}">-->
+            <ion-avatar class="center-item" style="width:85px;" item-center>
+              <img src="{{user.profilePicURL || genericProfilePicURL}}">
            </ion-avatar>
          </div>
        </span>
-
        <ion-list no-lines>
-
          <ion-item *ngIf="viewUser.email">
            <ion-icon name="mail" item-left></ion-icon>
            <p>{{viewUser.email}}</p>
