@@ -33,7 +33,6 @@ export class UserService implements OnDestroy {
   private userSub$: Subscription;
   private usersSub$: Subscription;
   private combinedSub$: Subscription;
-  private weeklyGrant: number = 100;
   private myCoins: Coin = {} as Coin;
   private allCoins: { [key: string]: Coin };
   public trustedUsersNetwork: Array<any> = [];
@@ -78,7 +77,7 @@ export class UserService implements OnDestroy {
       user => {
         this.user = user;
         this.user.authProviders = this.authProviders;
-        this.setBalance(user);
+        //this.setBalance(user);
         this.userSubject$.next(this.user);
       },
       error => console.log('Could not load current user record.')
@@ -140,7 +139,16 @@ export class UserService implements OnDestroy {
     this.trustedUsersNetwork = this.trustedUsersNetwork.concat(this.trustedByValidator);
   }
 
-  public createCirclesUser(authUser,formUser): Individual | Organisation {
+  public createCirclesUser(type,authUser,formUser) {
+
+    if (type == 'organisation') {
+      formUser.organisation = formUser.displayName;
+    }
+    else {
+      formUser.firstName = formUser.firstName.charAt(0).toUpperCase() + formUser.firstName.slice(1).toLowerCase();
+      formUser.lastName = formUser.lastName.charAt(0).toUpperCase() + formUser.lastName.slice(1).toLowerCase();
+      formUser.displayName = formUser.firstName+' '+formUser.lastName;
+    }
 
     formUser.createdAt = firebase.database['ServerValue']['TIMESTAMP'];
 
@@ -158,13 +166,7 @@ export class UserService implements OnDestroy {
     formUser.authProviders = providers;
     formUser.agreedToDisclaimer = false;
 
-    if (!this.isOrg(formUser)) {
-      formUser.displayName = formUser.firstName + ' ' + formUser.lastName;
-      this.user = this.setInitialWallet(formUser);
-    }
-    else {
-      this.user = formUser;
-    }
+    this.user = this.setInitialWallet(formUser);
     return this.user;
   }
 
@@ -267,22 +269,24 @@ export class UserService implements OnDestroy {
     this.updateUser({trustedUsers:this.user.trustedUsers});
   }
 
-  private setInitialWallet(user:Individual): Individual {
+  private setInitialWallet(user:Individual | Organisation): Individual | Organisation {
+
     let now = new Date();
-    let day = now.getDay();
-    let diff = (7 - 5 + day) % 7;
-    let b = this.weeklyGrant - ((this.weeklyGrant / 7) * (diff));
-    this.myCoins.amount = Math.round(b);
+    this.myCoins.amount = 0;
     this.myCoins.owner = user.uid;
-    this.myCoins.title = (user.firstName) ? user.firstName + ' Coin' : 'Circle Coin';
-    //my coins start at the highest priority
+    if (this.isOrg(user)) {
+      this.myCoins.title = 'Circles';
+    }
+    else {
+      this.myCoins.title = user.firstName + 'Coin';
+    }
     this.myCoins.priority = 0;
     this.myCoins.createdAt = now.getTime();
     this.allCoins = {
       [user.uid]: this.myCoins
     };
     user.wallet = this.allCoins;
-    this.setBalance(user);
+    user.balance = 0;
     return user;
   }
 
@@ -335,7 +339,7 @@ export class UserService implements OnDestroy {
   }
 
   public isOrg(user: Individual | Organisation): user is Organisation {
-    return (<Organisation>user).address !== undefined;
+    return (<Organisation>user).organisation !== undefined;
   }
 
   ngOnDestroy() {
