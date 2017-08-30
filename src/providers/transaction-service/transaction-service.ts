@@ -3,7 +3,6 @@ import { Headers, Http } from '@angular/http';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
-import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 
 import 'rxjs/add/operator/map';
@@ -16,8 +15,6 @@ import { LogItem } from '../../interfaces/log-item-interface';
 
 @Injectable()
 export class TransactionService implements OnDestroy {
-
-  public transact: Subject<any> = new Subject<any>();
 
   private user: User;
   private userSub$: Subscription;
@@ -53,7 +50,6 @@ export class TransactionService implements OnDestroy {
   public transfer(fromUserKey,toUserKey,amount,message) {
     return this.postTransaction(fromUserKey,toUserKey,amount).map(
       (result) => {
-        this.logTransfer(toUserKey,amount);
         this.newsService.addTransaction(toUserKey, amount, message);
         return result;
       }).first();

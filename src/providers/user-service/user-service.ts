@@ -274,7 +274,6 @@ export class UserService implements OnDestroy {
     let now = new Date();
     this.myCoins.amount = 0;
     this.myCoins.owner = user.uid;
-    debugger;
     if (this.isOrg(user)) {
       this.myCoins.title = 'Circles';
     }
