@@ -78,7 +78,7 @@ export class UserService implements OnDestroy {
       user => {
         this.user = user;
         this.user.authProviders = this.authProviders;
-        this.setBalance(user);
+        //this.setBalance(user);
         this.userSubject$.next(this.user);
       },
       error => console.log('Could not load current user record.')
@@ -269,10 +269,7 @@ export class UserService implements OnDestroy {
 
   private setInitialWallet(user:Individual): Individual {
     let now = new Date();
-    let day = now.getDay();
-    let diff = (7 - 5 + day) % 7;
-    let b = this.weeklyGrant - ((this.weeklyGrant / 7) * (diff));
-    this.myCoins.amount = Math.round(b);
+    this.myCoins.amount = 0;
     this.myCoins.owner = user.uid;
     this.myCoins.title = (user.firstName) ? user.firstName + ' Coin' : 'Circle Coin';
     //my coins start at the highest priority
@@ -282,7 +279,7 @@ export class UserService implements OnDestroy {
       [user.uid]: this.myCoins
     };
     user.wallet = this.allCoins;
-    this.setBalance(user);
+    user.balance = 0;
     return user;
   }
 

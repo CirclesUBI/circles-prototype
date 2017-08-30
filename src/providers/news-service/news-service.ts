@@ -62,6 +62,10 @@ export class NewsService implements OnDestroy {
           let msg = 'Receieved ' + latestNewsItem.amount + ' Circles from ' + fromUser.displayName;
           this.notificationsService.create('Transaction', msg, 'info');
         }
+        else if (latestNewsItem.type == 'issuance') {
+          let msg = 'You have minted ' + latestNewsItem.amount + ' Circles';
+          this.notificationsService.create('Issuance', msg, 'info');
+        }
       });
       this.newsItemsFirebaseList$.subscribe(this.newsItems$);
 
@@ -100,6 +104,7 @@ export class NewsService implements OnDestroy {
     this.db.list('/users/'+toUser.uid+'/news/').push(newsItem);
 
   }
+
 
 
   public addValidatorTrustRequest(validator: Validator):void {

@@ -252,42 +252,42 @@ export class WelcomePage {
 
     let circlesUser = this.userService.createCirclesUser(this.authUser,formUser);
 
-    if (!circlesUser.authProviders.find( (prov) => prov == 'email')) {
-      let waitModal = this.modalController.create(WaitModal);
-      this.userService.sendAndWaitEmailVerification(waitModal).then(
-       (user) => {
-         circlesUser.authProviders.push('email');
-         waitModal.dismiss();
-       },
-       (error) => {
-         waitModal.dismiss();
-         this.toast = this.toastCtrl.create({
-           message: 'Error verifying email: ' + error,
-           duration: 4000,
-           position: 'middle'
-         });
-         console.error(error);
-         this.toast.present();
-       }
-     ).then( () => {
-       this.userObs$.set({userData:circlesUser}).then(
-         (result) => {
-           this.loading.dismiss();
-         },
-         (error) => {
-           this.loading.dismiss();
-           this.toast = this.toastCtrl.create({
-             message: 'Error saving User record: ' + error,
-             duration: 4000,
-             position: 'middle'
-           });
-           console.error(error);
-           this.toast.present();
-         }
-       );
-     });
-    }
-    else {
+    // if (!circlesUser.authProviders.find( (prov) => prov == 'email')) {
+    //   let waitModal = this.modalController.create(WaitModal);
+    //   this.userService.sendAndWaitEmailVerification(waitModal).then(
+    //    (user) => {
+    //      circlesUser.authProviders.push('email');
+    //      waitModal.dismiss();
+    //    },
+    //    (error) => {
+    //      waitModal.dismiss();
+    //      this.toast = this.toastCtrl.create({
+    //        message: 'Error verifying email: ' + error,
+    //        duration: 4000,
+    //        position: 'middle'
+    //      });
+    //      console.error(error);
+    //      this.toast.present();
+    //    }
+    //  ).then( () => {
+    //    this.userObs$.set({userData:circlesUser}).then(
+    //      (result) => {
+    //        this.loading.dismiss();
+    //      },
+    //      (error) => {
+    //        this.loading.dismiss();
+    //        this.toast = this.toastCtrl.create({
+    //          message: 'Error saving User record: ' + error,
+    //          duration: 4000,
+    //          position: 'middle'
+    //        });
+    //        console.error(error);
+    //        this.toast.present();
+    //      }
+    //    );
+    //  });
+    // }
+    // else {
       this.userObs$.set({userData:circlesUser}).then(
         (result) => {
           this.loading.dismiss();
@@ -303,44 +303,8 @@ export class WelcomePage {
           this.toast.present();
         }
       );
-    }
+    //}
   }
-
-  // public sendAndWaitEmailVerification(showWaitUI) {
-  //   return new Promise((resolve, reject) => {
-  //     let interval=null;
-  //     let user = firebase.auth().currentUser;
-  //     user.sendEmailVerification().then(
-  //       () => {
-  //         if (showWaitUI) showWaitUI();
-  //         interval = setInterval(
-  //           () => {
-  //             user.reload().then(
-  //               () => {
-  //                 if (interval && user.emailVerified) {
-  //                   clearInterval(interval);
-  //                   interval=null;
-  //                   resolve(user);
-  //                 }
-  //               },
-  //               error => {
-  //                 if (interval) {
-  //                   clearInterval(interval);
-  //                   interval=null;
-  //                   console.log('sendAndWaitEmailVerification: reload failed ! '+error);
-  //                   reject(error);
-  //                 }
-  //               }
-  //             );
-  //           }, 1000);
-  //       },
-  //       error => {
-  //         console.log('sendAndWaitEmailVerification: sendEmailVerification failed ! '+error);
-  //         reject(error);
-  //       }
-  //     );
-  //   });
-  // }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');

@@ -53,8 +53,7 @@
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-statusbar": {},
             "cordova-plugin-whitelist": {},
-            "ionic-plugin-keyboard": {},
-            "onesignal-cordova-plugin": {}
+            "ionic-plugin-keyboard": {}
         },
         "platforms": [
             "browser"
