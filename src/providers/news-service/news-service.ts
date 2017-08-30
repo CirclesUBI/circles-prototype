@@ -89,19 +89,19 @@ export class NewsService implements OnDestroy {
     return this.newsItemsReversed$;
   }
 
-  public addTransaction(toUser:User, amount:number, message?:string):void {
+  public addTransaction(toUserKey:string, amount:number, message?:string):void {
     //this will only be called for sending to someone else
     let newsItem = {
       timestamp: firebase.database['ServerValue']['TIMESTAMP'],
       from: this.user.uid,
       amount: amount,
-      to: toUser.uid,
+      to: toUserKey,
       type: 'transaction',
       message: message || ''
     } as NewsItem;
     this.newsItemsFirebaseList$.push(newsItem);
 
-    this.db.list('/users/'+toUser.uid+'/news/').push(newsItem);
+    this.db.list('/users/'+toUserKey+'/news/').push(newsItem);
 
   }
 

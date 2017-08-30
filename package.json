@@ -39,7 +39,8 @@
         "promise-polyfill": "^6.0.2",
         "rxjs": "^5.4.3",
         "sw-toolbox": "3.6.0",
-        "zone.js": "0.8.16"
+        "zone.js": "0.8.16",
+        "onesignal-cordova-plugin": "^2.1.2"
     },
     "devDependencies": {
         "@ionic/app-scripts": "2.1.4",
@@ -53,7 +54,8 @@
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-statusbar": {},
             "cordova-plugin-whitelist": {},
-            "ionic-plugin-keyboard": {}
+            "ionic-plugin-keyboard": {},
+            "onesignal-cordova-plugin": {}
         },
         "platforms": [
             "browser"

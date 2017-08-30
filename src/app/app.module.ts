@@ -6,6 +6,7 @@ import { CirclesApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { HttpModule } from '@angular/http';
 
 //vendor
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -73,6 +74,7 @@ import { environment } from '../environments/environment';
     AngularFireModule.initializeApp(environment.firebase),
     BrowserAnimationsModule,
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(CirclesApp,{
         scrollPadding: false,
         scrollAssist: true,

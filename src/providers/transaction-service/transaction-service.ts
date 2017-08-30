@@ -1,9 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { Headers, Http } from '@angular/http';
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+
 import 'rxjs/add/operator/map';
 
 import { NewsService } from '../../providers/news-service/news-service';
@@ -23,6 +25,7 @@ export class TransactionService implements OnDestroy {
 
   constructor(
     private db: AngularFireDatabase,
+    private http: Http,
     private newsService: NewsService,
     private userService: UserService
   ) {
@@ -32,108 +35,45 @@ export class TransactionService implements OnDestroy {
       error => console.error(error),
       () => console.log('transaction-service constructor userSub$ obs complete')
     );
-
     this.transactionLog$ = this.db.list('/transactions/');
   }
 
-  private  async transfer(toUser:User, amount:number) {
-
-    amount = Number(amount);
-    let sentCoins = [];
-
-    let trusted = this.getTrustIntersection(this.user, toUser);
-    if (trusted.balance < amount) {
-      //we don't have enough trusted coins
-      return false;
-    }
-    for (let coin of trusted.trustedCoins) {
-      if (amount > coin.amount) {
-        let c = Object.assign({}, coin);;
-        sentCoins[coin.owner] = c;
-        coin.amount = 0;
-      }
-      else {
-        let c = Object.assign({}, coin);
-        c.amount = amount;
-        sentCoins[coin.owner] = c;
-        coin.amount -= amount;
-      }
-    }
-    this.user.balance -= amount;
-
-    //now we need to update the other wallet
-    toUser.balance += amount;
-    for (let key in sentCoins) {
-      if (toUser.wallet[key]) {
-        toUser.wallet[key].amount += sentCoins[key].amount;
-      }
-      else {
-        toUser.wallet[key] = sentCoins[key];
-      }
-    }
-
-    try {
-      await this.db.object('/users/'+toUser.uid+'/userData').update({
-        wallet: toUser.wallet,
-        balance: toUser.balance
-      });
-    }
-    catch (error) {
-      console.error(error);
-      throw new Error("Send fail");
-    }
-    return true;
-  }
-
-  private logTransfer(toUser:User, amount:number):void {
+  private logTransfer(toUserKey:string, amount:number):void {
 
     let logItem = {
       "from" : this.user.uid,
-      "to" : toUser.uid,
+      "to" : toUserKey,
       "timestamp" : firebase.database['ServerValue']['TIMESTAMP'],
       "amount" : amount
     } as LogItem;
-
     //add to the main transaction log
     this.transactionLog$.push(logItem);
   }
 
-  public createTransactionIntent(toUserId:string, amount:number, message?:string): Promise<any> {
-    let p = new Promise( (resolve, reject) => {
-      let toUser = this.userService.keyToUser(toUserId);
-      if(this.transfer(toUser, amount)) {
-
-        this.logTransfer(toUser, amount);
-        this.newsService.addTransaction(toUser, amount, message);
-        resolve(true);
-      }
-      else
-        reject(new Error("Transfer Failed"));
-    });
-
-    return p;
+  public transfer(fromUserKey,toUserKey,amount,message) {
+    return this.postTransaction(fromUserKey,toUserKey,amount).map(
+      (result) => {
+        this.logTransfer(toUserKey,amount);
+        this.newsService.addTransaction(toUserKey, amount, message);
+        return result;
+      }).first();
   }
 
-  //which of the receivingUser's trusted coins does the sendingUser have?
-  private getTrustIntersection(sendingUser:User, receivingUser:User) {
-    let returnArray = [];
-    let sum = 0;
-    let rTrusts = receivingUser.trustedUsers as string[];
+  private postTransaction(fromUserKey,toUserKey,amount) {
+    let url = 'https://us-central1-circles-testnet.cloudfunctions.net/transfer';
+    let data = {
+      fromUser:fromUserKey,
+      toUser:toUserKey,
+      amount:amount
+    };
+    const body = JSON.stringify(data);
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
 
-    if (receivingUser.trustedUsers) {
-      for (let tUserKey of rTrusts) {
-        if (sendingUser.wallet[tUserKey]) {
-          sum += this.user.wallet[tUserKey].amount;
-          let p = this.user.wallet[tUserKey].priority;
-          returnArray[p] = this.user.wallet[tUserKey];
-        }
-      }
-    }
-    return {trustedCoins:returnArray,balance:sum};
+    return this.http.post(url,body,{headers: headers});
   }
 
   ngOnDestroy() {
     this.userSub$.unsubscribe();
   }
-
 }
