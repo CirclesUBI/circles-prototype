@@ -43,6 +43,7 @@ export class SignupEmailPage {
     this.authService.createAuthUser(formData.email,formData.password1).then(
       (success) => {},
       (error) => {
+        this.loading.dismiss();
         this.toast = this.toastCtrl.create({
           message: 'Firebase error: ' + error,
           duration: 4000,

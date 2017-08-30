@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-wait-modal',
@@ -11,10 +11,15 @@ export class WaitModal {
   private title: string;
 
   constructor(
+    public navCtrl: NavController,
     public navParams: NavParams
   ) {
     this.message = navParams.get('message');
     this.title = navParams.get('title');
+  }
+
+  closeModal() {
+    this.navCtrl.pop();
   }
 
   ionViewDidLoad() {

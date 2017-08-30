@@ -108,7 +108,7 @@ export class NewsCard implements OnDestroy, OnInit {
     else if (this.newsItem.type == 'issuance') {
       this.title = "Issuance";
       this.itemIcon = "cash";
-      this.message = `Issued ${this.newsItem.amount} ${this.newsItem.coinTitle}s`;
+      this.message = `Issued ${this.newsItem.amount} ${this.user.wallet[this.user.uid].title}s`;
       this.profilePicURL = this.user.profilePicURL;
     }
   }
