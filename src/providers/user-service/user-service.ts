@@ -33,7 +33,6 @@ export class UserService implements OnDestroy {
   private userSub$: Subscription;
   private usersSub$: Subscription;
   private combinedSub$: Subscription;
-  private weeklyGrant: number = 100;
   private myCoins: Coin = {} as Coin;
   private allCoins: { [key: string]: Coin };
   public trustedUsersNetwork: Array<any> = [];
