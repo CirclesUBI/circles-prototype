@@ -1,4 +1,15 @@
 page-user-detail {
+
+    .circle-crop.large{
+      height: 80vw;
+      width: 80vw;
+    }
+
+    .circle-crop.small{
+      height: 30vw;
+      width: 30vw;
+    }
+
     .center-wrapper {
         text-align: center;
         position: relative;
@@ -16,6 +27,5 @@ page-user-detail {
     .center-text {
         top: 16px;
         right: 14px;
-        position: absolute;
     }
 }
