@@ -20,10 +20,7 @@ import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html',
-  host: {
-        '(window:scroll)': 'updateHeader($event)'
-    }
+  templateUrl: 'home.html'
 })
 export class HomePage {
 
@@ -96,19 +93,9 @@ export class HomePage {
     );
   }
 
-  scrollTop = 0;
   scrollScale = 1;
-  minScrollScale = .4;
   private onScroll(e):void {
-    /*console.log(e);
-    this.scrollTop = e.scrollTop;
-    this.scrollScale = (100-e.scrollTop)/100;
-    if(this.scrollScale < this.minScrollScale)
-      this.scrollScale = this.minScrollScale;
-    console.log("scrollScale: ", this.scrollScale);*/
-
-    console.log(e.scrollTop);
-
+    //console.log(e.scrollTop);
     if(e.scrollTop == 0)
       this.scrollScale = 1;
     else
