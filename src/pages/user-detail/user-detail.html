@@ -20,13 +20,16 @@
 
        <span>
          <div class="center-wrapper" *ngIf="(trustTo&&!trustFrom)||validatorTrusted">
-           <div class="center-item"><span class="arrow">↑</span></div>
+           <div class="center-item">
+            <ion-icon name="arrow-up"></ion-icon>
+            <!--<span class="arrow">↑</span>-->
+           </div>
            <div class="center-text" *ngIf="!validatorTrusted">You trust</div>
            <div class="center-text" *ngIf="validatorTrusted">Trusts them</div>
          </div>
 
          <div class="center-wrapper" *ngIf="validatorTrusted">
-           <ion-avatar class="center-item" style="width:85px;" item-center>
+           <ion-avatar class="center-item" style="" item-center>
             <div class="circle-crop small"
               [ngStyle]="{'background-image': 'url(' + validatedBy.profilePicURL + ')'}">
             </div>
@@ -35,8 +38,11 @@
          </div>
 
          <div class="center-wrapper" *ngIf="(trustFrom&&!trustTo)||validatorTrusted">
-           <div class="center-item"><span class="arrow">↓</span></div>
-           <div class="center-text">Trusts you</div>
+            <div class="center-text">Trusts you</div>
+            <div class="center-item">
+              <ion-icon name="arrow-down"></ion-icon>
+              <!--<span class="arrow">↓</span>-->
+            </div>
          </div>
 
          <div class="center-wrapper" *ngIf="(trustFrom&&trustTo)&&!validatorTrusted">
