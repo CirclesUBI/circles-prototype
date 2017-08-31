@@ -111,10 +111,10 @@ export class CirclesApp {
     this.nav.push(WalletPage);
   }
 
-  // tslint:disable-next-line:no-unused-variable
-  private goToSettings(): void {
-    this.nav.push(SettingsPage);
-  }
+  // // tslint:disable-next-line:no-unused-variable
+  // private goToSettings(): void {
+  //   this.nav.push(SettingsPage);
+  // }
 
   // tslint:disable-next-line:no-unused-variable
   private goToProfile(): void {

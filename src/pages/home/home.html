@@ -49,13 +49,9 @@
     </div>
 
     <div id="balance-detail" *ngIf="userService.type == 'organisation'">
-      <div class="received">
-        <h1>Circles Received</h1>
-        <h2>0</h2>
-      </div>
       <div class="sent">
-        <h1>Circles Sent</h1>
-        <h2>0</h2>
+        <h1>Circles</h1>
+        <h2>{{allCoinBalance}}</h2>
       </div>
     </div>
     <div id="balance-detail" *ngIf="userService.type == 'individual'">

@@ -219,7 +219,10 @@ export class ProfilePage {
       prov.displayName == 'Passport' ||
       prov.displayName == 'Steam' ||
       prov.displayName == 'SoundCloud'
-    ) return;
+    ) {return;}
+    else if (prov.displayName == 'Email') {
+      this.sendEmailVerif();
+    }
     else {
       var provider;
 
