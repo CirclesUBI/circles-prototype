@@ -14,24 +14,34 @@ page-home {
   }
 
   .toolbar{
-    height: 120px;
+    transition: .3s all;
+    height: 130px;
     align-items: flex-start;
     padding-top: 10px;
   }
 
-  .content{
-   // background: linear-gradient(170deg, map-get($colors, primary) 10%, #4788C8 60%, white 60%); /* Standard syntax */
-   // display: flex;
-   // flex-direction: column;
+  .collapse .toolbar{
+    height: 245px;
+  }
+
+  .toolbar-background{
+    transition: .5s background-color;
+  }
+
+  .collapse .toolbar-background{
+    background-color: map-get($colors, primary);
   }
 
   #home-content{
-     background: linear-gradient(170deg, map-get($colors, primary) 10%, #4788C8 378px, white 300px); /* Standard syntax */
-     height: 100%;
+    transition: .2s background-position;
+    background-position: 0 0;
+    background: linear-gradient(170deg, map-get($colors, primary) 10%, #4788C8 378px, white 300px);
+    height: 102%;
     pointer-events: visible;
+  }
 
-    // display: flex;
-    //flex-direction: column;
+  #home-content.collapse{
+    background-position: 0 -200px;
   }
 
   .home-fixed{
@@ -51,10 +61,12 @@ page-home {
   }
 
   .home-pic{
+    transition: .2s margin-top;
     margin-top: -50px;
     text-align: center;
     color: white;
     .circle-crop{
+      transition: .2s all;
       border-radius: 50%;
       position:relative;
       overflow: hidden;
@@ -70,12 +82,24 @@ page-home {
       margin: auto;
     }
     .user-name{
+      transition: .2s font-size;
       font-size: 9vw;
     }
     .balance{
       font-size: 18px;
       color: #E7E6E6;
       margin: -5px 0 10px 0;
+    }
+  }
+
+  .collapse .home-pic{
+    margin-top: -70px;
+    .circle-crop{
+      width: 70px;
+      height: 70px;
+    }
+    .user-name{
+      font-size: 6vw;
     }
   }
 
@@ -120,7 +144,7 @@ page-home {
 
   .scrolling-list{
     flex: 1 1 auto;
-    background-color: transparent;
+    background-color: white;
     margin: -10px 0 -10px 0;
     &::after {
       background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 10%); /* Standard syntax */

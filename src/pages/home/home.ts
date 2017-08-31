@@ -16,6 +16,8 @@ import { SearchPage } from '../search/search';
 import { UserDetailPage } from '../user-detail/user-detail';
 import { ValidatorDetailPage } from '../validator-detail/validator-detail';
 
+import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -38,7 +40,8 @@ export class HomePage {
     public navCtrl: NavController,
     private userService: UserService,
     private newsService: NewsService,
-    private validatorService: ValidatorService
+    private validatorService: ValidatorService,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   // tslint:disable-next-line:no-unused-variable
@@ -93,15 +96,26 @@ export class HomePage {
     );
   }
 
-  private onScrollList(e:Event):void {
-    console.log("scrolled");
-    console.log(e);
-  }
+  scrollTop = 0;
+  scrollScale = 1;
+  minScrollScale = .4;
+  private onScroll(e):void {
+    /*console.log(e);
+    this.scrollTop = e.scrollTop;
+    this.scrollScale = (100-e.scrollTop)/100;
+    if(this.scrollScale < this.minScrollScale)
+      this.scrollScale = this.minScrollScale;
+    console.log("scrollScale: ", this.scrollScale);*/
 
-  currPos = 0;
-  updateHeader(evt) {
-    this.currPos = (window.pageYOffset || evt.target.scrollTop)-(evt.target.clientTop || 0);
-    console.log(this.currPos);
+    console.log(e.scrollTop);
+
+    if(e.scrollTop == 0)
+      this.scrollScale = 1;
+    else
+      this.scrollScale = .5;
+
+    this.changeDetector.markForCheck();
+
   }
 
 }

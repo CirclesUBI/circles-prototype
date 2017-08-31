@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [ngClass]="{'collapse': scrollScale < 1}">
   <ion-navbar color="secondary">
     <!--<ion-title></ion-title>-->
     <ion-buttons left>
@@ -16,13 +16,17 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding id="home-content">
+<ion-content padding id="home-content"
+  [ngClass]="{'collapse': scrollScale < 1}"
+>
 
-  <span ion-fixed class="home-fixed" style="">
+  <span ion-fixed class="home-fixed">
 
     <div class="home-pic">
       <div class="circle-crop"
-        [ngStyle]="{'background-image': 'url(' + user?.profilePicURL + ')'}">
+        [ngStyle]="{
+        'background-image': 'url(' + user?.profilePicURL + ')'
+        }">
       </div>
 
       <div class="user-name">
@@ -73,7 +77,7 @@
     </div>
 
     <ion-content
-      overflow-scroll="true" class="scrolling-list" (scroll)="onScrollList($event)">
+      overflow-scroll="true" class="scrolling-list" (ionScroll)="onScroll($event)">
 
       <!-- NETWORK LIST -->
       <span *ngIf="selectedView == 'network'">
