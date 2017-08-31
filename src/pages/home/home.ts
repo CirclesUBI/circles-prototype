@@ -96,7 +96,7 @@ export class HomePage {
   scrollScale = 1;
   private onScroll(e):void {
     //console.log(e.scrollTop);
-    if(e.scrollTop == 0)
+    if(e.scrollTop <= 0)
       this.scrollScale = 1;
     else
       this.scrollScale = .5;
