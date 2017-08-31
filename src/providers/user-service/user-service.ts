@@ -87,6 +87,9 @@ export class UserService implements OnDestroy {
       (result) => {
 
         let user = result[0];
+        if (!user.uid)
+          console.log('user uid missing');
+
         let users = result[1];
         this.trustedUsersNetwork = [];
         this.users = [];
