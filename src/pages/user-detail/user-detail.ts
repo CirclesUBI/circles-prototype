@@ -25,6 +25,7 @@ export class UserDetailPage {
   private validatorTrusted: boolean = false;
   private trusted: boolean = false;
   private validatedBy: Validator = {} as Validator;
+  private validatedByKey: string;
 
   private profilePicURL: string;
 
@@ -52,7 +53,14 @@ export class UserDetailPage {
 
   // tslint:disable-next-line:no-unused-variable
   private sendCircles () {
-    this.navCtrl.push(SendPage, this.viewUser);
+    if (this.validatedBy)
+      this.sendCirclesViaValidator();
+    else
+      this.navCtrl.push(SendPage, {user:this.viewUser, val:false});
+  }
+
+  private sendCirclesViaValidator () {
+    this.navCtrl.push(SendPage, {user:this.viewUser, val:this.validatedByKey});
   }
 
   ionViewDidLoad() {
@@ -73,9 +81,10 @@ export class UserDetailPage {
         }
         if (this.user.validators && this.viewUser.validators) {
           this.user.validators.map( (valKey:string) => {
-             this.validatorTrusted = this.viewUser.validators.some( tUserValKey => {
+             this.trusted = this.validatorTrusted = this.viewUser.validators.some( tUserValKey => {
                if (tUserValKey == valKey) {
                 this.validatedBy = this.validatorService.keyToValidator(valKey);
+                this.validatedByKey = valKey;
                 return true;
               }
              });

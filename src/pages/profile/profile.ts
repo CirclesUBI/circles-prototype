@@ -168,40 +168,46 @@ export class ProfilePage {
     else {
 
     }
-    this.fileUpload().then( () => {
-      if (this.user.email != firebase.auth().currentUser.email) {
-        firebase.auth().currentUser.updateEmail(this.user.email).then(
-          (result) => {
-            this.sendEmailVerif().then(
-              () => {
-                this.userService.saveUser();
-                this.navCtrl.pop();
-              },
-              (error) => {
-                this.toast = this.toastCtrl.create({
-                  message: 'Error sending email verification: ' + error,
-                  duration: 4000,
-                  position: 'middle'
-                });
-              }
-            );
-          },
-          (error) => {
-            this.toast = this.toastCtrl.create({
-              message: 'Error updating email: ' + error,
-              duration: 4000,
-              position: 'middle'
-            });
-            console.error(error);
-            this.toast.present();
-          }
-        );
-      }
-      else {
-        this.userService.saveUser();
-        this.navCtrl.pop();
-      }
-    });
+    if (this.profilePicUpload) {
+      this.fileUpload().then( () => {
+        if (this.user.email != firebase.auth().currentUser.email) {
+          firebase.auth().currentUser.updateEmail(this.user.email).then(
+            (result) => {
+              this.sendEmailVerif().then(
+                () => {
+                  this.userService.saveUser();
+                  this.navCtrl.pop();
+                },
+                (error) => {
+                  this.toast = this.toastCtrl.create({
+                    message: 'Error sending email verification: ' + error,
+                    duration: 4000,
+                    position: 'middle'
+                  });
+                }
+              );
+            },
+            (error) => {
+              this.toast = this.toastCtrl.create({
+                message: 'Error updating email: ' + error,
+                duration: 4000,
+                position: 'middle'
+              });
+              console.error(error);
+              this.toast.present();
+            }
+          );
+        }
+        else {
+          this.userService.saveUser();
+          this.navCtrl.pop();
+        }
+      });
+    }
+    else {
+      this.userService.saveUser();
+      this.navCtrl.pop();
+    }
   }
 
   // tslint:disable-next-line:no-unused-variable

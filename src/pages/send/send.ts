@@ -26,6 +26,8 @@ export class SendPage {
   private loading: Loading;
   private toast: Toast;
 
+  private validatorTransfer: any;
+
   constructor(
     private formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
@@ -38,7 +40,8 @@ export class SendPage {
     private navParams: NavParams
   ) {
 
-    this.toUser = this.navParams.data;
+    this.toUser = this.navParams.data.user;
+    this.validatorTransfer = this.navParams.data.val;
 
     this.sendForm = this.formBuilder.group({
       toUserKey: [this.toUser.uid, Validators.required],
@@ -69,7 +72,8 @@ export class SendPage {
           content: 'Sending ...'
         });
         this.loading.present();
-        this.transactionService.transfer(this.user.uid,formData.toUserKey,formData.amount,formData.message).subscribe(
+        console.log(this.user.uid,formData.toUserKey,formData.amount,this.validatorTransfer);
+        this.transactionService.transfer(this.user.uid,formData.toUserKey,formData.amount,this.validatorTransfer).subscribe(
           (res) => {
             //if (this.transactionService.createTransactionIntent(formData.toUserKey, formData.amount, formData.message)) {
             //reset the recipient field
@@ -80,6 +84,7 @@ export class SendPage {
             this.navCtrl.pop();
           },
           (error) => {
+            this.loading.dismiss();
             this.toast = this.toastCtrl.create({
               message: 'Error sending circles: '+error,
               duration: 4000,

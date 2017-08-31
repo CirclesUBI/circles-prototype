@@ -25,8 +25,9 @@ export class TransactionService implements OnDestroy {
     );
   }
 
-  public transfer(fromUserKey,toUserKey,amount,message) {
-    return this.postTransaction(fromUserKey,toUserKey,amount);
+  public transfer(fromUserKey,toUserKey,amount,validator) {
+    if (validator) return this.postValidatorTransaction(fromUserKey,toUserKey,validator,amount);
+    else return this.postTransaction(fromUserKey,toUserKey,amount);
   }
 
   private postTransaction(fromUserKey,toUserKey,amount) {
@@ -34,6 +35,21 @@ export class TransactionService implements OnDestroy {
     let data = {
       fromUser:fromUserKey,
       toUser:toUserKey,
+      amount:amount
+    };
+    const body = JSON.stringify(data);
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+
+    return this.http.post(url,body,{headers: headers});
+  }
+
+  private postValidatorTransaction(fromUserKey,toUserKey,validatorKey,amount) {
+    let url = 'https://us-central1-circles-testnet.cloudfunctions.net/validatorTransfer';
+    let data = {
+      fromUser:fromUserKey,
+      toUser:toUserKey,
+      validator:validatorKey,
       amount:amount
     };
     const body = JSON.stringify(data);
