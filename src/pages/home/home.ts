@@ -16,9 +16,11 @@ import { SearchPage } from '../search/search';
 import { UserDetailPage } from '../user-detail/user-detail';
 import { ValidatorDetailPage } from '../validator-detail/validator-detail';
 
+import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html',
+  templateUrl: 'home.html'
 })
 export class HomePage {
 
@@ -35,7 +37,8 @@ export class HomePage {
     public navCtrl: NavController,
     private userService: UserService,
     private newsService: NewsService,
-    private validatorService: ValidatorService
+    private validatorService: ValidatorService,
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   // tslint:disable-next-line:no-unused-variable
@@ -89,4 +92,17 @@ export class HomePage {
       }
     );
   }
+
+  scrollScale = 1;
+  private onScroll(e):void {
+    //console.log(e.scrollTop);
+    if(e.scrollTop <= 0)
+      this.scrollScale = 1;
+    else
+      this.scrollScale = .5;
+
+    this.changeDetector.markForCheck();
+
+  }
+
 }
