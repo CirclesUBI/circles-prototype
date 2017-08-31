@@ -131,6 +131,8 @@ export class UserService implements OnDestroy {
             u.networkType = 'direct';
             this.trustedUsersNetwork.push(u);
           });
+        }
+        if (user.validators) {
           this.trustedUsersNetwork = this.trustedUsersNetwork.concat(this.trustedByValidator);
         }
       }
