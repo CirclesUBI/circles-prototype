@@ -252,42 +252,42 @@ export class WelcomePage {
 
     let circlesUser = this.userService.createCirclesUser(this.formState.type,this.authUser,formUser);
 
-    if (!circlesUser.authProviders.find( (prov) => prov == 'email')) {
-      let waitModal = this.modalController.create(WaitModal);
-      this.userService.sendAndWaitEmailVerification(waitModal).then(
-       (user) => {
-         circlesUser.authProviders.push('email');
-         waitModal.dismiss();
-       },
-       (error) => {
-         waitModal.dismiss();
-         this.toast = this.toastCtrl.create({
-           message: 'Error verifying email: ' + error,
-           duration: 4000,
-           position: 'middle'
-         });
-         console.error(error);
-         this.toast.present();
-       }
-     ).then( () => {
-       this.userObs$.set({userData:circlesUser}).then(
-         (result) => {
-           this.loading.dismiss();
-         },
-         (error) => {
-           this.loading.dismiss();
-           this.toast = this.toastCtrl.create({
-             message: 'Error saving User record: ' + error,
-             duration: 4000,
-             position: 'middle'
-           });
-           console.error(error);
-           this.toast.present();
-         }
-       );
-     });
-    }
-    else {
+    // if (!circlesUser.authProviders.find( (prov) => prov == 'email')) {
+    //   let waitModal = this.modalController.create(WaitModal);
+    //   this.userService.sendAndWaitEmailVerification(waitModal).then(
+    //    (user) => {
+    //      circlesUser.authProviders.push('email');
+    //      waitModal.dismiss();
+    //    },
+    //    (error) => {
+    //      waitModal.dismiss();
+    //      this.toast = this.toastCtrl.create({
+    //        message: 'Error verifying email: ' + error,
+    //        duration: 4000,
+    //        position: 'middle'
+    //      });
+    //      console.error(error);
+    //      this.toast.present();
+    //    }
+    //  ).then( () => {
+    //    this.userObs$.set({userData:circlesUser}).then(
+    //      (result) => {
+    //        this.loading.dismiss();
+    //      },
+    //      (error) => {
+    //        this.loading.dismiss();
+    //        this.toast = this.toastCtrl.create({
+    //          message: 'Error saving User record: ' + error,
+    //          duration: 4000,
+    //          position: 'middle'
+    //        });
+    //        console.error(error);
+    //        this.toast.present();
+    //      }
+    //    );
+    //  });
+    // }
+    // else {
       this.userObs$.set({userData:circlesUser}).then(
         (result) => {
           this.loading.dismiss();
@@ -303,7 +303,7 @@ export class WelcomePage {
           this.toast.present();
         }
       );
-    }
+    //}
   }
 
   ionViewDidLoad() {

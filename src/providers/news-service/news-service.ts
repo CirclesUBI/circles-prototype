@@ -128,22 +128,6 @@ export class NewsService implements OnDestroy {
       msg = 'Verification Email sent to: ' +initUserData.email;
       this.notificationsService.create('Email', msg, 'info');
     }
-
-    let n = {
-      timestamp: firebase.database['ServerValue']['TIMESTAMP'],
-      type: 'createAccount'
-    } as NewsItem;
-    this.newsItemsFirebaseList$.push(n);
-
-    if (this.userService.type == 'organisation') {
-      let n2 = {
-        timestamp: firebase.database['ServerValue']['TIMESTAMP'],
-        type: 'issuance',
-        amount: initUserData.balance,
-        coinTitle: initUserData.wallet[initUserData.uid].title
-      } as NewsItem;
-      this.newsItemsFirebaseList$.push(n2);
-    }
   }
 
   public addValidatorTrustAccept(validator: Validator):void {
