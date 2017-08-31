@@ -34,16 +34,15 @@
       <div class="balance">
         {{user?.balance}} css
       </div>
-
     </div>
 
     <!-- segment btns -->
     <div class="segment-btns">
-      <ion-segment [(ngModel)]="view" color="primary">
+      <ion-segment [(ngModel)]="selectedView" color="primary">
         <ion-segment-button class="offer-segment-button" value="network" (ionSelect)="selectNetwork()">
           Network
         </ion-segment-button>
-        <ion-segment-button class="offer-segment-button" value="wants" (ionSelect)="selectNews()">
+        <ion-segment-button class="offer-segment-button" value="news" (ionSelect)="selectNews()">
           News
         </ion-segment-button>
         <ion-segment-button class="offer-segment-button" value="validators" (ionSelect)="selectValidators()">
@@ -73,7 +72,8 @@
       </div>
     </div>
 
-    <ion-content overflow-scroll="true" class="scrolling-list">
+    <ion-content
+      overflow-scroll="true" class="scrolling-list" (scroll)="onScrollList($event)">
 
       <!-- NETWORK LIST -->
       <span *ngIf="selectedView == 'network'">

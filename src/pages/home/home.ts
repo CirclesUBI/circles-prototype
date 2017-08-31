@@ -19,6 +19,9 @@ import { ValidatorDetailPage } from '../validator-detail/validator-detail';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
+  host: {
+        '(window:scroll)': 'updateHeader($event)'
+    }
 })
 export class HomePage {
 
@@ -89,4 +92,16 @@ export class HomePage {
       }
     );
   }
+
+  private onScrollList(e:Event):void {
+    console.log("scrolled");
+    console.log(e);
+  }
+
+  currPos = 0;
+  updateHeader(evt) {
+    this.currPos = (window.pageYOffset || evt.target.scrollTop)-(evt.target.clientTop || 0);
+    console.log(this.currPos);
+  }
+
 }
