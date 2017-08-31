@@ -12,8 +12,12 @@
       <h1>{{viewUser.displayName}}</h1>
       <h2>{{viewUser.greeting}}</h2>
     </ion-card-title>
-    <ion-card-content style="padding: 0;">
-       <img src="{{profilePicURL}}">
+    <ion-card-content style="padding: 0;" class="relationship">
+
+      <div class="circle-crop large"
+        [ngStyle]="{'background-image': 'url(' + profilePicURL + ')'}">
+      </div>
+
        <span>
          <div class="center-wrapper" *ngIf="(trustTo&&!trustFrom)||validatorTrusted">
            <div class="center-item"><span class="arrow">↑</span></div>
@@ -23,7 +27,10 @@
 
          <div class="center-wrapper" *ngIf="validatorTrusted">
            <ion-avatar class="center-item" style="width:85px;" item-center>
-             <img src="{{validatedBy.profilePicURL}}">
+            <div class="circle-crop small"
+              [ngStyle]="{'background-image': 'url(' + validatedBy.profilePicURL + ')'}">
+            </div>
+            <!--<img src="{{validatedBy.profilePicURL}}">-->
             </ion-avatar>
          </div>
 
@@ -33,13 +40,22 @@
          </div>
 
          <div class="center-wrapper" *ngIf="(trustFrom&&trustTo)&&!validatorTrusted">
-           <div class="center-item"><span class="arrow">↕</span></div>
-           <div class="center-text">Trust each other</div>
+          <div class="center-item">
+            <ion-icon name="arrow-up"></ion-icon>
+            <!--<span class="arrow">↕</span>-->
+          </div>
+            <div class="center-text">You trust each other</div>
+            <div class="center-item">
+              <ion-icon name="arrow-down"></ion-icon>
+            </div>
          </div>
 
          <div class="center-wrapper" *ngIf="trustTo||trustFrom||validatorTrusted">
-            <ion-avatar class="center-item" style="width:85px;" item-center>
-              <img src="{{user.profilePicURL || genericProfilePicURL}}">
+            <ion-avatar class="center-item" style="" item-center>
+              <div class="circle-crop small"
+                [ngStyle]="{'background-image': 'url(' + user.profilePicURL || genericProfilePicURL + ')'}">
+              </div>
+              <!--<img src="{{user.profilePicURL || genericProfilePicURL}}">-->
            </ion-avatar>
          </div>
        </span>
