@@ -144,11 +144,11 @@ export class WelcomePage {
   }
 
   // tslint:disable-next-line:no-unused-variable
-  private onSlideDidChange(): void {
-    let i = this.welcomeSlider.getActiveIndex();
-    //let slideName = this.profilePageViewNames[i];
-    //this.analytics.trackPageView('Profile Page: ' + slideName);
-  }
+  // private onSlideDidChange(): void {
+  //   let i = this.welcomeSlider.getActiveIndex();
+  //   //let slideName = this.profilePageViewNames[i];
+  //   //this.analytics.trackPageView('Profile Page: ' + slideName);
+  // }
 
 
   public fileChangeEvent(fileInput: any) {
@@ -250,7 +250,7 @@ export class WelcomePage {
   private saveUser(formUser) {
     //sends us back to app.component's auth observer
 
-    let circlesUser = this.userService.createCirclesUser(this.authUser,formUser);
+    let circlesUser = this.userService.createCirclesUser(this.formState.type,this.authUser,formUser);
 
     if (!circlesUser.authProviders.find( (prov) => prov == 'email')) {
       let waitModal = this.modalController.create(WaitModal);
@@ -305,42 +305,6 @@ export class WelcomePage {
       );
     }
   }
-
-  // public sendAndWaitEmailVerification(showWaitUI) {
-  //   return new Promise((resolve, reject) => {
-  //     let interval=null;
-  //     let user = firebase.auth().currentUser;
-  //     user.sendEmailVerification().then(
-  //       () => {
-  //         if (showWaitUI) showWaitUI();
-  //         interval = setInterval(
-  //           () => {
-  //             user.reload().then(
-  //               () => {
-  //                 if (interval && user.emailVerified) {
-  //                   clearInterval(interval);
-  //                   interval=null;
-  //                   resolve(user);
-  //                 }
-  //               },
-  //               error => {
-  //                 if (interval) {
-  //                   clearInterval(interval);
-  //                   interval=null;
-  //                   console.log('sendAndWaitEmailVerification: reload failed ! '+error);
-  //                   reject(error);
-  //                 }
-  //               }
-  //             );
-  //           }, 1000);
-  //       },
-  //       error => {
-  //         console.log('sendAndWaitEmailVerification: sendEmailVerification failed ! '+error);
-  //         reject(error);
-  //       }
-  //     );
-  //   });
-  // }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');

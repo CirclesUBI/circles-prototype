@@ -12,7 +12,7 @@
       <h1>{{viewUser.displayName}}</h1>
       <h2>{{viewUser.greeting}}</h2>
     </ion-card-title>
-    <ion-card-content style="padding: 0;">
+    <ion-card-content style="padding: 0;" class="relationship">
 
       <div class="circle-crop large"
         [ngStyle]="{'background-image': 'url(' + profilePicURL + ')'}">
@@ -27,9 +27,16 @@
 
          <div class="center-wrapper" *ngIf="validatorTrusted">
            <ion-avatar class="center-item" style="width:85px;" item-center>
+<<<<<<< HEAD
               <div class="circle-crop small"
                 [ngStyle]="{'background-image': 'url(' + validatedBy.profilePicURL + ')'}">
               </div>
+=======
+            <div class="circle-crop small"
+              [ngStyle]="{'background-image': 'url(' + validatedBy.profilePicURL + ')'}">
+            </div>
+            <!--<img src="{{validatedBy.profilePicURL}}">-->
+>>>>>>> develop-jack
             </ion-avatar>
          </div>
 
@@ -39,21 +46,39 @@
          </div>
 
          <div class="center-wrapper" *ngIf="(trustFrom&&trustTo)&&!validatorTrusted">
+<<<<<<< HEAD
             <div class="center-text">You trust each other</div>
          </div>
 
          <div class="center-wrapper" *ngIf="trustTo||trustFrom||validatorTrusted">
             <ion-avatar class="center-item" item-center>
+=======
+          <div class="center-item">
+            <ion-icon name="arrow-up"></ion-icon>
+            <!--<span class="arrow">↕</span>-->
+          </div>
+            <div class="center-text">You trust each other</div>
+            <div class="center-item">
+              <ion-icon name="arrow-down"></ion-icon>
+            </div>
+         </div>
+
+         <div class="center-wrapper" *ngIf="trustTo||trustFrom||validatorTrusted">
+            <ion-avatar class="center-item" style="" item-center>
+>>>>>>> develop-jack
               <div class="circle-crop small"
                 [ngStyle]="{'background-image': 'url(' + user.profilePicURL || genericProfilePicURL + ')'}">
               </div>
-             <!-- <img src="{{user.profilePicURL || genericProfilePicURL}}">-->
+              <!--<img src="{{user.profilePicURL || genericProfilePicURL}}">-->
            </ion-avatar>
          </div>
+<<<<<<< HEAD
        </div>
 
+=======
+       </span>
+>>>>>>> develop-jack
        <ion-list no-lines>
-
          <ion-item *ngIf="viewUser.email">
            <ion-icon name="mail" item-left></ion-icon>
            <p>{{viewUser.email}}</p>
