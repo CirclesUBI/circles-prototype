@@ -7,6 +7,7 @@ export interface User {
   agreedToDisclaimer:boolean, //used for legal reasons, and to denote that the user has been fully set up
   authProviders: Array<string|Provider>;
   balance: number;
+  coins:any; //ref to my own coins - wallet[user.uid];
   createdAt: any;
   displayName: string;
   email: string;

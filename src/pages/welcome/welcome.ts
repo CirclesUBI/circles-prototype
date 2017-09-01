@@ -202,13 +202,12 @@ export class WelcomePage {
       user = user as Individual;
       user.firstName = this.individualForm.get('firstName').value;
       user.lastName = this.individualForm.get('lastName').value;
-      user.displayName = user.firstName + ' ' + user.lastName;
       user.email = this.individualForm.get('email').value || '';
       user.profilePicURL = this.picForm.get('profilePicURL').value;
     }
     else {
       user = user as Organisation;
-      user.displayName = this.organisationForm.get('organisation').value;
+      user.organisation = this.organisationForm.get('organisation').value;
       user.email = this.organisationForm.get('email').value || '';
       user.greeting = this.organisationForm.get('tagline').value || '';
       user.website = this.organisationForm.get('website').value || '';
@@ -250,7 +249,26 @@ export class WelcomePage {
   private saveUser(formUser) {
     //sends us back to app.component's auth observer
 
-    let circlesUser = this.userService.createCirclesUser(this.formState.type,this.authUser,formUser);
+    let providers = ['name'];
+    if (formUser.email === this.authUser.email && this.authUser.emailVerified) {
+      providers.push('email');
+    }
+    if (formUser.profilePicURL) {
+      providers.push('photo');
+    }
+    else {
+      formUser.profilePicURL = "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a";
+    }
+
+    formUser.authProviders = this.authUser.providerData.map(
+      (provider) => {
+        return provider.providerId.split('.')[0];
+      }
+    ).concat(providers).filter((elem, pos, arr) => {
+      return arr.indexOf(elem) == pos;
+    });
+    debugger;
+
 
     // if (!circlesUser.authProviders.find( (prov) => prov == 'email')) {
     //   let waitModal = this.modalController.create(WaitModal);
@@ -288,7 +306,7 @@ export class WelcomePage {
     //  });
     // }
     // else {
-      this.userObs$.set({userData:circlesUser}).then(
+      this.userObs$.set({userData:formUser}).then(
         (result) => {
           this.loading.dismiss();
         },

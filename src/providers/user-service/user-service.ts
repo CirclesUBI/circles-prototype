@@ -19,8 +19,7 @@ export class UserService implements OnDestroy {
 
   public users: any;
   public type: string;
-  public authProviders: Array<string>;
-
+  
   public user$: Observable<User>;
   public userFirebaseObj$: FirebaseObjectObservable<User>;
   public usersFirebaseList$: FirebaseListObservable<any>;
@@ -40,7 +39,6 @@ export class UserService implements OnDestroy {
 
   constructor(private db: AngularFireDatabase) {
 
-    this.user.createdAt = 0;
     this.user$ = this.userSubject$.asObservable();
     this.usersFirebaseList$ = this.db.list('/users/');
     this.usersSub$ = this.usersFirebaseList$.subscribe(
@@ -56,16 +54,8 @@ export class UserService implements OnDestroy {
     );
   }
 
-  public initialise(authProviders, initUser) {
-
-    this.authProviders = authProviders.map(
-      (provider) => {
-        return provider.providerId.split('.')[0];
-      }
-    );
-    this.authProviders = this.authProviders.concat(initUser.authProviders).filter((elem, pos, arr) => {
-      return arr.indexOf(elem) == pos;
-    });
+  public initialise(initUser) {
+    debugger;
 
     if (!this.isOrg(initUser))
       this.type = 'individual';
@@ -76,8 +66,6 @@ export class UserService implements OnDestroy {
     this.userSub$ = this.userFirebaseObj$.subscribe(
       user => {
         this.user = user;
-        this.user.authProviders = this.authProviders;
-        //this.setBalance(user);
         this.userSubject$.next(this.user);
       },
       error => console.log('Could not load current user record.')
@@ -142,37 +130,6 @@ export class UserService implements OnDestroy {
   public addValidatorUsers(users:Array<User>) {
     this.trustedByValidator = users;
     this.trustedUsersNetwork = this.trustedUsersNetwork.concat(this.trustedByValidator);
-  }
-
-  public createCirclesUser(type,authUser,formUser) {
-
-    if (type == 'organisation') {
-      formUser.organisation = formUser.displayName;
-    }
-    else {
-      formUser.firstName = formUser.firstName.charAt(0).toUpperCase() + formUser.firstName.slice(1).toLowerCase();
-      formUser.lastName = formUser.lastName.charAt(0).toUpperCase() + formUser.lastName.slice(1).toLowerCase();
-      formUser.displayName = formUser.firstName+' '+formUser.lastName;
-    }
-
-    formUser.createdAt = firebase.database['ServerValue']['TIMESTAMP'];
-
-    let providers = ['name'];
-    if (formUser.email === authUser.email && authUser.emailVerified) {
-      providers.push('email');
-    }
-    if (formUser.profilePicURL) {
-      providers.push('photo');
-    }
-    else {
-      formUser.profilePicURL = "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a";
-    }
-    //providers.push(authUser.providerData[0].providerId);
-    formUser.authProviders = providers;
-    formUser.agreedToDisclaimer = false;
-
-    this.user = this.setInitialWallet(formUser);
-    return this.user;
   }
 
   public sendAndWaitEmailVerification(waitModal) {
@@ -272,35 +229,6 @@ export class UserService implements OnDestroy {
 	     return user != userKey;
     });
     this.updateUser({trustedUsers:this.user.trustedUsers});
-  }
-
-  private setInitialWallet(user:Individual | Organisation): Individual | Organisation {
-
-    let now = new Date();
-    this.myCoins.amount = 0;
-    this.myCoins.owner = user.uid;
-    if (this.isOrg(user)) {
-      this.myCoins.title = 'Circles';
-    }
-    else {
-      this.myCoins.title = user.firstName + 'Coin';
-    }
-    this.myCoins.priority = 0;
-    this.myCoins.createdAt = now.getTime();
-    this.allCoins = {
-      [user.uid]: this.myCoins
-    };
-    user.wallet = this.allCoins;
-    user.balance = 0;
-    return user;
-  }
-
-  public setBalance(user:User): void {
-    let total = 0;
-    for (let i in user.wallet) {
-      total += user.wallet[i].amount;
-    }
-    user.balance = total;
   }
 
   public signOut() {

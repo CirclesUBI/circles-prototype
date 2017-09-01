@@ -49,19 +49,19 @@
     </div>
 
     <div id="balance-detail" *ngIf="userService.type == 'organisation'">
-      <div class="sent">
+      <div>
         <h1>Circles</h1>
-        <h2>{{allCoinBalance}}</h2>
+        <h2>{{user?.balance}}</h2>
       </div>
     </div>
     <div id="balance-detail" *ngIf="userService.type == 'individual'">
       <div class="received">
         <h1>My Coins Balance</h1>
-        <h2>{{myCoinBalance}} {{myCoinName}}</h2>
+        <h2>{{user?.coins?.amount}} {{user?.coins?.title}}</h2>
       </div>
       <div class="sent">
         <h1>All Coins Balance</h1>
-        <h2>{{allCoinBalance}} Circles</h2>
+        <h2>{{user?.balance}} Circles</h2>
       </div>
     </div>
 

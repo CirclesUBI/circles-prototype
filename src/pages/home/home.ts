@@ -72,19 +72,13 @@ export class HomePage {
 
     this.userSub$ = this.userService.user$.subscribe(
       user => {
-        if (!user.agreedToDisclaimer) {
-          //if they got this far then they have agreed to the disclaimer
-          this.userService.updateUser({agreedToDisclaimer:true});
-        }
-
+        console.log("user", user);
+        debugger;
         if (this.userService.type === 'organisation') {
           this.user = user as Organisation;
         }
         else {
           this.user = user as Individual;
-          this.myCoinName = user.wallet[user.uid].title;
-          this.myCoinBalance = user.wallet[user.uid].amount;
-          this.allCoinBalance = user.balance;
         }
       }
     );

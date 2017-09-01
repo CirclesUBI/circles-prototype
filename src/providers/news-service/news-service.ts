@@ -36,8 +36,6 @@ export class NewsService implements OnDestroy {
 
   public initialise (initUser) {
     this.setupDBQuery(initUser.uid);
-    if (!initUser.agreedToDisclaimer)
-      this.addCreateUser(initUser);
 
     this.userService.user$.subscribe(
       (user) => this.user = user,
