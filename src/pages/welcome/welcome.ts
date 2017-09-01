@@ -267,7 +267,6 @@ export class WelcomePage {
     ).concat(providers).filter((elem, pos, arr) => {
       return arr.indexOf(elem) == pos;
     });
-    debugger;
 
 
     // if (!circlesUser.authProviders.find( (prov) => prov == 'email')) {

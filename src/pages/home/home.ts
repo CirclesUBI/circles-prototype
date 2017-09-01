@@ -73,7 +73,6 @@ export class HomePage {
     this.userSub$ = this.userService.user$.subscribe(
       user => {
         console.log("user", user);
-        debugger;
         if (this.userService.type === 'organisation') {
           this.user = user as Organisation;
         }

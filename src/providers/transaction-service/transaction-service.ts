@@ -35,14 +35,13 @@ export class TransactionService implements OnDestroy {
         this.postValidatorTransaction(fromUserKey,toUserKey,validator,amount).subscribe(
           (res:any) => {
             let result = JSON.parse(res._body);
-            debugger;
             if (!result.complete) {
               this.notificationsService.create('Send Fail', '', 'error');
               this.notificationsService.create('Error', result.message, 'warn');
               reject();
             }
             else {
-              this.notificationsService.create('Send Success', '', 'success');              
+              this.notificationsService.create('Send Success', '', 'success');
               this.notificationsService.create('Sent', result.message, 'warn');
               resolve();
             }
