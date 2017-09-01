@@ -13,10 +13,7 @@ export class AuthService {
   public authState$: any;
 
   constructor(
-    private afAuth: AngularFireAuth,
-    private newsService: NewsService,
-    private userService: UserService,
-    private validatorService: ValidatorService
+    private afAuth: AngularFireAuth
   ) {
     this.authState$ = this.afAuth.authState;
   }
@@ -42,10 +39,8 @@ export class AuthService {
   }
 
   signOut() {
-    this.newsService.signOut();
-    this.validatorService.signOut();
-
-    this.userService.signOut();
+    // this.newsService.signOut();
+    // this.validatorService.signOut();
 
     this.afAuth.auth.signOut().then(
       (user) => {

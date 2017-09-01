@@ -61,7 +61,8 @@ export class WalletPage {
 
   // tslint:disable-next-line:no-unused-variable
   private async save() {
-    for (let c of this.displayWallet) {
+    for (let c of this.displayWallet as any) {
+      c.displayOwner = null;
       this.user.wallet[c.owner] = c;
     }
     this.userService.updateUser({wallet:this.user.wallet});
@@ -78,7 +79,7 @@ export class WalletPage {
         this.displayWallet = [];
         for (let i in this.user.wallet) {
           let w = Object.assign({},this.user.wallet[i]) as any;
-          w.displayOwner = this.userService.keyToUserName(w.owner);
+          w.displayOwner = this.userService.keyToUser(w.owner).displayName;
           this.displayWallet.push(w);
         }
         this.orderByPriority();

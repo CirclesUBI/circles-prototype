@@ -64,6 +64,14 @@ export class NewsService implements OnDestroy {
           let msg = 'You have minted ' + latestNewsItem.amount + ' Circles';
           this.notificationsService.create('Issuance', msg, 'info');
         }
+        else if (latestNewsItem.type == 'trustUser') {
+          let msg = latestNewsItem.from + 'has started trusting you';
+          this.notificationsService.create('Trust', msg, 'success');
+        }
+        else if (latestNewsItem.type == 'revokeUser') {
+          let msg = latestNewsItem.from + 'has stopped trusting you';
+          this.notificationsService.create('Revoke', msg, 'warn');
+        }
       });
       this.newsItemsFirebaseList$.subscribe(this.newsItems$);
 

@@ -91,34 +91,19 @@ export class NewsCard implements OnDestroy, OnInit {
       this.profilePicURL = validator.profilePicURL;
       this.message = `No longer validated by ${validator.displayName}`;
     }
-    else if (this.newsItem.type == 'trustUser' && this.newsItem.to) {
+    else if (this.newsItem.type == 'trustUser') {
       this.title = "Trust Afforded";
       this.itemIcon = "checkmark-circle";
       let user = this.userService.keyToUser(this.newsItem.to);
       this.profilePicURL = user.profilePicURL;
       this.message = `Afforded trust to: ${user.displayName}`;
     }
-    else if (this.newsItem.type == 'trustUser' && this.newsItem.from) {
-      this.title = "Trust Receieved";
-      this.itemIcon = "checkmark-circle";
-      let user = this.userService.keyToUser(this.newsItem.from);
-      this.profilePicURL = user.profilePicURL;
-      this.message = `Receieved trust from: ${user.displayName}`;
-    }
-    else if (this.newsItem.type == 'revokeUser' && this.newsItem.to) {
+    else if (this.newsItem.type == 'revokeUser') {
       this.title = "Revoke Trust";
       this.itemIcon = "close-circle";
       let user = this.userService.keyToUser(this.newsItem.to);
       this.profilePicURL = user.profilePicURL;
       this.message = `Stopped trusting: ${user.displayName}`;
-    }
-    else if (this.newsItem.type == 'revokeUser' && this.newsItem.from) {
-      this.title = "Revoke Trust";
-      this.itemIcon = "close-circle";
-      let user = this.userService.keyToUser(this.newsItem.from);
-      debugger;
-      this.profilePicURL = user.profilePicURL;
-      this.message = `${user.displayName} stopped trusting you`;
     }
     else if (this.newsItem.type == 'issuance') {
       this.title = "Issuance";

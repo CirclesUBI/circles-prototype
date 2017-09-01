@@ -62,7 +62,7 @@ export class SendPage {
       return;
     }
 
-    let toUserName = this.userService.keyToUserName(formData.toUserKey);
+    let toUserName = this.userService.keyToUser(formData.toUserKey).displayName;
     let msg = "You are about to send "+formData.amount+" to "+toUserName;
     let conf = this.modalController.create(ConfirmModal, { title: 'Confirm Send', message: msg });
     conf.present();

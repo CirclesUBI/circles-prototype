@@ -52,7 +52,7 @@ export class CirclesApp {
       }
       statusBar.styleDefault();
       this.authService.authState$.subscribe(
-        auth => {
+        (auth) => {
           if (auth) {
             this.loading = this.loadingCtrl.create({
               content: 'Logging in ...',
@@ -68,7 +68,6 @@ export class CirclesApp {
                 }
                 else {
                   authUserSub$.unsubscribe();
-                  this.userService.initialise(user.userData);
                   this.newsService.initialise(user.userData);
                   this.isInApp = true;
                   this.nav.setRoot(HomePage);
@@ -92,7 +91,7 @@ export class CirclesApp {
             },500);
           }
         },
-        error => {
+        (error) => {
           this.toast = this.toastCtrl.create({
             message: 'User auth error: ' + error,
             duration: 4000,
