@@ -87,23 +87,6 @@ export class NewsService implements OnDestroy {
     return this.newsItemsReversed$;
   }
 
-  public addTransaction(toUserKey:string, amount:number, message?:string):void {
-    //this will only be called for sending to someone else
-    let newsItem = {
-      timestamp: firebase.database['ServerValue']['TIMESTAMP'],
-      from: this.user.uid,
-      amount: amount,
-      to: toUserKey,
-      type: 'transaction',
-      message: message || ''
-    } as NewsItem;
-    this.newsItemsFirebaseList$.push(newsItem);
-
-    this.db.list('/users/'+toUserKey+'/news/').push(newsItem);
-
-  }
-
-
 
   public addValidatorTrustRequest(validator: Validator):void {
 

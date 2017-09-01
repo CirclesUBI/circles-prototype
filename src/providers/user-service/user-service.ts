@@ -19,7 +19,7 @@ export class UserService implements OnDestroy {
 
   public users: any;
   public type: string;
-  
+
   public user$: Observable<User>;
   public userFirebaseObj$: FirebaseObjectObservable<User>;
   public usersFirebaseList$: FirebaseListObservable<any>;
@@ -32,8 +32,7 @@ export class UserService implements OnDestroy {
   private userSub$: Subscription;
   private usersSub$: Subscription;
   private combinedSub$: Subscription;
-  private myCoins: Coin = {} as Coin;
-  private allCoins: { [key: string]: Coin };
+
   public trustedUsersNetwork: Array<any> = [];
   public trustedByValidator: Array<any> = [];
 
@@ -55,7 +54,6 @@ export class UserService implements OnDestroy {
   }
 
   public initialise(initUser) {
-    debugger;
 
     if (!this.isOrg(initUser))
       this.type = 'individual';
@@ -66,6 +64,7 @@ export class UserService implements OnDestroy {
     this.userSub$ = this.userFirebaseObj$.subscribe(
       user => {
         this.user = user;
+        this.user.coins = this.user.wallet[this.user.uid];
         this.userSubject$.next(this.user);
       },
       error => console.log('Could not load current user record.')
@@ -73,10 +72,11 @@ export class UserService implements OnDestroy {
 
     this.combinedSub$  = Observable.combineLatest(this.userFirebaseObj$, this.usersFirebaseList$).subscribe(
       (result) => {
-
         let user = result[0];
         if (!user.uid)
           console.log('user uid missing');
+
+        this.user.coins = this.user.wallet[this.user.uid];
 
         let users = result[1];
         this.trustedUsersNetwork = [];

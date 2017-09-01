@@ -73,25 +73,15 @@ export class SendPage {
         });
         this.loading.present();
         console.log(this.user.uid,formData.toUserKey,formData.amount,this.validatorTransfer);
-        this.transactionService.transfer(this.user.uid,formData.toUserKey,formData.amount,this.validatorTransfer).subscribe(
-          (res) => {
-            //if (this.transactionService.createTransactionIntent(formData.toUserKey, formData.amount, formData.message)) {
-            //reset the recipient field
+        this.transactionService.transfer(this.user.uid,formData.toUserKey,formData.amount,this.validatorTransfer).then(
+          () => {
             this.toUser = null;
             this.sendForm.reset();
-            this.userService.saveUser();
             this.loading.dismiss();
             this.navCtrl.pop();
           },
           (error) => {
             this.loading.dismiss();
-            this.toast = this.toastCtrl.create({
-              message: 'Error sending circles: '+error,
-              duration: 4000,
-              position: 'middle'
-            });
-            console.error(error);
-            this.toast.present();
           }
         );
       }
