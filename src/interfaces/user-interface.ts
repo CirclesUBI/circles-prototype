@@ -17,8 +17,9 @@ export interface User {
   tradeMessage?:string;
   trustedBy: Array<string|User>;
   trustedUsers: Array<string|User>;
+  trustedByValidators: any;
   uid: string;
-  validators: Array<string|Validator>;
+  validators: Array<string>;
   wallet:{ [key: string]: Coin };
   website?: string;
 }

@@ -11,13 +11,14 @@ import 'rxjs/add/operator/map';
 import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 import { Organisation } from '../../interfaces/organisation-interface';
-
 import { Coin } from '../../interfaces/coin-interface';
+import { ValidatorService } from '../../providers/validator-service/validator-service';
 
 @Injectable()
 export class UserService implements OnDestroy {
 
   public users: any;
+  public validators: any;
   public type: string;
 
   public user$: Observable<User>;
@@ -36,7 +37,7 @@ export class UserService implements OnDestroy {
   public trustedUsersNetwork: Array<any> = [];
   public trustedByValidator: Array<any> = [];
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase, private validatorService: ValidatorService) {
 
     this.user$ = this.userSubject$.asObservable();
     this.usersFirebaseList$ = this.db.list('/users/');
@@ -65,6 +66,8 @@ export class UserService implements OnDestroy {
       user => {
         this.user = user;
         this.user.coins = this.user.wallet[this.user.uid];
+        this.validators = this.user.validators.map((valKey) => this.validatorService.keyToValidator(valKey));
+        debugger;
         this.userSubject$.next(this.user);
       },
       error => console.log('Could not load current user record.')
@@ -120,17 +123,21 @@ export class UserService implements OnDestroy {
             this.trustedUsersNetwork.push(u);
           });
         }
-        if (user.validators) {
-          this.trustedUsersNetwork = this.trustedUsersNetwork.concat(this.trustedByValidator);
+        if (user.trustedByValidators) {
+          for (let valKey in user.trustedByValidators) {
+            user.trustedByValidators[valKey].map((userKey:string) => {
+              let u = Object.assign({}, this.keyToUser(userKey)) as any;
+              u.image = this.validatorService.keyToValidator(valKey).profilePicURL;
+              u.networkType = 'validator';
+              this.trustedUsersNetwork.push(u);
+            });
+          }
         }
       }
     );
   }
 
-  public addValidatorUsers(users:Array<User>) {
-    this.trustedByValidator = users;
-    this.trustedUsersNetwork = this.trustedUsersNetwork.concat(this.trustedByValidator);
-  }
+
 
   public sendAndWaitEmailVerification(waitModal) {
     return new Promise((resolve, reject) => {

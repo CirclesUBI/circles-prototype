@@ -94,7 +94,7 @@
 
       <!-- VALIDATORS list -->
       <span *ngIf="selectedView == 'validators'">
-        <ion-item *ngFor="let validator of validatorService.userValidators" (click)="goToValidatorDetail(validator)">
+        <ion-item *ngFor="let validator of userService.validators" (click)="goToValidatorDetail(validator)">
           <ion-avatar style="width:48px;height:48px" item-left>
             <img src="{{validator?.profilePicURL}}">
           </ion-avatar>
@@ -102,7 +102,7 @@
           <p>{{validator?.description}}</p>
         </ion-item>
         <!-- placeholder text -->
-        <div *ngIf="validatorService.userValidators.length == 0" class="disclaimer">
+        <div *ngIf="userService.validators.length == 0" class="disclaimer">
           Nobody has validated you yet.<br>
           Tap the search icon <ion-icon name="search"></ion-icon> in the top-right of the screen to build your network.
         </div>
