@@ -66,8 +66,11 @@ export class UserService implements OnDestroy {
       user => {
         this.user = user;
         this.user.coins = this.user.wallet[this.user.uid];
-        this.validators = this.user.validators.map((valKey) => this.validatorService.keyToValidator(valKey));
-        debugger;
+        if (this.user.validators)
+          this.validators = this.user.validators.map((valKey) => this.validatorService.keyToValidator(valKey));
+        else
+          this.validators = [];
+
         this.userSubject$.next(this.user);
       },
       error => console.log('Could not load current user record.')
@@ -124,6 +127,7 @@ export class UserService implements OnDestroy {
           });
         }
         if (user.trustedByValidators) {
+          debugger;
           for (let valKey in user.trustedByValidators) {
             user.trustedByValidators[valKey].map((userKey:string) => {
               let u = Object.assign({}, this.keyToUser(userKey)) as any;

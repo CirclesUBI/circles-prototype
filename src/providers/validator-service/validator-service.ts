@@ -44,7 +44,12 @@ export class ValidatorService {
       }
     });
 
-    this.providersFirebaseObj$.subscribe((providers) => this.allProviders);
+    this.providersFirebaseObj$.subscribe((providers) => {
+      this.providers = providers;
+      for (let p of this.providers) {
+        this.allProviders[p.$key] = p;
+      }
+    });
   }
 
   public getUserProviders(user) {
@@ -133,15 +138,7 @@ export class ValidatorService {
         return userKey !== user.uid;
       });
     }
-
-    if (!user.validators) {
-    //todo:error
-    }
-    else {
-      user.validators = user.validators.filter(valiKey => {
-        return valiKey !== validator.$key;
-      });
-    }
+    this.saveValidator(validator);
   }
 
   public applyForValidation(user, validator) {

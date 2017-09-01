@@ -102,7 +102,7 @@
           <p>{{validator?.description}}</p>
         </ion-item>
         <!-- placeholder text -->
-        <div *ngIf="userService.validators.length == 0" class="disclaimer">
+        <div *ngIf="!userService.validators" class="disclaimer">
           Nobody has validated you yet.<br>
           Tap the search icon <ion-icon name="search"></ion-icon> in the top-right of the screen to build your network.
         </div>

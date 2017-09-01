@@ -44,8 +44,6 @@ export class ValidatorDetailPage {
     this.trusted = false;
     this.validatorService.revokeValidation(this.user,this.validator);
     this.newsService.revokeValidatorTrust(this.validator);
-    this.userService.saveUser();
-    this.validatorService.saveValidator(this.validator);
   }
 
   // tslint:disable-next-line:no-unused-variable
