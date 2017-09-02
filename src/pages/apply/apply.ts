@@ -63,13 +63,9 @@ export class ApplyPage {
         this.loading.present();
 
         this.validatorService.applyForValidation(this.user, this.validator);
-        this.newsService.addValidatorTrustRequest(this.validator);
         if (this.validator.autoAccept) {
           setTimeout(() => {
             this.validatorService.completeValidation(this.user, this.validator);
-            this.newsService.addValidatorTrustAccept(this.validator);
-            this.userService.saveUser();
-            this.validatorService.saveValidator(this.validator);
             this.loading.dismiss();
             this.navCtrl.pop();
           }, 2000);
@@ -78,8 +74,6 @@ export class ApplyPage {
           this.loading.dismiss();
           this.navCtrl.pop();
         }
-        this.userService.saveUser();
-        this.validatorService.saveValidator(this.validator);
       }
       else {
         this.loading.dismiss();

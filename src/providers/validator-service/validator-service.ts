@@ -147,6 +147,7 @@ export class ValidatorService {
     else
       validator.appliedUsers.push(user.uid);
 
+    this.saveValidator(validator);
   }
 
   public completeValidation(user, validator) {

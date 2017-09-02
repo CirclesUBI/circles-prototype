@@ -41,13 +41,11 @@ export class UserDetailPage {
 
   // tslint:disable-next-line:no-unused-variable
   private revokeTrust() {
-    this.newsService.revokeUserTrust(this.viewUser);
     this.userService.removeTrustedUser(this.viewUser.uid);
   }
 
   // tslint:disable-next-line:no-unused-variable
   private affordTrust() {
-    this.newsService.addTrust(this.viewUser);
     this.userService.addTrustedUser(this.viewUser.uid);
   }
 

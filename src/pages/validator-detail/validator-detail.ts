@@ -43,7 +43,6 @@ export class ValidatorDetailPage {
     );
     this.trusted = false;
     this.validatorService.revokeValidation(this.user,this.validator);
-    this.newsService.revokeValidatorTrust(this.validator);
   }
 
   // tslint:disable-next-line:no-unused-variable
