@@ -116,7 +116,6 @@ export class NewsCard implements OnDestroy, OnInit {
       this.title = "Revoke Trust";
       this.itemIcon = "close-circle";
       let user = this.userService.keyToUser(this.newsItem.from);
-      debugger;
       this.profilePicURL = user.profilePicURL;
       this.message = `${user.displayName} stopped trusting you`;
     }

@@ -50,9 +50,14 @@ export class UserService implements OnDestroy {
 
           this.combinedSub$  = Observable.combineLatest(this.userFirebaseObj$, this.usersFirebaseList$).subscribe(
             (result) => {
-              let user = result[0];
+              let user = result[0] as any;
               if (!user.uid)
                 console.log('user uid missing');
+
+              if (!this.isOrg(user))
+                this.type = 'individual';
+              else
+                this.type = 'organisation';
 
               this.user = user;
               this.user.coins = this.user.wallet[this.user.uid];
