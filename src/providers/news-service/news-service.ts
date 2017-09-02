@@ -85,7 +85,7 @@ export class NewsService implements OnDestroy {
           let msg = 'You have been validated by: ' +this.validatorService.keyToValidator(latestNewsItem.from).displayName;
           this.notificationsService.create('Validation', msg, 'success');
         }
-        else if (latestNewsItem.type == 'validatorAcceptRevoke') {
+        else if (latestNewsItem.type == 'revokeValidator') {
           let msg = 'You are no longer validated by: ' +this.validatorService.keyToValidator(latestNewsItem.from).displayName;
           this.notificationsService.create('Revoke', msg, 'warn');
         }

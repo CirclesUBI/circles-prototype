@@ -87,7 +87,7 @@ export class NewsCard implements OnDestroy, OnInit {
     else if (this.newsItem.type == 'revokeValidator') {
       this.title = "Revoke Validation";
       this.itemIcon = "close-circle";
-      let validator = this.validatorService.keyToValidator(this.newsItem.to);
+      let validator = this.validatorService.keyToValidator(this.newsItem.from);
       this.profilePicURL = validator.profilePicURL;
       this.message = `No longer validated by ${validator.displayName}`;
     }

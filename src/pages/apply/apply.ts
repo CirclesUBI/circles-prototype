@@ -65,6 +65,7 @@ export class ApplyPage {
         this.validatorService.applyForValidation(this.user, this.validator);
         if (this.validator.autoAccept) {
           setTimeout(() => {
+            debugger;
             this.validatorService.completeValidation(this.user, this.validator);
             this.loading.dismiss();
             this.navCtrl.pop();
