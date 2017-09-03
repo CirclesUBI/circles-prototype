@@ -51,10 +51,10 @@ export class UserDetailPage {
 
   // tslint:disable-next-line:no-unused-variable
   private sendCircles () {
-    if (this.validatedBy)
-      this.sendCirclesViaValidator();
-    else
-      this.navCtrl.push(SendPage, {user:this.viewUser, val:false});
+    // if (this.validatedBy)
+    //   this.sendCirclesViaValidator();
+    // else
+    this.navCtrl.push(SendPage, {user:this.viewUser});//, val:false});
   }
 
   private sendCirclesViaValidator () {
@@ -75,7 +75,7 @@ export class UserDetailPage {
           });
         }
         if (this.viewUser.trustedBy) {
-          this.trusted = this.trustTo = this.viewUser.trustedBy.some(tUserKey => {
+          this.trustTo = this.viewUser.trustedBy.some(tUserKey => {
             return tUserKey == this.user.uid;
           });
         }

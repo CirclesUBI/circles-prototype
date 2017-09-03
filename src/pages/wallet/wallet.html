@@ -41,10 +41,10 @@
         {{coin.amount}}
       </ion-col>
       <ion-col col-3>
-        <button [disabled]="coin.priority < 1" class="pButton" (click)="priorityUp(coin)">
+        <button [disabled]="coin.priority <= 1" class="pButton" (click)="priorityUp(coin)">
           &uarr;
         </button> {{coin.priority}}
-        <button [disabled]="coin.priority >= displayWallet.length-1" class="pButton" (click)="priorityDown(coin)">
+        <button [disabled]="coin.priority >= displayWallet.length" class="pButton" (click)="priorityDown(coin)">
           &darr;
         </button>
       </ion-col>

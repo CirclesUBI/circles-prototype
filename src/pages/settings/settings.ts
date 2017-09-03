@@ -20,7 +20,7 @@ import { User } from '../../interfaces/user-interface';
 })
 export class SettingsPage {
 
-
+  private user: any;
   private settings: any;
   private firebaseSettingsObj$: FirebaseObjectObservable<any>;
   private settingsSub$: Subscription;
@@ -33,18 +33,13 @@ export class SettingsPage {
     private loadingCtrl: LoadingController,
     private navParams: NavParams
   ) {
-    let uid = navParams.data.uid;
-    this.firebaseSettingsObj$ = this.db.object('/users/'+uid+'/settings/');
+    this.user = navParams.data.user;
+    this.firebaseSettingsObj$ = this.db.object('/users/'+this.user.uid+'/settings/');
     this.settingsSub$ = this.firebaseSettingsObj$.subscribe(
       (settings) => {
         this.settings = settings;
       }
     );
-  }
-
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
   }
 
   private saveSettings() {

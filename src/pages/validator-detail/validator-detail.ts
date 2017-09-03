@@ -67,7 +67,8 @@ export class ValidatorDetailPage {
         if (this.validator.trustedUsers) {
           for (let tUserKey of this.validator.trustedUsers) {
             let u = this.userService.users[tUserKey];
-            this.trustedUsers.push(u);
+            if (u)
+              this.trustedUsers.push(u);
           }
         }
         if (this.validator.appliedUsers) {

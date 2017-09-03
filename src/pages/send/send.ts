@@ -41,7 +41,6 @@ export class SendPage {
   ) {
 
     this.toUser = this.navParams.data.user;
-    this.validatorTransfer = this.navParams.data.val;
 
     this.sendForm = this.formBuilder.group({
       toUserKey: [this.toUser.uid, Validators.required],
@@ -72,8 +71,8 @@ export class SendPage {
           content: 'Sending ...'
         });
         this.loading.present();
-        console.log(this.user.uid,formData.toUserKey,formData.amount,this.validatorTransfer);
-        this.transactionService.transfer(this.user.uid,formData.toUserKey,formData.amount,this.validatorTransfer).then(
+        console.log(this.user.uid,formData.toUserKey,formData.amount);
+        this.transactionService.transfer(this.user.uid,formData.toUserKey,formData.amount).then(
           () => {
             this.toUser = null;
             this.sendForm.reset();

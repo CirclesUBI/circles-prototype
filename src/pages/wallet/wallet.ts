@@ -23,25 +23,24 @@ export class WalletPage {
     public navParams: NavParams,
     private userService: UserService,
     private toastCtrl: ToastController
-  )
-  { }
+  ) {}
 
   // tslint:disable-next-line:no-unused-variable
   private priorityUp(coin) {
     coin.priority--;
-    let c1 = this.displayWallet[coin.priority];
+    let c1 = this.displayWallet[coin.priority-1];
     c1.priority++;
-    this.displayWallet[coin.priority] = coin;
-    this.displayWallet[c1.priority] = c1;
+    this.displayWallet[coin.priority-1] = coin;
+    this.displayWallet[c1.priority-1] = c1;
   }
 
   // tslint:disable-next-line:no-unused-variable
   private priorityDown(coin) {
     coin.priority++;
-    let c1 = this.displayWallet[coin.priority];
+    let c1 = this.displayWallet[coin.priority-1];
     c1.priority--;
-    this.displayWallet[coin.priority] = coin;
-    this.displayWallet[c1.priority] = c1;
+    this.displayWallet[coin.priority-1] = coin;
+    this.displayWallet[c1.priority-1] = c1;
   }
 
 
@@ -71,13 +70,13 @@ export class WalletPage {
 
   ionViewDidLoad() {
 
-    console.log('ionViewDidLoad WalletPage');
-
     this.userSub$ = this.userService.user$.subscribe(
       user => {
         this.user = user;
         this.displayWallet = [];
         for (let i in this.user.wallet.coins) {
+          if (this.user.wallet.coins[i].owner == this.user.uid)
+            continue;
           let w = Object.assign({},this.user.wallet.coins[i]) as any;
           w.displayOwner = this.userService.keyToUser(w.owner).displayName;
           this.displayWallet.push(w);

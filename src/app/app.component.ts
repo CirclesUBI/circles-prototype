@@ -26,7 +26,7 @@ export class CirclesApp {
   private loading: Loading;
   private toast: Toast;
   private isInApp: boolean = false;
-  private uid: string;
+  private user: any;
 
   constructor(
     private db: AngularFireDatabase,
@@ -56,7 +56,7 @@ export class CirclesApp {
         (auth) => {
           if (auth) {
             console.log('login',auth.uid);
-            this.uid = auth.uid;
+
             this.loading = this.loadingCtrl.create({
               content: 'Logging in ...',
               dismissOnPageChange: true
@@ -66,13 +66,19 @@ export class CirclesApp {
             let authUserObs$ = this.db.object('/users/' + auth.uid);
             let authUserSub$ = authUserObs$.subscribe(
               user => {
+                this.user = user.userData;
                 if (!user.$exists()) {
                   this.nav.push(WelcomePage, { authUser: auth, obs: authUserObs$ });
                 }
                 else {
                   authUserSub$.unsubscribe();
-                  this.isInApp = true;
-                  this.nav.setRoot(HomePage);
+                  let loggedSub = this.authService.loggedInState$.subscribe( (isLoggedIn) => {
+                    if (isLoggedIn) {
+                      loggedSub.unsubscribe();
+                      this.isInApp = true;
+                      this.nav.setRoot(HomePage);
+                    }
+                  });
                 }
               },
               error => {
@@ -114,7 +120,7 @@ export class CirclesApp {
 
   // tslint:disable-next-line:no-unused-variable
   private goToSettings(): void {
-    this.nav.push(SettingsPage, {uid:this.uid});
+    this.nav.push(SettingsPage, {user:this.user});
   }
 
   // tslint:disable-next-line:no-unused-variable

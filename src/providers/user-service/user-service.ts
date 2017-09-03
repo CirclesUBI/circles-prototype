@@ -212,6 +212,10 @@ export class UserService implements OnDestroy {
   }
 
   public addTrustedUser(userKey) {
+    if (this.user.trustedUsers.includes(userKey)) {
+      console.error('user:'+userKey+' already trusted');
+      return;
+    }
     if (this.user.trustedUsers)
       this.user.trustedUsers.push(userKey);
     else
@@ -221,6 +225,10 @@ export class UserService implements OnDestroy {
   }
 
   public removeTrustedUser(userKey) {
+    if (!this.user.trustedUsers.includes(userKey)) {
+      console.error('user:'+userKey+' not trusted');
+      return;
+    }
     this.user.trustedUsers = this.user.trustedUsers.filter(user => {
 	     return user != userKey;
     });

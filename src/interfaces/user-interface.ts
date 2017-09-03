@@ -15,8 +15,8 @@ export interface User {
   profilePicURL: string;
   pushID: string;
   tradeMessage?:string;
-  trustedBy: Array<string|User>;
-  trustedUsers: Array<string|User>;
+  trustedBy: Array<string>;
+  trustedUsers: Array<string>;
   trustedByValidators: any;
   uid: string;
   validators: Array<string>;

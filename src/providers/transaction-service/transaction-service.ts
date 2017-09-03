@@ -15,62 +15,33 @@ export class TransactionService implements OnDestroy {
     private toastCtrl: ToastController
   ) {}
 
-  public transfer(fromUserKey,toUserKey,amount,validator) {
+  public transfer(fromUserKey,toUserKey,amount) {
     return new Promise ((resolve,reject) => {
-      if (validator) {
-        this.postValidatorTransaction(fromUserKey,toUserKey,validator,amount).subscribe(
-          (res:any) => {
-            let result = JSON.parse(res._body);
-            if (!result.complete) {
-              this.notificationsService.create('Send Fail', '', 'error');
-              this.notificationsService.create('Error', result.message, 'warn');
-              reject();
-            }
-            else {
-              this.notificationsService.create('Send Success', '', 'success');
-              this.notificationsService.create('Sent', result.message, 'info');
-              resolve();
-            }
-          },
-          (error) => {
-            this.toast = this.toastCtrl.create({
-              message: 'Error sending circles: '+error,
-              duration: 4000,
-              position: 'middle'
-            });
-            console.error(error);
-            this.toast.present();
-            return;
+      this.postTransaction(fromUserKey,toUserKey,amount).subscribe(
+        (res:any) => {
+          let result = JSON.parse(res._body);
+          if (!result.complete) {
+            this.notificationsService.create('Send Fail', '', 'error');
+            this.notificationsService.create('Send', result.message, 'warn');
+            reject();
           }
-        );
-      }
-      else {
-        this.postTransaction(fromUserKey,toUserKey,amount).subscribe(
-          (res:any) => {
-            let result = JSON.parse(res._body);
-            if (!result.complete) {
-              this.notificationsService.create('Send Fail', '', 'error');
-              this.notificationsService.create('Send', result.message, 'warn');
-              reject();
-            }
-            else {
-              this.notificationsService.create('Send Success', '', 'success');
-              resolve();
-            }
-            return;
-          },
-          (error) => {
-            this.toast = this.toastCtrl.create({
-              message: 'Error sending circles: '+error,
-              duration: 4000,
-              position: 'middle'
-            });
-            console.error(error);
-            this.toast.present();
-            return;
+          else {
+            this.notificationsService.create('Send Success', '', 'success');
+            resolve();
           }
-        );
-      }
+          return;
+        },
+        (error) => {
+          this.toast = this.toastCtrl.create({
+            message: 'Error sending circles: '+error,
+            duration: 4000,
+            position: 'middle'
+          });
+          console.error(error);
+          this.toast.present();
+          return;
+        }
+      );
     });
   }
 

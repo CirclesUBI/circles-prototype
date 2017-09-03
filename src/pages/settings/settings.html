@@ -8,7 +8,7 @@
 
   <ion-row>
     <ion-col>
-      <ion-list radio-group [(ngModel)]="settings.wallet.scheme">
+      <ion-list radio-group [(ngModel)]="settings.wallet.scheme" *ngIf="!user.organisation">
         <ion-list-header>
           When sending Circles
         </ion-list-header>
