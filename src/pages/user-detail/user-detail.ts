@@ -24,6 +24,7 @@ export class UserDetailPage {
   private trustFrom: boolean = false;
   private validatorTrusted: boolean = false;
   private trusted: boolean = false;
+  private working: boolean = false;
   private validatedBy: Validator = {} as Validator;
   private validatedByKey: string;
 
@@ -41,12 +42,18 @@ export class UserDetailPage {
 
   // tslint:disable-next-line:no-unused-variable
   private revokeTrust() {
-    this.userService.removeTrustedUser(this.viewUser.uid);
+    this.working = true;
+    this.userService.removeTrustedUser(this.viewUser.uid).then( () => {
+      this.working = false;
+    });
   }
 
   // tslint:disable-next-line:no-unused-variable
   private affordTrust() {
-    this.userService.addTrustedUser(this.viewUser.uid);
+    this.working = true;
+    this.userService.addTrustedUser(this.viewUser.uid).then( () => {
+      this.working = false;
+    });
   }
 
   // tslint:disable-next-line:no-unused-variable
@@ -66,19 +73,19 @@ export class UserDetailPage {
       (user) => {
         console.log('user-detail userSub$');
         this.user = user;
+        this.trusted = this.trustFrom = this.trustTo = false;
+
         if (this.viewUser.profilePicURL)
           this.profilePicURL = this.viewUser.profilePicURL;
 
-        if (this.viewUser.trustedUsers) {
-          this.trusted = this.trustFrom = this.viewUser.trustedUsers.some(tUserKey => {
-            return tUserKey == this.user.uid;
-          });
+        if (this.user.trustedUsers) {
+          this.trustTo = this.user.trustedUsers.includes(this.viewUser.uid);
         }
-        if (this.viewUser.trustedBy) {
-          this.trustTo = this.viewUser.trustedBy.some(tUserKey => {
-            return tUserKey == this.user.uid;
-          });
+
+        if(this.user.trustedBy) {
+          this.trusted = this.trustFrom = this.user.trustedBy.includes(this.viewUser.uid);
         }
+
         if (this.user.validators && this.viewUser.validators) {
           this.user.validators.map( (valKey:string) => {
              this.trusted = this.validatorTrusted = this.viewUser.validators.some( tUserValKey => {

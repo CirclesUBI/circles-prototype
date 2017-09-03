@@ -66,19 +66,19 @@
       </ion-card>
 
 
-      <button ion-button full *ngIf="!trustTo" (click)="affordTrust()" icon-end>
+      <button ion-button full *ngIf="!trustTo" [disabled]="working" (click)="affordTrust()" icon-end>
           Afford Trust
          <ion-icon name="lock" color="red">
          </ion-icon>
       </button>
 
-      <button ion-button full *ngIf="trustTo" (click)="revokeTrust()" icon-end>
+      <button ion-button full *ngIf="trustTo" [disabled]="working" (click)="revokeTrust()" icon-end>
         Revoke Trust
         <ion-icon name="unlock" color="green" item-right>
         </ion-icon>
       </button>
 
-      <button ion-button full [disabled]="!trusted"  (click)="sendCircles()" icon-end>
+      <button ion-button full [disabled]="!trusted || working"  (click)="sendCircles()" icon-end>
         Send Circles
         <ion-icon name="send">
         </ion-icon>

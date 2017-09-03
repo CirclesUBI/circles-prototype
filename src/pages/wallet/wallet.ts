@@ -13,7 +13,7 @@ import { Coin } from '../../interfaces/coin-interface';
 })
 export class WalletPage {
 
-  private user: User;
+  private user: any;
   private userSub$: Subscription;
   private toast: Toast;
   private displayWallet: Array<Coin>;
@@ -54,8 +54,9 @@ export class WalletPage {
         if (a.priority < b.priority) {
          return -1;
         }
-      return 0;
-    });
+        return 0;
+      }
+    );
   }
 
   // tslint:disable-next-line:no-unused-variable
@@ -75,7 +76,7 @@ export class WalletPage {
         this.user = user;
         this.displayWallet = [];
         for (let i in this.user.wallet.coins) {
-          if (this.user.wallet.coins[i].owner == this.user.uid)
+          if (this.user.organisation && this.user.wallet.coins[i].owner == this.user.uid)
             continue;
           let w = Object.assign({},this.user.wallet.coins[i]) as any;
           w.displayOwner = this.userService.keyToUser(w.owner).displayName;
