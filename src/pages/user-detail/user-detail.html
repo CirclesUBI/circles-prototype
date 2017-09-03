@@ -44,16 +44,15 @@
          </div>
        </span>
        <ion-list no-lines>
-         <ion-item *ngIf="viewUser.email">
+         <ion-item *ngIf="viewUser.email && settings.toggleProfileVis.email">
            <ion-icon name="mail" item-left></ion-icon>
            <p>{{viewUser.email}}</p>
          </ion-item>
 
-         <ion-item *ngIf="viewUser.phoneNum">
+         <ion-item *ngIf="viewUser.phoneNum && settings.toggleProfileVis.phone">
            <ion-icon name="phone-portrait" item-left></ion-icon>
            {{viewUser.phoneNum}}
          </ion-item>
-
        </ion-list>
 
        <ion-card *ngIf="viewUser.tradeMessage" style="margin:12px 0;width:100%">

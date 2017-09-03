@@ -237,6 +237,10 @@ export class UserService implements OnDestroy {
     return this.updateUser({trustedUsers:this.user.trustedUsers});
   }
 
+  public getUserSettings(uid) {
+    return this.db.object('/users/'+uid+'/settings/');
+  }
+
   public async updateUser(updateObject: Object) {
     try {
       await this.userFirebaseObj$.update(updateObject);

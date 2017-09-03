@@ -9,9 +9,11 @@ Main:
 ☐ Fix account create bug
 ☐ Fix Newsitems signout issue
 ☐ Fix userData observable firing 8 times
+☐
 
 
 Later:
+☐ Add links to user detail for facebook etc
 ☐ Set user detail / validator detail pages to properly bind to db changes of those entities
 
 

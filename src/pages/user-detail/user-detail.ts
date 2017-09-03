@@ -29,6 +29,7 @@ export class UserDetailPage {
   private validatedByKey: string;
 
   private profilePicURL: string;
+  private settings: any;
 
   constructor(
     private navCtrl: NavController,
@@ -38,6 +39,10 @@ export class UserDetailPage {
     private validatorService: ValidatorService
   ) {
     this.viewUser = navParams.data;
+    this.userService.getUserSettings(this.viewUser.uid).subscribe( (settings) => {
+      debugger;
+      this.settings = settings;
+    })
   }
 
   // tslint:disable-next-line:no-unused-variable
