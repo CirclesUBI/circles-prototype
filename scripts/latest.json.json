@@ -1,0 +1,2450 @@
+{
+  "static" : {
+    "authProviders" : {
+      "email" : {
+        "displayName" : "Email",
+        "icon" : "mail",
+        "message" : "You need to confirm your email address."
+      },
+      "facebook" : {
+        "displayName" : "Facebook",
+        "icon" : "logo-facebook",
+        "message" : "You need to add your Facebook profile."
+      },
+      "github" : {
+        "displayName" : "Github",
+        "icon" : "logo-github",
+        "message" : "You need to confirm your Github account."
+      },
+      "google" : {
+        "displayName" : "Google",
+        "icon" : "logo-google",
+        "message" : "You need to add your Google+ profile."
+      },
+      "name" : {
+        "displayName" : "Name",
+        "icon" : "brush",
+        "message" : "You need to add your full name."
+      },
+      "passport" : {
+        "displayName" : "Passport",
+        "icon" : "document",
+        "message" : "You need to add your Passport."
+      },
+      "photo" : {
+        "displayName" : "Profile Photo",
+        "icon" : "contact",
+        "message" : "You need to add a profile photo."
+      },
+      "soundcloud" : {
+        "displayName" : "SoundCloud",
+        "icon" : "cloud",
+        "message" : "You need to confirm your SoundCloud account."
+      },
+      "steam" : {
+        "displayName" : "Steam",
+        "icon" : "logo-steam",
+        "message" : "You need to confirm your Steam account."
+      },
+      "twitter" : {
+        "displayName" : "Twitter",
+        "icon" : "logo-twitter",
+        "message" : "You need to confirm your Twitter account."
+      }
+    }
+  },
+  "transactions" : {
+    "-KsrmN3BrBF0qBlNKrYo" : {
+      "amount" : 1,
+      "from" : "0GfydDj1zXRjRbenEKTGi8nXfMj1",
+      "message" : "",
+      "timestamp" : 1504174506270,
+      "to" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "type" : "transaction"
+    },
+    "-KsrtretMeuFMBCf2TD6" : {
+      "amount" : 1,
+      "from" : "0GfydDj1zXRjRbenEKTGi8nXfMj1",
+      "message" : "",
+      "timestamp" : 1504176471818,
+      "to" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "type" : "transaction"
+    },
+    "-KsruLRA5SX81gsrM9Z7" : {
+      "amount" : 1,
+      "from" : "0GfydDj1zXRjRbenEKTGi8nXfMj1",
+      "message" : "",
+      "timestamp" : 1504176597905,
+      "to" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "type" : "transaction"
+    },
+    "-KsryDGsw1VISnOznNhJ" : {
+      "amount" : 1,
+      "from" : "0GfydDj1zXRjRbenEKTGi8nXfMj1",
+      "message" : "",
+      "timestamp" : 1504177613598,
+      "to" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "type" : "transaction"
+    },
+    "-KsrytJYP3rOmT3q6sKG" : {
+      "amount" : 1,
+      "from" : "0GfydDj1zXRjRbenEKTGi8nXfMj1",
+      "message" : "",
+      "timestamp" : 1504177789900,
+      "to" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "type" : "transaction"
+    },
+    "-Kss51zC__21H51w3r73" : {
+      "amount" : 5,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504179664497,
+      "to" : "0GfydDj1zXRjRbenEKTGi8nXfMj1",
+      "type" : "transaction"
+    },
+    "-Kss5yEoWLEGO1647PkZ" : {
+      "amount" : 5,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504179907293,
+      "to" : "0GfydDj1zXRjRbenEKTGi8nXfMj1",
+      "type" : "transaction"
+    },
+    "-Kss6p_XprNbKrkwRSig" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504180133893,
+      "to" : "0GfydDj1zXRjRbenEKTGi8nXfMj1",
+      "type" : "transaction"
+    },
+    "-Kss7zYwSv4pBbjk59DM" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504180436898,
+      "to" : "0GfydDj1zXRjRbenEKTGi8nXfMj1",
+      "type" : "transaction"
+    },
+    "-KssmDEse3jUO86C8L5s" : {
+      "amount" : 2,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504191244360,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KssmXELXCMA6IbGgj-_" : {
+      "amount" : 3,
+      "from" : "y4HISL50W2XlDWJBvGnnmTqmMSh2",
+      "message" : "",
+      "timestamp" : 1504191326430,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KssmnNJAsNP4XnRzUG1" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504191396528,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Ksso4fNWn1grfS5Eu_-" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504191733636,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kssp72v56BOCV4lmquP" : {
+      "amount" : 2,
+      "from" : "QSqZK8OK05OXECRaaJDff63T4TI2",
+      "message" : "",
+      "timestamp" : 1504192005627,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KssqzmI5yljB54DWl4V" : {
+      "amount" : 5,
+      "from" : "WXBvptSRA0S0ekLIEhStPjoCdts1",
+      "message" : "",
+      "timestamp" : 1504192496033,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kssssm0qF_d8KzUAPrO" : {
+      "amount" : 3,
+      "from" : "cOPsyPk6xUfQUl7rCwZQrzRfsq22",
+      "message" : "",
+      "timestamp" : 1504192991628,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KssvMz8Wi_8WiqCAPj3" : {
+      "amount" : 5,
+      "from" : "IYtQXnmA28gG46lGHYiVLIyE9Yh1",
+      "message" : "",
+      "timestamp" : 1504193643727,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kssw_LVY2ZiYvJv1_Ca" : {
+      "amount" : 2,
+      "from" : "cWnOLbizFvRPvEayjGPYVxY5ZjD3",
+      "message" : "",
+      "timestamp" : 1504193960531,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KssxFBp6X23SusXurjg" : {
+      "amount" : 1,
+      "from" : "IYtQXnmA28gG46lGHYiVLIyE9Yh1",
+      "message" : "",
+      "timestamp" : 1504194136127,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KssxWh64KixioiwyixV" : {
+      "amount" : 1,
+      "from" : "W6XhUebTOqcLPyEyPjXacUB2ip73",
+      "message" : "",
+      "timestamp" : 1504194207737,
+      "to" : "EdMPoCnEh8cl3wHWZ2UYN5yK5WD3",
+      "type" : "transaction"
+    },
+    "-Kssy81lUBuiJb1YjO4N" : {
+      "amount" : 5,
+      "from" : "5DufL0Qbk8b92NAUtmClLJPFDaw1",
+      "message" : "",
+      "timestamp" : 1504194368937,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kssy87rjPoi-AP2U5Hx" : {
+      "amount" : 1,
+      "from" : "EdMPoCnEh8cl3wHWZ2UYN5yK5WD3",
+      "message" : "",
+      "timestamp" : 1504194369326,
+      "to" : "W6XhUebTOqcLPyEyPjXacUB2ip73",
+      "type" : "transaction"
+    },
+    "-KssyTQEjVefnVZqw-DH" : {
+      "amount" : 1,
+      "from" : "EdMPoCnEh8cl3wHWZ2UYN5yK5WD3",
+      "message" : "",
+      "timestamp" : 1504194455330,
+      "to" : "W6XhUebTOqcLPyEyPjXacUB2ip73",
+      "type" : "transaction"
+    },
+    "-KssyW8sAYtiw_XPNUf7" : {
+      "amount" : 1,
+      "from" : "EdMPoCnEh8cl3wHWZ2UYN5yK5WD3",
+      "message" : "",
+      "timestamp" : 1504194466437,
+      "to" : "W6XhUebTOqcLPyEyPjXacUB2ip73",
+      "type" : "transaction"
+    },
+    "-KssyrFH8gxP2rBvoY2h" : {
+      "amount" : 1.337E-5,
+      "from" : "QSqZK8OK05OXECRaaJDff63T4TI2",
+      "message" : "",
+      "timestamp" : 1504194557037,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KssywaSeq18Mh5T9q7R" : {
+      "amount" : 1.0E-4,
+      "from" : "QSqZK8OK05OXECRaaJDff63T4TI2",
+      "message" : "",
+      "timestamp" : 1504194578997,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KsszHwHrLWjQrnLUZF4" : {
+      "amount" : 2,
+      "from" : "932siyHNqqX0P2URRZcRcFQORHC2",
+      "message" : "",
+      "timestamp" : 1504194670527,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KsszVbE6-LSiJAKZ3nh" : {
+      "amount" : 0,
+      "from" : "IYtQXnmA28gG46lGHYiVLIyE9Yh1",
+      "message" : "",
+      "timestamp" : 1504194726528,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Ksszpzu3jI1H1XbIU73" : {
+      "amount" : 3,
+      "from" : "cWnOLbizFvRPvEayjGPYVxY5ZjD3",
+      "message" : "",
+      "timestamp" : 1504194814033,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kst-E0QyQ8a9kIrsuZ3" : {
+      "amount" : 1,
+      "from" : "GmaxOuH1FkbediOHGcBdIJwLt8n1",
+      "message" : "",
+      "timestamp" : 1504194916460,
+      "to" : "W6XhUebTOqcLPyEyPjXacUB2ip73",
+      "type" : "transaction"
+    },
+    "-Kst1KmSDguq0GE-RSvN" : {
+      "amount" : 3,
+      "from" : "GmaxOuH1FkbediOHGcBdIJwLt8n1",
+      "message" : "",
+      "timestamp" : 1504195468536,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kst208h4WbLLi37SIPU" : {
+      "amount" : 1,
+      "from" : "sfNubGbzZUWogFuluZUAubUiAe13",
+      "message" : "",
+      "timestamp" : 1504195646240,
+      "to" : "GLBlmrvfB4er6mI7sj8R58gev5H3",
+      "type" : "transaction"
+    },
+    "-Kst27XetISV1pioRBN3" : {
+      "amount" : 1,
+      "from" : "sfNubGbzZUWogFuluZUAubUiAe13",
+      "message" : "",
+      "timestamp" : 1504195676429,
+      "to" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+      "type" : "transaction"
+    },
+    "-Kst29EyTfiDZXcoDJsm" : {
+      "amount" : 1,
+      "from" : "1jmEsGa2iIhfgK32YyejXutneO92",
+      "message" : "",
+      "timestamp" : 1504195683341,
+      "to" : "WXBvptSRA0S0ekLIEhStPjoCdts1",
+      "type" : "transaction"
+    },
+    "-Kst2NTl7hKbIglcYu_i" : {
+      "amount" : 1,
+      "from" : "GLBlmrvfB4er6mI7sj8R58gev5H3",
+      "message" : "",
+      "timestamp" : 1504195741637,
+      "to" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+      "type" : "transaction"
+    },
+    "-Kst2gaGFpAtxvVgcjWS" : {
+      "amount" : 1,
+      "from" : "O1bMGNM4KxPAJUUNNNOkVeexkRx2",
+      "message" : "",
+      "timestamp" : 1504195824033,
+      "to" : "GmaxOuH1FkbediOHGcBdIJwLt8n1",
+      "type" : "transaction"
+    },
+    "-Kst2hAutt9XSDbdON1L" : {
+      "amount" : 1,
+      "from" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+      "message" : "",
+      "timestamp" : 1504195826527,
+      "to" : "sfNubGbzZUWogFuluZUAubUiAe13",
+      "type" : "transaction"
+    },
+    "-Kst3v4gsJ4ad03TqDDa" : {
+      "amount" : 6,
+      "from" : "vkYy4pgayfYgGiPCPdiKDQ9SHJA3",
+      "message" : "",
+      "timestamp" : 1504196145530,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kst4SN4vsc_jO7L_lyc" : {
+      "amount" : 4,
+      "from" : "eqrDtrVwQRQ8ukBTK5uH0MNeyOG2",
+      "message" : "",
+      "timestamp" : 1504196286042,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kst5X1bvZglKYBGfqnD" : {
+      "amount" : 2,
+      "from" : "O1bMGNM4KxPAJUUNNNOkVeexkRx2",
+      "message" : "",
+      "timestamp" : 1504196567225,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kst6ah-O-jHjMXsNLe7" : {
+      "amount" : 1,
+      "from" : "sfNubGbzZUWogFuluZUAubUiAe13",
+      "message" : "",
+      "timestamp" : 1504196849547,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kst7TMggbU86ZFfn5Vp" : {
+      "amount" : 2,
+      "from" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+      "message" : "",
+      "timestamp" : 1504197077427,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kst7XVbH4aaY1oKpAJX" : {
+      "amount" : 2,
+      "from" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+      "message" : "",
+      "timestamp" : 1504197094328,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kst7bPhVAQxw7-DgC_0" : {
+      "amount" : 2,
+      "from" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+      "message" : "",
+      "timestamp" : 1504197114528,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Kst8hxI2od31y5Rlsz2" : {
+      "amount" : 1,
+      "from" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+      "message" : "",
+      "timestamp" : 1504197403337,
+      "to" : "O1bMGNM4KxPAJUUNNNOkVeexkRx2",
+      "type" : "transaction"
+    },
+    "-KstBbmJKMzhYgvO6OyC" : {
+      "amount" : 2,
+      "from" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+      "message" : "",
+      "timestamp" : 1504198163749,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KstEhzXxe98ydPhR_ue" : {
+      "amount" : 3,
+      "from" : "GBeHaObeHZbqr0pEtn5iCPvwV6q2",
+      "message" : "",
+      "timestamp" : 1504198975480,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KstK2PbDzmmPGeDhvY5" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504200373987,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KstL4GH-Rl_wusdKejQ" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504200643683,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KstLrwNPmVqdlzegTwh" : {
+      "amount" : 3,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504200852268,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KstO9XET7evArBB4SKf" : {
+      "amount" : 2,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504201452643,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KstODGBQI419GpH0tZF" : {
+      "amount" : 2,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504201467844,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KstOa8S3ayFJfWfw7OW" : {
+      "amount" : 2,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504201565741,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KstPrUzVnMLzic8PVD_" : {
+      "amount" : 2,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504201899267,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KstPwxmSlQqQo_fqHZ4" : {
+      "amount" : 3,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504201921570,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KstVsZ_0cZ3iLgd0MUw" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504203476740,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KstXLIzVYwhl49YjrF-" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504203860603,
+      "to" : "GmaxOuH1FkbediOHGcBdIJwLt8n1",
+      "type" : "transaction"
+    },
+    "-KsuB4jnK_KVbuU0dRiv" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504214801401,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KsuTjAluGmQCKySTcqN" : {
+      "amount" : 1,
+      "from" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "message" : "",
+      "timestamp" : 1504219690820,
+      "to" : "NOUTgZaTYoZXb3DuUZDWqLCsFh83",
+      "type" : "transaction"
+    },
+    "-KsuVrG-Sjc4HSfg4L17" : {
+      "amount" : 1,
+      "from" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "message" : "",
+      "timestamp" : 1504220248504,
+      "to" : "OAJtm8h7fte12lcwxiDVOTUnM5w2",
+      "type" : "transaction"
+    },
+    "-Ksu_XrsJ7i12N7UXhUt" : {
+      "amount" : 2,
+      "from" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "message" : "",
+      "timestamp" : 1504221475305,
+      "to" : "OAJtm8h7fte12lcwxiDVOTUnM5w2",
+      "type" : "transaction"
+    },
+    "-KsubjIKhcU6EH9EuLcp" : {
+      "amount" : 1,
+      "from" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "message" : "",
+      "timestamp" : 1504222051191,
+      "to" : "OAJtm8h7fte12lcwxiDVOTUnM5w2",
+      "type" : "transaction"
+    },
+    "-KsucJM2siixqJzAmicO" : {
+      "amount" : 1,
+      "from" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "message" : "",
+      "timestamp" : 1504222203182,
+      "to" : "OAJtm8h7fte12lcwxiDVOTUnM5w2",
+      "type" : "transaction"
+    },
+    "-KsufzGUlLan8c414KjX" : {
+      "amount" : 1,
+      "from" : "xiXw0LLVeBUwg7HH3B1qsjperjG3",
+      "message" : "",
+      "timestamp" : 1504223164591,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KsugBF_JTlhuaWYeSTs" : {
+      "amount" : 1,
+      "from" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "message" : "",
+      "timestamp" : 1504223217780,
+      "to" : "xiXw0LLVeBUwg7HH3B1qsjperjG3",
+      "type" : "transaction"
+    },
+    "-KswLTiPoaZuetkIJXFO" : {
+      "amount" : 3,
+      "from" : "W6XhUebTOqcLPyEyPjXacUB2ip73",
+      "message" : "",
+      "timestamp" : 1504251079681,
+      "to" : "GmaxOuH1FkbediOHGcBdIJwLt8n1",
+      "type" : "transaction"
+    },
+    "-KswW83VUm3Veu_8dGmM" : {
+      "amount" : 2,
+      "from" : "W6XhUebTOqcLPyEyPjXacUB2ip73",
+      "message" : "",
+      "timestamp" : 1504253874483,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-Ksx3AusS7HaYGA7uns1" : {
+      "amount" : 1,
+      "from" : "sfNubGbzZUWogFuluZUAubUiAe13",
+      "message" : "",
+      "timestamp" : 1504263062176,
+      "to" : "GLBlmrvfB4er6mI7sj8R58gev5H3",
+      "type" : "transaction"
+    },
+    "-KsxGmklg6Tm3h1RFzsy" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504266629452,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KsxHshHefdkpUAK2rGP" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504266915942,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KsxNm7hP20U50ugqUJB" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504268461695,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KsxNt6UJZVDkNzk4uej" : {
+      "amount" : 2,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504268490287,
+      "to" : "0GfydDj1zXRjRbenEKTGi8nXfMj1",
+      "type" : "transaction"
+    },
+    "-KsxPfhjGn9n7hq75Hk_" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504268959679,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KsxQFYsli8cimdM0c4a" : {
+      "amount" : 1,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504269110797,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KsxQJp9RgRkRYbAwz4q" : {
+      "amount" : 2,
+      "from" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+      "message" : "",
+      "timestamp" : 1504269128287,
+      "to" : "sfNubGbzZUWogFuluZUAubUiAe13",
+      "type" : "transaction"
+    },
+    "-KsyOrotagQJB8dvYfAl" : {
+      "amount" : 23,
+      "from" : "W6XhUebTOqcLPyEyPjXacUB2ip73",
+      "message" : "",
+      "timestamp" : 1504285524464,
+      "to" : "GmaxOuH1FkbediOHGcBdIJwLt8n1",
+      "type" : "transaction"
+    },
+    "-KsyRtyYrofrM_4xs3qA" : {
+      "amount" : 2,
+      "from" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+      "message" : "",
+      "timestamp" : 1504286318805,
+      "to" : "sfNubGbzZUWogFuluZUAubUiAe13",
+      "type" : "transaction"
+    },
+    "-KsyRzhjib_J1QpDSiBx" : {
+      "amount" : 2,
+      "from" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+      "message" : "",
+      "timestamp" : 1504286342303,
+      "to" : "GLBlmrvfB4er6mI7sj8R58gev5H3",
+      "type" : "transaction"
+    },
+    "-KsyS3ZgHNoc-ODq6qvd" : {
+      "amount" : 2,
+      "from" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+      "message" : "",
+      "timestamp" : 1504286362203,
+      "to" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+      "type" : "transaction"
+    },
+    "-KsyS7f93PZdEdxEVPgH" : {
+      "amount" : 2,
+      "from" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+      "message" : "",
+      "timestamp" : 1504286378999,
+      "to" : "O1bMGNM4KxPAJUUNNNOkVeexkRx2",
+      "type" : "transaction"
+    },
+    "-KsyglxTGL5rsIu1tUS3" : {
+      "amount" : 5,
+      "from" : "JDJcY1iwa0Ndf115NOFj8OAxiO72",
+      "message" : "",
+      "timestamp" : 1504290481170,
+      "to" : "O1bMGNM4KxPAJUUNNNOkVeexkRx2",
+      "type" : "transaction"
+    },
+    "-Ksygpt-vb0FZgs1mQ2P" : {
+      "amount" : 4,
+      "from" : "O1bMGNM4KxPAJUUNNNOkVeexkRx2",
+      "message" : "",
+      "timestamp" : 1504290497264,
+      "to" : "JDJcY1iwa0Ndf115NOFj8OAxiO72",
+      "type" : "transaction"
+    }
+  },
+  "uploads" : {
+    "-KsrjqqJUq9u8M9aZX0Q" : {
+      "name" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1.jpg",
+      "size" : 70312,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FAVcQhb4VHnhIB7zT6TYovQ0LeZx1.jpg?alt=media&token=f4ef2926-4221-4efb-9565-427e4d45b2f1"
+    },
+    "-Ksrl8y44gU5P6zn-hMu" : {
+      "name" : "0GfydDj1zXRjRbenEKTGi8nXfMj1.jpg",
+      "size" : 814697,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2F0GfydDj1zXRjRbenEKTGi8nXfMj1.jpg?alt=media&token=7446e373-fcf6-4260-a7f4-caa42b28bfa5"
+    },
+    "-KssRtBvG0x-VxGzBHgW" : {
+      "name" : "iirxvCt32WZDwZXWxNEqOzhCjwC2.jpg",
+      "size" : 119128,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FiirxvCt32WZDwZXWxNEqOzhCjwC2.jpg?alt=media&token=43155353-da54-4e68-86f4-9d3150e0f0ea"
+    },
+    "-Kssix5B-Tq8WE0bGzu6" : {
+      "name" : "NOUTgZaTYoZXb3DuUZDWqLCsFh83.jpg",
+      "size" : 115762,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FNOUTgZaTYoZXb3DuUZDWqLCsFh83.jpg?alt=media&token=2ec28c76-0d2c-47b9-b902-41ce31f6dbc2"
+    },
+    "-KsslSU6iYK4cTvcd-99" : {
+      "name" : "y4HISL50W2XlDWJBvGnnmTqmMSh2.jpg",
+      "size" : 64233,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Fy4HISL50W2XlDWJBvGnnmTqmMSh2.jpg?alt=media&token=947be4f0-030e-425c-9757-cddaf45a706f"
+    },
+    "-KssonpIN1XtUKOxoHfN" : {
+      "name" : "QSqZK8OK05OXECRaaJDff63T4TI2.jpg",
+      "size" : 70301,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FQSqZK8OK05OXECRaaJDff63T4TI2.jpg?alt=media&token=602b031c-3812-4066-974e-13573bc4cb8f"
+    },
+    "-KssqZ7GbHKSbrEh6Z8z" : {
+      "name" : "WXBvptSRA0S0ekLIEhStPjoCdts1.jpg",
+      "size" : 54749,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FWXBvptSRA0S0ekLIEhStPjoCdts1.jpg?alt=media&token=84359248-9e01-4302-bf02-b9cae55ce9c6"
+    },
+    "-KssrLsbTD-KGsvb8xi-" : {
+      "name" : "sfNubGbzZUWogFuluZUAubUiAe13.jpg",
+      "size" : 262465,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FsfNubGbzZUWogFuluZUAubUiAe13.jpg?alt=media&token=18120d28-288c-4de5-ab80-f797a4727517"
+    },
+    "-KsssRhrSoP23pk3YHCj" : {
+      "name" : "cOPsyPk6xUfQUl7rCwZQrzRfsq22.jpg",
+      "size" : 59449,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FcOPsyPk6xUfQUl7rCwZQrzRfsq22.jpg?alt=media&token=102efcae-70d9-42c3-a453-61892a9923ed"
+    },
+    "-KssvbAgEuH5Nvao3ywh" : {
+      "name" : "EdMPoCnEh8cl3wHWZ2UYN5yK5WD3.jpg",
+      "size" : 83258,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FEdMPoCnEh8cl3wHWZ2UYN5yK5WD3.jpg?alt=media&token=61439545-d88d-4be7-be35-41f3557ca086"
+    },
+    "-Kssw43ZdfnNxrzk5abA" : {
+      "name" : "cWnOLbizFvRPvEayjGPYVxY5ZjD3.jpg",
+      "size" : 46766,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FcWnOLbizFvRPvEayjGPYVxY5ZjD3.jpg?alt=media&token=0af91969-6415-40ac-a9dc-d5e22be07f54"
+    },
+    "-KssxVQxUiOqUd1ghzms" : {
+      "name" : "cLw0riZdIsbMDJzORwzGmPxv6x23.jpg",
+      "size" : 23225,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FcLw0riZdIsbMDJzORwzGmPxv6x23.jpg?alt=media&token=ff0239be-047e-45f3-aac2-6b0cde6794aa"
+    },
+    "-KsszFwXhc3CWyH-PYKC" : {
+      "name" : "GmaxOuH1FkbediOHGcBdIJwLt8n1.jpg",
+      "size" : 68604,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGmaxOuH1FkbediOHGcBdIJwLt8n1.jpg?alt=media&token=f6386299-f5df-40dc-9bd2-bf7bf63df621"
+    },
+    "-KsszGOjkPVCM_5nwdH9" : {
+      "name" : "7ikBMSHvG8dm64aM8V2JUJ980BP2.jpg",
+      "size" : 74571,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2F7ikBMSHvG8dm64aM8V2JUJ980BP2.jpg?alt=media&token=41d2804b-1685-4f90-a117-6836fbcb5073"
+    },
+    "-Kst694NOc9TBxa9jIqW" : {
+      "name" : "932siyHNqqX0P2URRZcRcFQORHC2.jpg",
+      "size" : 75354,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2F932siyHNqqX0P2URRZcRcFQORHC2.jpg?alt=media&token=d88ef6f3-b3b3-48fc-a60e-a9f62872320b"
+    },
+    "-Kst8ItbeBKNYZ-72iZu" : {
+      "name" : "LsHIZeXiimMnTjAulYNGolFXMRE2.jpg",
+      "size" : 109394,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FLsHIZeXiimMnTjAulYNGolFXMRE2.jpg?alt=media&token=86b945d4-28bd-49ad-9d42-0e4ffb779d69"
+    },
+    "-KstEMABG_Fe1E_QqQxe" : {
+      "name" : "Ppc5Lj9AMGWR6nHkUyJlruoGCS23.jpg",
+      "size" : 15466,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FPpc5Lj9AMGWR6nHkUyJlruoGCS23.jpg?alt=media&token=7fda332e-c23e-4d13-a151-a7963ce1a0a2"
+    },
+    "-KswWXs2pMcmfOXfXrDo" : {
+      "name" : "W6XhUebTOqcLPyEyPjXacUB2ip73.jpg",
+      "size" : 64366,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FW6XhUebTOqcLPyEyPjXacUB2ip73.jpg?alt=media&token=31c1d46f-63eb-4e7e-82ca-078b4617ee0d"
+    },
+    "-KsyCx4M8NLsgWVKauHu" : {
+      "name" : "iRiT3IIqRJafxwrgqoPPoAKic0U2.jpg",
+      "size" : 35561,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FiRiT3IIqRJafxwrgqoPPoAKic0U2.jpg?alt=media&token=d41bfec5-c137-4a66-bee3-8314d87b9b6d"
+    },
+    "-Kt-8roFNxy6hvCYQ9fj" : {
+      "name" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1.jpg",
+      "size" : 75704,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FAVcQhb4VHnhIB7zT6TYovQ0LeZx1.jpg?alt=media&token=83e55297-2021-4155-80be-aecd7c3ce96b"
+    },
+    "-Kt0u5wDr_NTsM7lBuRg" : {
+      "name" : "zwAO6iVrXZWya49Am82pLtjumLm1.jpg",
+      "size" : 814697,
+      "url" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FzwAO6iVrXZWya49Am82pLtjumLm1.jpg?alt=media&token=4ce27705-5f27-48c2-a797-7581c66646f6"
+    }
+  },
+  "users" : {
+    "0GfydDj1zXRjRbenEKTGi8nXfMj1" : {
+      "news" : {
+        "-Kt2KiHU2OjVKILib0-_" : {
+          "timestamp" : 1504368357274,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "password", "name", "photo", "email" ],
+        "balance" : 108,
+        "createdAt" : 1504174240448,
+        "displayName" : "Edward Zillion",
+        "email" : "edzillion@hotmail.com",
+        "firstName" : "Edward",
+        "lastName" : "Zillion",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2F0GfydDj1zXRjRbenEKTGi8nXfMj1.jpg?alt=media&token=7446e373-fcf6-4260-a7f4-caa42b28bfa5",
+        "uid" : "0GfydDj1zXRjRbenEKTGi8nXfMj1",
+        "validators" : [ "-Kk1Xr2syRJ0V7NDKjSK" ],
+        "wallet" : {
+          "coins" : {
+            "0GfydDj1zXRjRbenEKTGi8nXfMj1" : {
+              "amount" : 0,
+              "lastModified" : 1504368357275,
+              "owner" : "0GfydDj1zXRjRbenEKTGi8nXfMj1",
+              "priority" : 0,
+              "title" : "EdwardCoin"
+            }
+          },
+          "lastModified" : 1504368357275,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "1jmEsGa2iIhfgK32YyejXutneO92" : {
+      "news" : {
+        "-Kt2KifTI4_IgsxwO3RB" : {
+          "timestamp" : 1504368357275,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "password", "name" ],
+        "balance" : 90,
+        "createdAt" : 1504192786708,
+        "displayName" : "David Hadwin",
+        "email" : "hadwin_sports@hotmail.com",
+        "firstName" : "David",
+        "lastName" : "Hadwin",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a",
+        "trustedUsers" : [ "WXBvptSRA0S0ekLIEhStPjoCdts1" ],
+        "uid" : "1jmEsGa2iIhfgK32YyejXutneO92",
+        "wallet" : {
+          "coins" : {
+            "1jmEsGa2iIhfgK32YyejXutneO92" : {
+              "amount" : 0,
+              "lastModified" : 1504368357373,
+              "owner" : "1jmEsGa2iIhfgK32YyejXutneO92",
+              "priority" : 0,
+              "title" : "DavidCoin"
+            }
+          },
+          "lastModified" : 1504368357373,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "5DufL0Qbk8b92NAUtmClLJPFDaw1" : {
+      "news" : {
+        "-Kt2Kiv51lUcU9MjqQUk" : {
+          "timestamp" : 1504368357374,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "password", "name" ],
+        "balance" : 86,
+        "createdAt" : 1504193812298,
+        "displayName" : "Barb Jacobson",
+        "email" : "barbx45@gmail.com",
+        "firstName" : "Barb",
+        "lastName" : "Jacobson",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a",
+        "trustedUsers" : [ "iirxvCt32WZDwZXWxNEqOzhCjwC2", "cWnOLbizFvRPvEayjGPYVxY5ZjD3" ],
+        "uid" : "5DufL0Qbk8b92NAUtmClLJPFDaw1",
+        "wallet" : {
+          "coins" : {
+            "5DufL0Qbk8b92NAUtmClLJPFDaw1" : {
+              "amount" : 0,
+              "lastModified" : 1504368357375,
+              "owner" : "5DufL0Qbk8b92NAUtmClLJPFDaw1",
+              "priority" : 0,
+              "title" : "BarbCoin"
+            }
+          },
+          "lastModified" : 1504368357375,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "6jPZPaPYrYQV0KXBlsOW0LQnUSr1" : {
+      "news" : {
+        "-Kt2KjBI5Nj3UQhoXBD2" : {
+          "timestamp" : 1504368357376,
+          "type" : "createAccount"
+        },
+        "-Kt2izrfo-6KSggj0Jjd" : {
+          "from" : "gsJY12X0htV47oYSvbjQkDcv43H2",
+          "timestamp" : 1504374948589,
+          "type" : "trustUser"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "name" ],
+        "balance" : 91,
+        "createdAt" : 1504193685021,
+        "displayName" : "Orsolya Ronaszeki",
+        "email" : "orsolya.ronaszeki@yahoo.com",
+        "firstName" : "Orsolya",
+        "lastName" : "Ronaszeki",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a",
+        "trustedUsers" : [ "cWnOLbizFvRPvEayjGPYVxY5ZjD3", "5DufL0Qbk8b92NAUtmClLJPFDaw1" ],
+        "uid" : "6jPZPaPYrYQV0KXBlsOW0LQnUSr1",
+        "wallet" : {
+          "coins" : {
+            "6jPZPaPYrYQV0KXBlsOW0LQnUSr1" : {
+              "amount" : 0,
+              "lastModified" : 1504368357376,
+              "owner" : "6jPZPaPYrYQV0KXBlsOW0LQnUSr1",
+              "priority" : 0,
+              "title" : "OrsolyaCoin"
+            }
+          },
+          "lastModified" : 1504368357376,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "7ikBMSHvG8dm64aM8V2JUJ980BP2" : {
+      "news" : {
+        "-Kt2KjYibjU7_V71b_ha" : {
+          "timestamp" : 1504368357377,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "github", "password", "name", "photo", "email" ],
+        "balance" : 86,
+        "createdAt" : 1504194664369,
+        "displayName" : "Michael Ilg",
+        "email" : "2017-circle@red0.red",
+        "firstName" : "Michael",
+        "greeting" : "Hello :)",
+        "lastName" : "Ilg",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2F7ikBMSHvG8dm64aM8V2JUJ980BP2.jpg?alt=media&token=41d2804b-1685-4f90-a117-6836fbcb5073",
+        "trustedUsers" : [ "sfNubGbzZUWogFuluZUAubUiAe13", "GLBlmrvfB4er6mI7sj8R58gev5H3", "iirxvCt32WZDwZXWxNEqOzhCjwC2", "O1bMGNM4KxPAJUUNNNOkVeexkRx2" ],
+        "uid" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+        "wallet" : {
+          "coins" : {
+            "7ikBMSHvG8dm64aM8V2JUJ980BP2" : {
+              "amount" : 0,
+              "lastModified" : 1504368357377,
+              "owner" : "7ikBMSHvG8dm64aM8V2JUJ980BP2",
+              "priority" : 0,
+              "title" : "MichaelCoin"
+            }
+          },
+          "lastModified" : 1504368357377,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "932siyHNqqX0P2URRZcRcFQORHC2" : {
+      "news" : {
+        "-Kt2KjifoLlD3ynmYW-q" : {
+          "timestamp" : 1504368357378,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "password", "name", "email", "photo" ],
+        "balance" : 91,
+        "createdAt" : 1504194401425,
+        "displayName" : "Andy Milenius",
+        "email" : "andrew.milenius@gmail.com",
+        "firstName" : "Andy",
+        "lastName" : "Milenius",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2F932siyHNqqX0P2URRZcRcFQORHC2.jpg?alt=media&token=d88ef6f3-b3b3-48fc-a60e-a9f62872320b",
+        "trustedUsers" : [ "NOUTgZaTYoZXb3DuUZDWqLCsFh83", "iirxvCt32WZDwZXWxNEqOzhCjwC2" ],
+        "uid" : "932siyHNqqX0P2URRZcRcFQORHC2",
+        "wallet" : {
+          "coins" : {
+            "932siyHNqqX0P2URRZcRcFQORHC2" : {
+              "amount" : 0,
+              "lastModified" : 1504368357379,
+              "owner" : "932siyHNqqX0P2URRZcRcFQORHC2",
+              "priority" : 0,
+              "title" : "AndyCoin"
+            }
+          },
+          "lastModified" : 1504368357379,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "AVcQhb4VHnhIB7zT6TYovQ0LeZx1" : {
+      "news" : {
+        "-Kt2Kjs18zYdT8Q8aUrk" : {
+          "timestamp" : 1504368357380,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "google", "facebook", "name", "email", "photo" ],
+        "balance" : 69,
+        "displayName" : "Ed Murphy",
+        "email" : "edzillion@gmail.com",
+        "firstName" : "Ed",
+        "lastName" : "Murphy",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FAVcQhb4VHnhIB7zT6TYovQ0LeZx1.jpg?alt=media&token=83e55297-2021-4155-80be-aecd7c3ce96b",
+        "uid" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+        "wallet" : {
+          "coins" : {
+            "AVcQhb4VHnhIB7zT6TYovQ0LeZx1" : {
+              "amount" : 0,
+              "lastModified" : 1504368357380,
+              "owner" : "AVcQhb4VHnhIB7zT6TYovQ0LeZx1",
+              "priority" : 0,
+              "title" : "EdCoin"
+            }
+          },
+          "lastModified" : 1504368357380,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "EdMPoCnEh8cl3wHWZ2UYN5yK5WD3" : {
+      "news" : {
+        "-Kt2KkKk_4dFyErjPV8g" : {
+          "timestamp" : 1504368357382,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "password", "name", "photo" ],
+        "balance" : 91,
+        "createdAt" : 1504193705280,
+        "displayName" : "Harriet  Ra",
+        "email" : "harrietrabe@gmail.com",
+        "firstName" : "Harriet ",
+        "lastName" : "Ra",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FEdMPoCnEh8cl3wHWZ2UYN5yK5WD3.jpg?alt=media&token=61439545-d88d-4be7-be35-41f3557ca086",
+        "trustedUsers" : [ "NOUTgZaTYoZXb3DuUZDWqLCsFh83", "W6XhUebTOqcLPyEyPjXacUB2ip73", "0GfydDj1zXRjRbenEKTGi8nXfMj1", "cWnOLbizFvRPvEayjGPYVxY5ZjD3", "iirxvCt32WZDwZXWxNEqOzhCjwC2" ],
+        "uid" : "EdMPoCnEh8cl3wHWZ2UYN5yK5WD3",
+        "wallet" : {
+          "coins" : {
+            "EdMPoCnEh8cl3wHWZ2UYN5yK5WD3" : {
+              "amount" : 0,
+              "lastModified" : 1504368357383,
+              "owner" : "EdMPoCnEh8cl3wHWZ2UYN5yK5WD3",
+              "priority" : 0,
+              "title" : "Harriet Coin"
+            }
+          },
+          "lastModified" : 1504368357383,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "GBeHaObeHZbqr0pEtn5iCPvwV6q2" : {
+      "news" : {
+        "-Kt2KkYo0EETZSBhPRDQ" : {
+          "timestamp" : 1504368357384,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "password", "name" ],
+        "balance" : 91,
+        "createdAt" : 1504198862997,
+        "displayName" : "Madeline Wahrman",
+        "email" : "mxwahrman@gmail.com",
+        "firstName" : "Madeline",
+        "lastName" : "Wahrman",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a",
+        "trustedUsers" : [ "NOUTgZaTYoZXb3DuUZDWqLCsFh83", "iirxvCt32WZDwZXWxNEqOzhCjwC2" ],
+        "uid" : "GBeHaObeHZbqr0pEtn5iCPvwV6q2",
+        "wallet" : {
+          "coins" : {
+            "GBeHaObeHZbqr0pEtn5iCPvwV6q2" : {
+              "amount" : 0,
+              "lastModified" : 1504368357384,
+              "owner" : "GBeHaObeHZbqr0pEtn5iCPvwV6q2",
+              "priority" : 0,
+              "title" : "MadelineCoin"
+            }
+          },
+          "lastModified" : 1504368357384,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "GLBlmrvfB4er6mI7sj8R58gev5H3" : {
+      "news" : {
+        "-Kt2KknQFSVZPuB2QDgh" : {
+          "timestamp" : 1504368357385,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "google", "name", "email" ],
+        "balance" : 95,
+        "createdAt" : 1504195534417,
+        "displayName" : "Mathias Fogel",
+        "email" : "anmelden50813@gmail.com",
+        "firstName" : "Mathias",
+        "lastName" : "Fogel",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a",
+        "trustedUsers" : [ "sfNubGbzZUWogFuluZUAubUiAe13", "7ikBMSHvG8dm64aM8V2JUJ980BP2", "iirxvCt32WZDwZXWxNEqOzhCjwC2" ],
+        "uid" : "GLBlmrvfB4er6mI7sj8R58gev5H3",
+        "wallet" : {
+          "coins" : {
+            "GLBlmrvfB4er6mI7sj8R58gev5H3" : {
+              "amount" : 0,
+              "lastModified" : 1504368357386,
+              "owner" : "GLBlmrvfB4er6mI7sj8R58gev5H3",
+              "priority" : 0,
+              "title" : "MathiasCoin"
+            }
+          },
+          "lastModified" : 1504368357386,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "GmaxOuH1FkbediOHGcBdIJwLt8n1" : {
+      "news" : {
+        "-Kt2KlVi2G9T2ugJ_YGq" : {
+          "timestamp" : 1504368357387,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "google", "name", "email", "photo" ],
+        "balance" : 115,
+        "createdAt" : 1504194662418,
+        "displayName" : "Harriet Fro",
+        "email" : "harrietvonfroreich@gmail.com",
+        "firstName" : "Harriet",
+        "lastName" : "Fro",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGmaxOuH1FkbediOHGcBdIJwLt8n1.jpg?alt=media&token=f6386299-f5df-40dc-9bd2-bf7bf63df621",
+        "trustedUsers" : [ "W6XhUebTOqcLPyEyPjXacUB2ip73", "NOUTgZaTYoZXb3DuUZDWqLCsFh83", "EdMPoCnEh8cl3wHWZ2UYN5yK5WD3", "iirxvCt32WZDwZXWxNEqOzhCjwC2", "O1bMGNM4KxPAJUUNNNOkVeexkRx2", "cOPsyPk6xUfQUl7rCwZQrzRfsq22" ],
+        "uid" : "GmaxOuH1FkbediOHGcBdIJwLt8n1",
+        "validators" : [ "-Kk1Xr2syRJ0V7NDKjSK" ],
+        "wallet" : {
+          "coins" : {
+            "GmaxOuH1FkbediOHGcBdIJwLt8n1" : {
+              "amount" : 0,
+              "lastModified" : 1504368357388,
+              "owner" : "GmaxOuH1FkbediOHGcBdIJwLt8n1",
+              "priority" : 0,
+              "title" : "HarrietCoin"
+            }
+          },
+          "lastModified" : 1504368357388,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "IYtQXnmA28gG46lGHYiVLIyE9Yh1" : {
+      "news" : {
+        "-Kt2Klb-xG_defkYVD4C" : {
+          "timestamp" : 1504368357388,
+          "type" : "createAccount"
+        },
+        "-Kt2j3e3PCgckMi5zmcm" : {
+          "from" : "gsJY12X0htV47oYSvbjQkDcv43H2",
+          "timestamp" : 1504374968281,
+          "type" : "trustUser"
+        },
+        "-Kt2jZ_gesiLSpSGv3fU" : {
+          "from" : "gsJY12X0htV47oYSvbjQkDcv43H2",
+          "timestamp" : 1504375098988,
+          "type" : "revokeUser"
+        },
+        "-Kt2jZ_lsbFFksD8yY95" : {
+          "from" : "gsJY12X0htV47oYSvbjQkDcv43H2",
+          "timestamp" : 1504375099000,
+          "type" : "revokeUser"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "password", "name" ],
+        "balance" : 85,
+        "createdAt" : 1504193522212,
+        "displayName" : "Christian Reitwiessner",
+        "email" : "circles@catch.exinto.de",
+        "firstName" : "Christian",
+        "lastName" : "Reitwiessner",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a",
+        "trustedUsers" : [ "iirxvCt32WZDwZXWxNEqOzhCjwC2" ],
+        "uid" : "IYtQXnmA28gG46lGHYiVLIyE9Yh1",
+        "wallet" : {
+          "coins" : {
+            "IYtQXnmA28gG46lGHYiVLIyE9Yh1" : {
+              "amount" : 0,
+              "lastModified" : 1504368357389,
+              "owner" : "IYtQXnmA28gG46lGHYiVLIyE9Yh1",
+              "priority" : 0,
+              "title" : "ChristianCoin"
+            }
+          },
+          "lastModified" : 1504368357389,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "JDJcY1iwa0Ndf115NOFj8OAxiO72" : {
+      "news" : {
+        "-Kt2KlinuejTsoEP7OYW" : {
+          "timestamp" : 1504368357390,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "name" ],
+        "balance" : 90,
+        "createdAt" : 1504197747673,
+        "displayName" : "Marc W",
+        "email" : "newsformarc@posteo.de",
+        "firstName" : "Marc",
+        "lastName" : "W",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a",
+        "trustedUsers" : [ "O1bMGNM4KxPAJUUNNNOkVeexkRx2" ],
+        "uid" : "JDJcY1iwa0Ndf115NOFj8OAxiO72",
+        "wallet" : {
+          "coins" : {
+            "JDJcY1iwa0Ndf115NOFj8OAxiO72" : {
+              "amount" : 0,
+              "lastModified" : 1504368357390,
+              "owner" : "JDJcY1iwa0Ndf115NOFj8OAxiO72",
+              "priority" : 0,
+              "title" : "MarcCoin"
+            }
+          },
+          "lastModified" : 1504368357390,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "JtJmrhUaRPaC2fiI4rOL7pkSkw23" : {
+      "news" : {
+        "-Kt2Km0YOfTn_Deh6OZZ" : {
+          "timestamp" : 1504368357392,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "name", "email" ],
+        "balance" : 91,
+        "createdAt" : 1504196116235,
+        "displayName" : "Yasin Seelab",
+        "email" : "yasinstanikziy@gmail.com",
+        "firstName" : "Yasin",
+        "lastName" : "Seelab",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a",
+        "uid" : "JtJmrhUaRPaC2fiI4rOL7pkSkw23",
+        "wallet" : {
+          "coins" : {
+            "JtJmrhUaRPaC2fiI4rOL7pkSkw23" : {
+              "amount" : 0,
+              "lastModified" : 1504368357473,
+              "owner" : "JtJmrhUaRPaC2fiI4rOL7pkSkw23",
+              "priority" : 0,
+              "title" : "YasinCoin"
+            }
+          },
+          "lastModified" : 1504368357473,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "LsHIZeXiimMnTjAulYNGolFXMRE2" : {
+      "news" : {
+        "-Kt2Km9vHn5U8KFIgcfN" : {
+          "timestamp" : 1504368357474,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "name", "photo" ],
+        "balance" : 91,
+        "createdAt" : 1504197295935,
+        "displayName" : "Martijn Volmer",
+        "email" : "martijn.volmer1990@gmail.com",
+        "firstName" : "Martijn",
+        "lastName" : "Volmer",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FLsHIZeXiimMnTjAulYNGolFXMRE2.jpg?alt=media&token=86b945d4-28bd-49ad-9d42-0e4ffb779d69",
+        "uid" : "LsHIZeXiimMnTjAulYNGolFXMRE2",
+        "wallet" : {
+          "coins" : {
+            "LsHIZeXiimMnTjAulYNGolFXMRE2" : {
+              "amount" : 0,
+              "lastModified" : 1504368357475,
+              "owner" : "LsHIZeXiimMnTjAulYNGolFXMRE2",
+              "priority" : 0,
+              "title" : "MartijnCoin"
+            }
+          },
+          "lastModified" : 1504368357475,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "NOUTgZaTYoZXb3DuUZDWqLCsFh83" : {
+      "news" : {
+        "-Kt2KmGBuWeJoSd1vE19" : {
+          "timestamp" : 1504368357475,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "name", "email", "photo" ],
+        "balance" : 92,
+        "createdAt" : 1504190386737,
+        "displayName" : "Ronit Kory",
+        "email" : "ronitronitronit@gmail.com",
+        "firstName" : "Ronit",
+        "lastName" : "Kory",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FNOUTgZaTYoZXb3DuUZDWqLCsFh83.jpg?alt=media&token=2ec28c76-0d2c-47b9-b902-41ce31f6dbc2",
+        "trustedUsers" : [ "iirxvCt32WZDwZXWxNEqOzhCjwC2", "AVcQhb4VHnhIB7zT6TYovQ0LeZx1" ],
+        "uid" : "NOUTgZaTYoZXb3DuUZDWqLCsFh83",
+        "wallet" : {
+          "coins" : {
+            "NOUTgZaTYoZXb3DuUZDWqLCsFh83" : {
+              "amount" : 0,
+              "lastModified" : 1504368357476,
+              "owner" : "NOUTgZaTYoZXb3DuUZDWqLCsFh83",
+              "priority" : 0,
+              "title" : "RonitCoin"
+            }
+          },
+          "lastModified" : 1504368357476,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "O1bMGNM4KxPAJUUNNNOkVeexkRx2" : {
+      "news" : {
+        "-Kt2KmR6rNdJiJZK1sQg" : {
+          "timestamp" : 1504368357477,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "google", "password", "name", "email" ],
+        "balance" : 91,
+        "createdAt" : 1504194374073,
+        "displayName" : "Grischan  Glaenzel",
+        "email" : "grischan@gmail.com",
+        "firstName" : "Grischan ",
+        "greeting" : "Hi there",
+        "lastName" : "Glaenzel",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a",
+        "trustedUsers" : [ "GmaxOuH1FkbediOHGcBdIJwLt8n1", "iirxvCt32WZDwZXWxNEqOzhCjwC2", "7ikBMSHvG8dm64aM8V2JUJ980BP2", "sfNubGbzZUWogFuluZUAubUiAe13", "JDJcY1iwa0Ndf115NOFj8OAxiO72" ],
+        "uid" : "O1bMGNM4KxPAJUUNNNOkVeexkRx2",
+        "wallet" : {
+          "coins" : {
+            "O1bMGNM4KxPAJUUNNNOkVeexkRx2" : {
+              "amount" : 0,
+              "lastModified" : 1504368357477,
+              "owner" : "O1bMGNM4KxPAJUUNNNOkVeexkRx2",
+              "priority" : 0,
+              "title" : "Grischan Coin"
+            }
+          },
+          "lastModified" : 1504368357477,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "Ppc5Lj9AMGWR6nHkUyJlruoGCS23" : {
+      "news" : {
+        "-Kt2KmVmrYHBxABKpoHW" : {
+          "timestamp" : 1504368357478,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "name", "photo" ],
+        "balance" : 80,
+        "createdAt" : 1504198882290,
+        "displayName" : "James Jackson",
+        "email" : "james-jackson@email.com",
+        "firstName" : "James",
+        "lastName" : "Jackson",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FPpc5Lj9AMGWR6nHkUyJlruoGCS23.jpg?alt=media&token=7fda332e-c23e-4d13-a151-a7963ce1a0a2",
+        "trustedUsers" : [ "NOUTgZaTYoZXb3DuUZDWqLCsFh83", "iirxvCt32WZDwZXWxNEqOzhCjwC2" ],
+        "uid" : "Ppc5Lj9AMGWR6nHkUyJlruoGCS23",
+        "wallet" : {
+          "coins" : {
+            "Ppc5Lj9AMGWR6nHkUyJlruoGCS23" : {
+              "amount" : 0,
+              "lastModified" : 1504368357479,
+              "owner" : "Ppc5Lj9AMGWR6nHkUyJlruoGCS23",
+              "priority" : 0,
+              "title" : "JamesCoin"
+            }
+          },
+          "lastModified" : 1504368357479,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "QSqZK8OK05OXECRaaJDff63T4TI2" : {
+      "news" : {
+        "-Kt2KmeBsUMvY0imh33l" : {
+          "timestamp" : 1504368357480,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "google", "name", "email", "photo" ],
+        "balance" : 89,
+        "createdAt" : 1504191921665,
+        "displayName" : "Martin Vavrovic",
+        "email" : "martin.vavrovic@gmail.com",
+        "firstName" : "Martin",
+        "lastName" : "Vavrovic",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FQSqZK8OK05OXECRaaJDff63T4TI2.jpg?alt=media&token=602b031c-3812-4066-974e-13573bc4cb8f",
+        "trustedUsers" : [ "iirxvCt32WZDwZXWxNEqOzhCjwC2", "0GfydDj1zXRjRbenEKTGi8nXfMj1" ],
+        "uid" : "QSqZK8OK05OXECRaaJDff63T4TI2",
+        "wallet" : {
+          "coins" : {
+            "QSqZK8OK05OXECRaaJDff63T4TI2" : {
+              "amount" : 0,
+              "lastModified" : 1504368357480,
+              "owner" : "QSqZK8OK05OXECRaaJDff63T4TI2",
+              "priority" : 0,
+              "title" : "MartinCoin"
+            }
+          },
+          "lastModified" : 1504368357480,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "W6XhUebTOqcLPyEyPjXacUB2ip73" : {
+      "news" : {
+        "-Kt2Kmtn5Qpwj1a7Kyw9" : {
+          "timestamp" : 1504368357481,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "password", "name", "photo" ],
+        "balance" : 61,
+        "createdAt" : 1504193540636,
+        "displayName" : "Fabian Loewenbrueck",
+        "email" : "gedo@posteo.de",
+        "firstName" : "Fabian",
+        "lastName" : "Loewenbrueck",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FW6XhUebTOqcLPyEyPjXacUB2ip73.jpg?alt=media&token=31c1d46f-63eb-4e7e-82ca-078b4617ee0d",
+        "trustedUsers" : [ "EdMPoCnEh8cl3wHWZ2UYN5yK5WD3", "iirxvCt32WZDwZXWxNEqOzhCjwC2", "GmaxOuH1FkbediOHGcBdIJwLt8n1" ],
+        "uid" : "W6XhUebTOqcLPyEyPjXacUB2ip73",
+        "wallet" : {
+          "coins" : {
+            "W6XhUebTOqcLPyEyPjXacUB2ip73" : {
+              "amount" : 0,
+              "lastModified" : 1504368357482,
+              "owner" : "W6XhUebTOqcLPyEyPjXacUB2ip73",
+              "priority" : 0,
+              "title" : "FabianCoin"
+            }
+          },
+          "lastModified" : 1504368357482,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "WXBvptSRA0S0ekLIEhStPjoCdts1" : {
+      "news" : {
+        "-Kt2KnD5twr7Ygw9krS_" : {
+          "timestamp" : 1504368357482,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "google", "name", "email", "photo" ],
+        "balance" : 87,
+        "createdAt" : 1504192333325,
+        "displayName" : "David Lima",
+        "email" : "davidmclima@googlemail.com",
+        "firstName" : "David",
+        "lastName" : "Lima",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FWXBvptSRA0S0ekLIEhStPjoCdts1.jpg?alt=media&token=84359248-9e01-4302-bf02-b9cae55ce9c6",
+        "trustedUsers" : [ "1jmEsGa2iIhfgK32YyejXutneO92" ],
+        "uid" : "WXBvptSRA0S0ekLIEhStPjoCdts1",
+        "wallet" : {
+          "coins" : {
+            "WXBvptSRA0S0ekLIEhStPjoCdts1" : {
+              "amount" : 0,
+              "lastModified" : 1504368357483,
+              "owner" : "WXBvptSRA0S0ekLIEhStPjoCdts1",
+              "priority" : 0,
+              "title" : "DavidCoin"
+            }
+          },
+          "lastModified" : 1504368357483,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "WpMktkLHWsYp8ne5xGWwNlYZJv82" : {
+      "news" : {
+        "-Kt2KnSjj2W2Bnzh2NAU" : {
+          "timestamp" : 1504368357484,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "name" ],
+        "balance" : 91,
+        "createdAt" : 1504195048949,
+        "displayName" : "Sanaa Sandusa",
+        "email" : "sandusa@hotmail.de",
+        "firstName" : "Sanaa",
+        "lastName" : "Sandusa",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a",
+        "uid" : "WpMktkLHWsYp8ne5xGWwNlYZJv82",
+        "wallet" : {
+          "coins" : {
+            "WpMktkLHWsYp8ne5xGWwNlYZJv82" : {
+              "amount" : 0,
+              "lastModified" : 1504368357484,
+              "owner" : "WpMktkLHWsYp8ne5xGWwNlYZJv82",
+              "priority" : 0,
+              "title" : "SanaaCoin"
+            }
+          },
+          "lastModified" : 1504368357484,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "cLw0riZdIsbMDJzORwzGmPxv6x23" : {
+      "news" : {
+        "-Kt2Kn_ZzfpIdf5IfYj7" : {
+          "timestamp" : 1504368357485,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "password", "name", "photo" ],
+        "balance" : 80,
+        "createdAt" : 1504194202861,
+        "displayName" : "allmaennITta",
+        "email" : "ingo.beyerlein@allmaennitta.de",
+        "greeting" : "Technical Consultancy Of All Kinds :)",
+        "organisation" : "allmaennITta",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FcLw0riZdIsbMDJzORwzGmPxv6x23.jpg?alt=media&token=ff0239be-047e-45f3-aac2-6b0cde6794aa",
+        "uid" : "cLw0riZdIsbMDJzORwzGmPxv6x23",
+        "wallet" : {
+          "coins" : {
+            "cLw0riZdIsbMDJzORwzGmPxv6x23" : {
+              "amount" : 0,
+              "lastModified" : 1504368357486,
+              "owner" : "cLw0riZdIsbMDJzORwzGmPxv6x23",
+              "priority" : 0,
+              "title" : "Circle"
+            }
+          },
+          "lastModified" : 1504368357486,
+          "received" : 0,
+          "sent" : 0
+        },
+        "website" : "www.allmaennitta.de"
+      }
+    },
+    "cOPsyPk6xUfQUl7rCwZQrzRfsq22" : {
+      "news" : {
+        "-Kt2Knm2P6thr2__XV6l" : {
+          "timestamp" : 1504368357486,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "twitter", "name", "photo" ],
+        "balance" : 88,
+        "createdAt" : 1504192875668,
+        "displayName" : "Johannes Zerbst",
+        "email" : "j.zerbst@gmx.net",
+        "firstName" : "Johannes",
+        "lastName" : "Zerbst",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FcOPsyPk6xUfQUl7rCwZQrzRfsq22.jpg?alt=media&token=102efcae-70d9-42c3-a453-61892a9923ed",
+        "trustedUsers" : [ "iirxvCt32WZDwZXWxNEqOzhCjwC2", "NOUTgZaTYoZXb3DuUZDWqLCsFh83", "EdMPoCnEh8cl3wHWZ2UYN5yK5WD3" ],
+        "uid" : "cOPsyPk6xUfQUl7rCwZQrzRfsq22",
+        "wallet" : {
+          "coins" : {
+            "cOPsyPk6xUfQUl7rCwZQrzRfsq22" : {
+              "amount" : 0,
+              "lastModified" : 1504368357487,
+              "owner" : "cOPsyPk6xUfQUl7rCwZQrzRfsq22",
+              "priority" : 0,
+              "title" : "JohannesCoin"
+            }
+          },
+          "lastModified" : 1504368357487,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "cWnOLbizFvRPvEayjGPYVxY5ZjD3" : {
+      "news" : {
+        "-Kt2KoEkaGt_9IdFOAVA" : {
+          "timestamp" : 1504368357488,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "password", "name", "photo" ],
+        "balance" : 86,
+        "createdAt" : 1504193827289,
+        "displayName" : "Daniel Feher",
+        "email" : "daniel.feher@gmail.com",
+        "firstName" : "Daniel",
+        "lastName" : "Feher",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FcWnOLbizFvRPvEayjGPYVxY5ZjD3.jpg?alt=media&token=0af91969-6415-40ac-a9dc-d5e22be07f54",
+        "trustedUsers" : [ "iirxvCt32WZDwZXWxNEqOzhCjwC2", "6jPZPaPYrYQV0KXBlsOW0LQnUSr1", "5DufL0Qbk8b92NAUtmClLJPFDaw1" ],
+        "uid" : "cWnOLbizFvRPvEayjGPYVxY5ZjD3",
+        "wallet" : {
+          "coins" : {
+            "cWnOLbizFvRPvEayjGPYVxY5ZjD3" : {
+              "amount" : 0,
+              "lastModified" : 1504368357488,
+              "owner" : "cWnOLbizFvRPvEayjGPYVxY5ZjD3",
+              "priority" : 0,
+              "title" : "DanielCoin"
+            }
+          },
+          "lastModified" : 1504368357488,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "eqrDtrVwQRQ8ukBTK5uH0MNeyOG2" : {
+      "news" : {
+        "-Kt2KoL-FY5rcF6ePCJz" : {
+          "timestamp" : 1504368357489,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "name" ],
+        "balance" : 87,
+        "createdAt" : 1504195829552,
+        "displayName" : "Bilal Battat",
+        "email" : "b_lal4141@hotmail.com",
+        "firstName" : "Bilal",
+        "lastName" : "Battat",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a",
+        "trustedUsers" : [ "iirxvCt32WZDwZXWxNEqOzhCjwC2" ],
+        "uid" : "eqrDtrVwQRQ8ukBTK5uH0MNeyOG2",
+        "wallet" : {
+          "coins" : {
+            "eqrDtrVwQRQ8ukBTK5uH0MNeyOG2" : {
+              "amount" : 0,
+              "lastModified" : 1504368357490,
+              "owner" : "eqrDtrVwQRQ8ukBTK5uH0MNeyOG2",
+              "priority" : 0,
+              "title" : "BilalCoin"
+            }
+          },
+          "lastModified" : 1504368357490,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "gsJY12X0htV47oYSvbjQkDcv43H2" : {
+      "news" : {
+        "-Kt2jZZ37Y0ahx188VBx" : {
+          "timestamp" : 1504375098885,
+          "to" : "IYtQXnmA28gG46lGHYiVLIyE9Yh1",
+          "type" : "revokeUser"
+        },
+        "-Kt2jZZ8WpvAT-htuvPv" : {
+          "timestamp" : 1504375098986,
+          "to" : "IYtQXnmA28gG46lGHYiVLIyE9Yh1",
+          "type" : "revokeUser"
+        }
+      }
+    },
+    "iRiT3IIqRJafxwrgqoPPoAKic0U2" : {
+      "news" : {
+        "-Kt2KotwrrnBgiSZUda7" : {
+          "timestamp" : 1504368357492,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "password", "name", "photo" ],
+        "balance" : 80,
+        "displayName" : "Oli Vom campus",
+        "email" : "tour@bauhauscampus.org",
+        "firstName" : "Oli",
+        "lastName" : "Vom campus",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FiRiT3IIqRJafxwrgqoPPoAKic0U2.jpg?alt=media&token=d41bfec5-c137-4a66-bee3-8314d87b9b6d",
+        "uid" : "iRiT3IIqRJafxwrgqoPPoAKic0U2",
+        "wallet" : {
+          "coins" : {
+            "iRiT3IIqRJafxwrgqoPPoAKic0U2" : {
+              "amount" : 0,
+              "lastModified" : 1504368357493,
+              "owner" : "iRiT3IIqRJafxwrgqoPPoAKic0U2",
+              "priority" : 0,
+              "title" : "OliCoin"
+            }
+          },
+          "lastModified" : 1504368357493,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "iirxvCt32WZDwZXWxNEqOzhCjwC2" : {
+      "news" : {
+        "-Kt2Kp0jJ2Iwg9A0O1nQ" : {
+          "timestamp" : 1504368357494,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "google", "name", "email", "photo" ],
+        "balance" : 176,
+        "createdAt" : 1504185652185,
+        "displayName" : "Cafe Grundeinkommen",
+        "email" : "basicincomeberlin@gmail.com",
+        "greeting" : "Grundeinkommen Jetzt!",
+        "organisation" : "Cafe Grundeinkommen",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FiirxvCt32WZDwZXWxNEqOzhCjwC2.jpg?alt=media&token=43155353-da54-4e68-86f4-9d3150e0f0ea",
+        "tradeMessage" : "Located on the Tinyhouse University Campus, we sell local direct-trade coffee and tea and snacks.\n\nCome and ask us about Basic Income, the Cafe or Circles!",
+        "trustedUsers" : [ "0GfydDj1zXRjRbenEKTGi8nXfMj1", "NOUTgZaTYoZXb3DuUZDWqLCsFh83", "y4HISL50W2XlDWJBvGnnmTqmMSh2", "QSqZK8OK05OXECRaaJDff63T4TI2", "WXBvptSRA0S0ekLIEhStPjoCdts1", "1jmEsGa2iIhfgK32YyejXutneO92", "cOPsyPk6xUfQUl7rCwZQrzRfsq22", "IYtQXnmA28gG46lGHYiVLIyE9Yh1", "cWnOLbizFvRPvEayjGPYVxY5ZjD3", "5DufL0Qbk8b92NAUtmClLJPFDaw1", "6jPZPaPYrYQV0KXBlsOW0LQnUSr1", "932siyHNqqX0P2URRZcRcFQORHC2", "W6XhUebTOqcLPyEyPjXacUB2ip73", "GmaxOuH1FkbediOHGcBdIJwLt8n1", "eqrDtrVwQRQ8ukBTK5uH0MNeyOG2", "GLBlmrvfB4er6mI7sj8R58gev5H3", "vkYy4pgayfYgGiPCPdiKDQ9SHJA3", "O1bMGNM4KxPAJUUNNNOkVeexkRx2", "7ikBMSHvG8dm64aM8V2JUJ980BP2", "GBeHaObeHZbqr0pEtn5iCPvwV6q2", "Ppc5Lj9AMGWR6nHkUyJlruoGCS23", "AVcQhb4VHnhIB7zT6TYovQ0LeZx1" ],
+        "uid" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+        "validators" : [ "-Kk1Xr2syRJ0V7NDKjSK" ],
+        "wallet" : {
+          "coins" : {
+            "iirxvCt32WZDwZXWxNEqOzhCjwC2" : {
+              "amount" : 0,
+              "lastModified" : 1504368357495,
+              "owner" : "iirxvCt32WZDwZXWxNEqOzhCjwC2",
+              "priority" : 0,
+              "title" : "Circle"
+            }
+          },
+          "lastModified" : 1504368357495,
+          "received" : 0,
+          "sent" : 0
+        },
+        "website" : "http://www.cafe-grundeinkommen.org/"
+      }
+    },
+    "sfNubGbzZUWogFuluZUAubUiAe13" : {
+      "news" : {
+        "-Kt2Kq3ww3zJP0WIbYxv" : {
+          "timestamp" : 1504368357497,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "google", "password", "name", "photo", "email" ],
+        "balance" : 93,
+        "createdAt" : 1504192589607,
+        "displayName" : "Ingo Beyerlein",
+        "email" : "ingobeyerlein@hotmail.com",
+        "firstName" : "Ingo",
+        "lastName" : "Beyerlein",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FsfNubGbzZUWogFuluZUAubUiAe13.jpg?alt=media&token=18120d28-288c-4de5-ab80-f797a4727517",
+        "trustedUsers" : [ "NOUTgZaTYoZXb3DuUZDWqLCsFh83", "AVcQhb4VHnhIB7zT6TYovQ0LeZx1", "iirxvCt32WZDwZXWxNEqOzhCjwC2", "cLw0riZdIsbMDJzORwzGmPxv6x23", "7ikBMSHvG8dm64aM8V2JUJ980BP2", "GLBlmrvfB4er6mI7sj8R58gev5H3", "y4HISL50W2XlDWJBvGnnmTqmMSh2" ],
+        "uid" : "sfNubGbzZUWogFuluZUAubUiAe13",
+        "validators" : [ "-Kk1Xr2syRJ0V7NDKjSK" ],
+        "wallet" : {
+          "coins" : {
+            "sfNubGbzZUWogFuluZUAubUiAe13" : {
+              "amount" : 0,
+              "lastModified" : 1504368357498,
+              "owner" : "sfNubGbzZUWogFuluZUAubUiAe13",
+              "priority" : 0,
+              "title" : "IngoCoin"
+            }
+          },
+          "lastModified" : 1504368357498,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "vkYy4pgayfYgGiPCPdiKDQ9SHJA3" : {
+      "news" : {
+        "-Kt2KqHzNwvGHBc0FNkW" : {
+          "timestamp" : 1504368357499,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "google", "name", "email" ],
+        "balance" : 85,
+        "createdAt" : 1504196009258,
+        "displayName" : "Leonardo Di chiara",
+        "email" : "leodikia@gmail.com",
+        "firstName" : "Leonardo",
+        "lastName" : "Di chiara",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a",
+        "trustedUsers" : [ "iirxvCt32WZDwZXWxNEqOzhCjwC2" ],
+        "uid" : "vkYy4pgayfYgGiPCPdiKDQ9SHJA3",
+        "wallet" : {
+          "coins" : {
+            "vkYy4pgayfYgGiPCPdiKDQ9SHJA3" : {
+              "amount" : 0,
+              "lastModified" : 1504368357499,
+              "owner" : "vkYy4pgayfYgGiPCPdiKDQ9SHJA3",
+              "priority" : 0,
+              "title" : "LeonardoCoin"
+            }
+          },
+          "lastModified" : 1504368357499,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    },
+    "y4HISL50W2XlDWJBvGnnmTqmMSh2" : {
+      "news" : {
+        "-Kt2KqRLumDIEgeO2ZrH" : {
+          "timestamp" : 1504368357500,
+          "type" : "createAccount"
+        }
+      },
+      "settings" : {
+        "toggleProfileVis" : {
+          "email" : false,
+          "facebook" : false,
+          "github" : false,
+          "google" : false,
+          "phone" : false,
+          "twitter" : false,
+          "validators" : false,
+          "website" : false
+        },
+        "wallet" : {
+          "scheme" : "none"
+        }
+      },
+      "userData" : {
+        "agreedToDisclaimer" : true,
+        "authProviders" : [ "google", "name", "email", "photo" ],
+        "balance" : 88,
+        "createdAt" : 1504191043723,
+        "displayName" : "Jacob Vallance",
+        "email" : "jacobvallance7@gmail.com",
+        "firstName" : "Jacob",
+        "lastName" : "Vallance",
+        "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Fy4HISL50W2XlDWJBvGnnmTqmMSh2.jpg?alt=media&token=947be4f0-030e-425c-9757-cddaf45a706f",
+        "trustedUsers" : [ "iirxvCt32WZDwZXWxNEqOzhCjwC2" ],
+        "uid" : "y4HISL50W2XlDWJBvGnnmTqmMSh2",
+        "wallet" : {
+          "coins" : {
+            "y4HISL50W2XlDWJBvGnnmTqmMSh2" : {
+              "amount" : 0,
+              "lastModified" : 1504368357501,
+              "owner" : "y4HISL50W2XlDWJBvGnnmTqmMSh2",
+              "priority" : 0,
+              "title" : "JacobCoin"
+            }
+          },
+          "lastModified" : 1504368357501,
+          "received" : 0,
+          "sent" : 0
+        }
+      }
+    }
+  },
+  "validators" : {
+    "-Kk1Xr2syRJ0V7NDKjSK" : {
+      "autoAccept" : true,
+      "description" : "Tinyhouse university is a Berlin-based NGO founded by Van Bo Le-Mentzel, designers, education activists and refugees. Our goal is to create new models of social neighborhoods. Our tools are architecture and the beliefs that make diversity a village stronger than common sense.",
+      "displayName" : "Tinyhouse University",
+      "email" : "tinyhouseuni@tinyhouse.com",
+      "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Ftinyu.png?alt=media&token=a61c66b6-d6af-46a8-ad73-3a5f853ba99e",
+      "requirements" : [ "email", "name", "photo" ],
+      "trustedUsers" : [ "0GfydDj1zXRjRbenEKTGi8nXfMj1", "iirxvCt32WZDwZXWxNEqOzhCjwC2", "GmaxOuH1FkbediOHGcBdIJwLt8n1", "sfNubGbzZUWogFuluZUAubUiAe13" ]
+    },
+    "-Kk1Xr2x-iftLqPsxscG" : {
+      "autoAccept" : false,
+      "description" : "Berlin Basic Income is a local group that explores strategies to implement a universal basic income (UBI), including unconventional methods that may start outside of the usual political process (e.g. the basic income cryptocurrency Circles). ",
+      "displayName" : "Berlin Basic Income Lab",
+      "email" : "basicincomeberlin@gmail.com",
+      "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Flab.png?alt=media&token=062c962c-9826-4714-98df-ba6c9d4fb166",
+      "requirements" : [ "email", "name", "photo", "facebook" ]
+    },
+    "-Kk1Xr2ytzY1xPWUVXWP" : {
+      "autoAccept" : false,
+      "description" : "Kreuzberg Music co-op is a group dedicated to sharing the means of music production. If you are a musician or a music lover this is the place for you.",
+      "displayName" : "Kreuzberg Music Co-op",
+      "email" : "KZBRG@funnow.com",
+      "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FCClogo.png?alt=media&token=cc46a2db-297f-4558-a6cc-1d1a7aef02d5",
+      "requirements" : [ "email", "name", "photo", "facebook", "soundcloud" ]
+    },
+    "-Kk1Xr2ytzY1xPWUVXWQ" : {
+      "appliedUsers" : [ "0GfydDj1zXRjRbenEKTGi8nXfMj1" ],
+      "autoAccept" : false,
+      "description" : "Radwerk is a collective of Berlin bike shops. We share resources, time and knowledge :)",
+      "displayName" : "Radwerk",
+      "email" : "Radwerk@Radwerk.com",
+      "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Frepair.png?alt=media&token=4d837bc7-7f92-4255-943a-5b34778e5a7d",
+      "requirements" : [ "name", "photo" ]
+    },
+    "-Kk1Xr2ytzY1xPWdcEEf" : {
+      "autoAccept" : false,
+      "description" : "For hardcore gamerz only!",
+      "displayName" : "Gamer",
+      "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Fgamecoop.png?alt=media&token=a8b6a45d-7249-46ab-90de-6f34a491c608",
+      "requirements" : [ "name", "photo", "steam" ]
+    }
+  }
+}

@@ -63,7 +63,7 @@ export class WalletPage {
   private async save() {
     for (let c of this.displayWallet as any) {
       c.displayOwner = null;
-      this.user.wallet[c.owner] = c;
+      this.user.wallet.coins[c.owner] = c;
     }
     this.userService.updateUser({wallet:this.user.wallet});
     this.navCtrl.pop();
@@ -77,8 +77,8 @@ export class WalletPage {
       user => {
         this.user = user;
         this.displayWallet = [];
-        for (let i in this.user.wallet) {
-          let w = Object.assign({},this.user.wallet[i]) as any;
+        for (let i in this.user.wallet.coins) {
+          let w = Object.assign({},this.user.wallet.coins[i]) as any;
           w.displayOwner = this.userService.keyToUser(w.owner).displayName;
           this.displayWallet.push(w);
         }

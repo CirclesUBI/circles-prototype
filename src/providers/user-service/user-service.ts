@@ -28,13 +28,15 @@ export class UserService implements OnDestroy {
   private usersSubject$: ReplaySubject<Array<any>> = new ReplaySubject<Array<any>>(1);
   public users$ = this.usersSubject$.asObservable();
 
-  private user = {} as User;
+  public user = {} as User;
   private userSubject$: ReplaySubject<User> = new ReplaySubject<User>(1);
 
   private combinedSub$: Subscription;
 
   public trustedUsersNetwork: Array<any> = [];
   public trustedByValidator: Array<any> = [];
+
+  private userObsCallCount = 0;
 
   constructor(
     private db: AngularFireDatabase,
@@ -44,32 +46,16 @@ export class UserService implements OnDestroy {
     this.authService.authState$.subscribe(
       (auth) => {
         if (auth) {
+
+          this.userObsCallCount = 0;
           this.userFirebaseObj$ = this.db.object('/users/' + auth.uid + '/userData');
           this.user$ = this.userSubject$.asObservable();
           this.usersFirebaseList$ = this.db.list('/users/');
 
           this.combinedSub$  = Observable.combineLatest(this.userFirebaseObj$, this.usersFirebaseList$).subscribe(
             (result) => {
-              let user = result[0] as any;
-              if (!user.uid)
-                console.log('user uid missing');
-
-              if (!this.isOrg(user))
-                this.type = 'individual';
-              else
-                this.type = 'organisation';
-
-              this.user = user;
-              this.user.coins = this.user.wallet[this.user.uid];
-              if (this.user.validators)
-                this.validators = this.user.validators.map((valKey) => this.validatorService.keyToValidator(valKey));
-              else
-                this.validators = [];
-
-              this.userSubject$.next(this.user);
-
-              this.user.coins = this.user.wallet[this.user.uid];
-
+              console.log('user-service combinedSub$ called:'+(++this.userObsCallCount));
+              //store users
               let users = result[1];
               this.trustedUsersNetwork = [];
               this.users = [];
@@ -77,7 +63,32 @@ export class UserService implements OnDestroy {
                 this.users[u.$key] = u.userData;
               }
 
+              let user = result[0] as any;
+              if (!user.$exists() || !user.wallet) {
+                console.log('user not ready');
+                return;
+              }
+
+              if (!user.authProviders.includes('email')) {//} && auth.emailVerified) {
+                user.authProviders.push('email');
+              }
+
+              if (!this.isOrg(user))
+                this.type = 'individual';
+              else
+                this.type = 'organisation';
+
+              //setup user
+              this.user = user;
+              this.user.coins = this.user.wallet.coins[this.user.uid];
+              if (this.user.validators)
+                this.validators = this.user.validators.map((valKey) => this.validatorService.keyToValidator(valKey));
+              else
+                this.validators = [];
+
+              this.userSubject$.next(this.user);
               this.usersSubject$.next(users);
+
               if (user.trustedUsers || user.trustedBy) {
                 let tToUsers = (user.trustedUsers) ? user.trustedUsers.slice(0) : [];
                 let tByUsers = (user.trustedBy) ? user.trustedBy.slice(0) : [];
@@ -123,12 +134,14 @@ export class UserService implements OnDestroy {
                   });
                 }
               }
+              this.authService.setLoggedInState(true);
             }
           );
 
         }
         else {
           this.user = null;
+          this.authService.setLoggedInState(false);
           this.combinedSub$.unsubscribe();
         }
       }
@@ -170,6 +183,7 @@ export class UserService implements OnDestroy {
       );
     });
   }
+
   public keyToUser(key: string): User {
     let u = this.users[key];
     if (!u)

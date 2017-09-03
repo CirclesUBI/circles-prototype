@@ -3,31 +3,17 @@ import { Toast, ToastController } from 'ionic-angular';
 import { Headers, Http } from '@angular/http';
 
 import { NotificationsService  } from 'angular2-notifications';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/map';
-
-import { UserService } from '../../providers/user-service/user-service';
-import { User } from '../../interfaces/user-interface';
 
 @Injectable()
 export class TransactionService implements OnDestroy {
 
-  private user: User;
-  private userSub$: Subscription;
   private toast: Toast;
 
   constructor(
     private http: Http,
     private notificationsService: NotificationsService,
-    private toastCtrl: ToastController,
-    private userService: UserService
-  ) {
-    this.userSub$ = this.userService.user$.subscribe(
-      user => this.user = user,
-      error => console.error(error),
-      () => console.log('transaction-service constructor userSub$ obs complete')
-    );
-  }
+    private toastCtrl: ToastController
+  ) {}
 
   public transfer(fromUserKey,toUserKey,amount,validator) {
     return new Promise ((resolve,reject) => {
@@ -42,7 +28,7 @@ export class TransactionService implements OnDestroy {
             }
             else {
               this.notificationsService.create('Send Success', '', 'success');
-              this.notificationsService.create('Sent', result.message, 'warn');
+              this.notificationsService.create('Sent', result.message, 'info');
               resolve();
             }
           },
@@ -118,6 +104,5 @@ export class TransactionService implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userSub$.unsubscribe();
   }
 }

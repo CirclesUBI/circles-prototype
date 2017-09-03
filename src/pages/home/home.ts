@@ -69,10 +69,9 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-
     this.userSub$ = this.userService.user$.subscribe(
       user => {
-        console.log("user", user);
+        console.log("home userSub$");
         if (this.userService.type === 'organisation') {
           this.user = user as Organisation;
         }

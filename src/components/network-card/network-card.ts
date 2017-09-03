@@ -13,7 +13,7 @@ import { NewsItem } from '../../interfaces/news-item-interface';
   selector: 'news-card',
   templateUrl: 'news-card.html'
 })
-export class NewsCard implements OnDestroy, OnInit {
+export class NetworkCard implements OnDestroy, OnInit {
 
   @Input('newsItem') newsItem: NewsItem;
   private user: User;
@@ -69,7 +69,6 @@ export class NewsCard implements OnDestroy, OnInit {
       this.profilePicURL = user.profilePicURL;
       this.message = `${this.newsItem.amount} Circles from ${user.displayName}`;
       }
-
     else if (this.newsItem.type == 'validatorRequest') {
       this.title = "Validator Request";
       this.itemIcon = "help-circle";
@@ -108,7 +107,7 @@ export class NewsCard implements OnDestroy, OnInit {
     else if (this.newsItem.type == 'issuance') {
       this.title = "Issuance";
       this.itemIcon = "cash";
-      this.message = `Issued ${this.newsItem.amount} ${this.user.wallet[this.user.uid].title}s`;
+      this.message = `Issued ${this.newsItem.amount} ${this.user.coins.title}s`;
       this.profilePicURL = this.user.profilePicURL;
     }
   }

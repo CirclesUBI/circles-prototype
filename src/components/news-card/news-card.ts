@@ -91,14 +91,14 @@ export class NewsCard implements OnDestroy, OnInit {
       this.profilePicURL = validator.profilePicURL;
       this.message = `No longer validated by ${validator.displayName}`;
     }
-    else if (this.newsItem.type == 'trustUser' && this.newsItem.to) {
+    else if (this.newsItem.type == 'trustUser' && this.newsItem.from == this.user.uid) {
       this.title = "Trust Afforded";
       this.itemIcon = "checkmark-circle";
       let user = this.userService.keyToUser(this.newsItem.to);
       this.profilePicURL = user.profilePicURL;
       this.message = `Afforded trust to: ${user.displayName}`;
     }
-    else if (this.newsItem.type == 'trustUser' && this.newsItem.from) {
+    else if (this.newsItem.type == 'trustUser' && this.newsItem.to == this.user.uid) {
       this.title = "Trust Receieved";
       this.itemIcon = "checkmark-circle";
       let user = this.userService.keyToUser(this.newsItem.from);
@@ -122,7 +122,7 @@ export class NewsCard implements OnDestroy, OnInit {
     else if (this.newsItem.type == 'issuance') {
       this.title = "Issuance";
       this.itemIcon = "cash";
-      this.message = `Issued ${this.newsItem.amount} ${this.user.wallet[this.user.uid].title}s`;
+      this.message = `Issued ${this.newsItem.amount} ${this.user.coins.title}s`;
       this.profilePicURL = this.user.profilePicURL;
     }
   }

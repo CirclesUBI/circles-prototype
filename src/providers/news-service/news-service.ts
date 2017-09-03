@@ -12,6 +12,7 @@ import 'rxjs/add/operator/isEmpty';
 
 import { UserService } from '../../providers/user-service/user-service';
 import { ValidatorService } from '../../providers/validator-service/validator-service';
+import { AuthService } from '../../providers/auth-service/auth-service';
 import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 import { Organisation } from '../../interfaces/organisation-interface';
@@ -21,8 +22,6 @@ import { Validator } from '../../interfaces/validator-interface';
 @Injectable()
 export class NewsService implements OnDestroy {
 
-  private user: User;
-
   private newsItemsFirebaseList$: FirebaseListObservable<NewsItem[]>;
   private newsItemsSub$: Subscription;
 
@@ -30,19 +29,23 @@ export class NewsService implements OnDestroy {
   private newsItems$: BehaviorSubject<NewsItem[]> = new BehaviorSubject([]);
 
   constructor(
+    private authService: AuthService,
     private db: AngularFireDatabase,
     private notificationsService: NotificationsService,
     private userService: UserService,
     private validatorService: ValidatorService
-  ) { }
+  ) {
 
-  public initialise (initUser) {
-    this.setupDBQuery(initUser.uid);
-
-    this.userService.user$.subscribe(
-      (user) => this.user = user,
-      (error) => console.error(error),
-      () => console.log('news-service constructor user$ obs complete')
+    this.authService.loggedInState$.subscribe(
+      (isLoggedIn) => {
+        if (isLoggedIn) {
+          let l = this.newsItemsFirebaseList$;
+          this.setupDBQuery(this.userService.user.uid);
+        }
+        else {
+          //todo:logout stuff
+        }
+      }
     );
   }
 
@@ -61,23 +64,28 @@ export class NewsService implements OnDestroy {
           let msg = 'Receieved ' + latestNewsItem.amount + ' Circles from ' + this.userService.keyToUser(latestNewsItem.from).displayName;
           this.notificationsService.create('Transaction', msg, 'info');
         }
+        else if (latestNewsItem.type == 'createAccount') {
+          debugger;
+          let msg = 'Welcome to Circles ' +this.userService.keyToUser(uid).displayName +'!';
+          this.notificationsService.create('User Created', msg, 'success');
+        }
         else if (latestNewsItem.type == 'issuance') {
-          let msg = 'You have minted ' + latestNewsItem.amount + ' Circles';
+          let msg = 'You have minted ' + latestNewsItem.amount + ' ' +this.userService.user.coins.title+ 's!';
           this.notificationsService.create('Issuance', msg, 'info');
         }
-        else if (latestNewsItem.type == 'trustUser' && latestNewsItem.to) {
+        else if (latestNewsItem.type == 'trustUser' && latestNewsItem.from == this.userService.user.uid) {
           let msg = 'You have started trusting: ' + this.userService.keyToUser(latestNewsItem.to).displayName;
           this.notificationsService.create('Trust', msg, 'success');
         }
-        else if (latestNewsItem.type == 'trustUser' && latestNewsItem.from) {
+        else if (latestNewsItem.type == 'trustUser' && latestNewsItem.to == this.userService.user.uid) {
           let msg = this.userService.keyToUser(latestNewsItem.from).displayName + 'has started trusting you';
           this.notificationsService.create('Trust', msg, 'success');
         }
-        else if (latestNewsItem.type == 'revokeUser' && latestNewsItem.to) {
+        else if (latestNewsItem.type == 'revokeUser' && latestNewsItem.from == this.userService.user.uid) {
           let msg = 'You have stopped trusting: ' + this.userService.keyToUser(latestNewsItem.to).displayName;
           this.notificationsService.create('Revoke', msg, 'warn');
         }
-        else if (latestNewsItem.type == 'revokeUser' && latestNewsItem.from) {
+        else if (latestNewsItem.type == 'revokeUser' && latestNewsItem.to == this.userService.user.uid) {
           let msg = this.userService.keyToUser(latestNewsItem.from).displayName + 'has stopped trusting you';
           this.notificationsService.create('Revoke', msg, 'warn');
         }
@@ -114,16 +122,6 @@ export class NewsService implements OnDestroy {
 
   public get allnewsItemsReversed$(): BehaviorSubject<NewsItem[]> {
     return this.newsItemsReversed$;
-  }
-
-  public addCreateUser(initUserData: Individual | Organisation):void {
-    let msg = 'Welcome to Circles ' +initUserData.displayName +'!';
-    this.notificationsService.create('User Created', msg, 'success');
-
-    if (!initUserData.authProviders.find( (prov) => prov == 'email')) {
-      msg = 'Verification Email sent to: ' +initUserData.email;
-      this.notificationsService.create('Email', msg, 'info');
-    }
   }
 
   public signOut() {

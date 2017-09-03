@@ -63,17 +63,19 @@ export class UserDetailPage {
 
   ionViewDidLoad() {
     this.userSub$ = this.userService.user$.subscribe(
-      user => {
+      (user) => {
+        console.log('user-detail userSub$');
         this.user = user;
         if (this.viewUser.profilePicURL)
           this.profilePicURL = this.viewUser.profilePicURL;
-        if (this.user.trustedUsers) {
-          this.trustTo = this.user.trustedUsers.some(tUserKey => {
-            return tUserKey == this.viewUser.uid;
-          });
-        }
+
         if (this.viewUser.trustedUsers) {
           this.trusted = this.trustFrom = this.viewUser.trustedUsers.some(tUserKey => {
+            return tUserKey == this.user.uid;
+          });
+        }
+        if (this.viewUser.trustedBy) {
+          this.trusted = this.trustTo = this.viewUser.trustedBy.some(tUserKey => {
             return tUserKey == this.user.uid;
           });
         }
