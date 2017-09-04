@@ -54,10 +54,7 @@ export class ValidatorService {
 
   public getUserProviders(user) {
     this.userProviders = [];
-    debugger;
-    if (!user.authProviders.includes('email')) {//} && auth.emailVerified) {
-      user.authProviders.push('email');
-    }
+
     for (let pKey in this.allProviders) {
       let p = Object.assign({}, this.allProviders[pKey]) as any;
       if (user.authProviders.find(aKey => pKey == aKey)) {
@@ -70,9 +67,7 @@ export class ValidatorService {
 
   public getValidatorRequirements(vali: Validator, user) {
     this.valRequirements = [];
-    if (!user.authProviders.includes('email')) {//} && auth.emailVerified) {
-      user.authProviders.push('email');
-    }
+
     for (let req of vali.requirements) {
       let r = Object.assign({}, this.allProviders[req]) as any;
       if (user.authProviders.find(auth => req == auth)) {
