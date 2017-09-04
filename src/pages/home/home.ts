@@ -30,6 +30,7 @@ export class HomePage {
   private myCoinBalance: number;
   private allCoinBalance: number;
   private myCoinName: string;
+  private userCoins: any;
 
   constructor(
     public navCtrl: NavController,
@@ -71,6 +72,7 @@ export class HomePage {
   ionViewDidLoad() {
     this.userSub$ = this.userService.user$.subscribe(
       user => {
+        this.userCoins = user.wallet.coins[user.uid];
         console.log("home userSub$");
         if (this.userService.type === 'organisation') {
           this.user = user as Organisation;

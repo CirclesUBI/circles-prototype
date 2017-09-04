@@ -10,7 +10,7 @@ import "rxjs/add/observable/interval";
 import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 import { Organisation } from '../../interfaces/organisation-interface';
-import { StorageService, UploadFile } from '../../providers/storage-service/storage-service';
+import { StorageService, UploadImage } from '../../providers/storage-service/storage-service';
 import { UserService } from '../../providers/user-service/user-service';
 
 import { WaitModal } from '../wait-modal/wait-modal'
@@ -36,7 +36,7 @@ export class WelcomePage {
   private picForm: FormGroup;
   private disclaimerForm: FormGroup;
 
-  private profilePicUpload: UploadFile;
+  private profilePicUpload: UploadImage;
 
   private profilePicURL: string = "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a";
   private base64ImageData: string;
@@ -159,29 +159,14 @@ export class WelcomePage {
 
       var reader = new FileReader();
       reader.onload = (e) => {
-        let img = new Image;
-        img.src = reader.result;
-        img.onload = ( (file) => {
-
-          this.storageService.resizePicFile(fileInput.target.files, img.height, img.width).subscribe(
-            (imageBlob) => {
-              this.profilePicURL = URL.createObjectURL(imageBlob);
-              this.base64ImageData = this.profilePicURL.split(',')[1];
-              this.profilePicUpload = new UploadFile(imageBlob as File, this.authUser.uid);
-              this.formState.isResizingImage = false;
-              this.welcomeSlider.lockSwipeToNext(false);
-            },
-            (error) => {
-              this.toast = this.toastCtrl.create({
-                message: error.message + ': ' + error.details,
-                duration: 4000,
-                position: 'middle'
-              });
-              console.error(error);
-              this.toast.present();
-            }
-          );
-        });
+        this.storageService.simpleResize(e.target['result'],1024,768).then(
+          (imgObj:any) => {
+            this.base64ImageData = imgObj.imgData;
+            this.profilePicURL = imgObj.imgURL;
+            this.formState.isResizingImage = false;
+            this.profilePicUpload = new UploadImage(this.base64ImageData,this.authUser.uid);
+          }
+        );
       }
       reader.readAsDataURL(fileInput.target.files[0]);
   }
