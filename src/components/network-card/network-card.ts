@@ -10,8 +10,8 @@ import { NewsItem } from '../../interfaces/news-item-interface';
 
 
 @Component({
-  selector: 'news-card',
-  templateUrl: 'news-card.html'
+  selector: 'network-card',
+  templateUrl: 'network-card.html'
 })
 export class NetworkCard implements OnDestroy, OnInit {
 
