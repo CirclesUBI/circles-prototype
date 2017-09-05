@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { UserService } from '../../providers/user-service/user-service';
-import { NewsService } from '../../providers/news-service/news-service';
+
 import { User } from '../../interfaces/user-interface';
 
 import { ApplyPage } from '../../pages/apply/apply';
@@ -30,7 +30,7 @@ export class ValidatorDetailPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private userService: UserService,
-    private newsService: NewsService,
+
     private validatorService: ValidatorService
   ) {
     this.validator = navParams.data;

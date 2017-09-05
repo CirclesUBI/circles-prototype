@@ -4,7 +4,7 @@ import { Loading, LoadingController, ModalController, NavController, NavParams }
 import { ValidatorService } from '../../providers/validator-service/validator-service';
 import { Validator } from '../../interfaces/validator-interface'
 import { User } from '../../interfaces/user-interface';
-import { NewsService } from '../../providers/news-service/news-service';
+
 
 
 import { HomePage } from '../../pages/home/home';
