@@ -4,9 +4,6 @@ import { Loading, LoadingController, NavController, NavParams } from 'ionic-angu
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { Subscription } from 'rxjs/Subscription';
 
-import { UserService } from '../../providers/user-service/user-service';
-import { User } from '../../interfaces/user-interface';
-
 /**
  * Generated class for the SettingsPage page.
  *
@@ -33,7 +30,7 @@ export class SettingsPage {
     private loadingCtrl: LoadingController,
     private navParams: NavParams
   ) {
-    this.user = navParams.data.user;
+    this.user = this.navParams.data.user;
     this.firebaseSettingsObj$ = this.db.object('/users/'+this.user.uid+'/settings/');
     this.settingsSub$ = this.firebaseSettingsObj$.subscribe(
       (settings) => {
@@ -42,6 +39,7 @@ export class SettingsPage {
     );
   }
 
+  // tslint:disable-next-line:no-unused-variable
   private saveSettings() {
     this.loading = this.loadingCtrl.create({
       content: 'Saving settings ...',

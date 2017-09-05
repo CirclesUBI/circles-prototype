@@ -26,7 +26,7 @@ export class SendPage {
   private loading: Loading;
   private toast: Toast;
 
-  private validatorTransfer: any;
+
 
   constructor(
     private formBuilder: FormBuilder,

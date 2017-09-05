@@ -49,7 +49,7 @@ export class WelcomePage {
     isResizingImage:  <boolean>false
   };
 
-  private profilePageViewNames: Array<string> = ['Intro', 'User Type', 'User Info', 'Picture', 'Disclaimer'];
+  //private profilePageViewNames: Array<string> = ['Intro', 'User Type', 'User Info', 'Picture', 'Disclaimer'];
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -145,11 +145,11 @@ export class WelcomePage {
   }
 
   // tslint:disable-next-line:no-unused-variable
-  private onSlideDidChange(): void {
-    let i = this.welcomeSlider.getActiveIndex();
-    //let slideName = this.profilePageViewNames[i];
-    //this.analytics.trackPageView('Profile Page: ' + slideName);
-  }
+  // private onSlideDidChange(): void {
+  //   let i = this.welcomeSlider.getActiveIndex();
+  //   //let slideName = this.profilePageViewNames[i];
+  //   //this.analytics.trackPageView('Profile Page: ' + slideName);
+  // }
 
 
   public fileChangeEvent(fileInput: any) {

@@ -59,21 +59,6 @@ export class TransactionService implements OnDestroy {
     return this.http.post(url,body,{headers: headers});
   }
 
-  private postValidatorTransaction(fromUserKey,toUserKey,validatorKey,amount) {
-    let url = 'https://us-central1-circles-testnet.cloudfunctions.net/validatorTransfer';
-    let data = {
-      fromUser:fromUserKey,
-      toUser:toUserKey,
-      validator:validatorKey,
-      amount:amount
-    };
-    const body = JSON.stringify(data);
-    const headers = new Headers();
-    headers.append("Content-Type", "application/json");
-
-    return this.http.post(url,body,{headers: headers});
-  }
-
   ngOnDestroy() {
   }
 }

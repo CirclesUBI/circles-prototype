@@ -4,7 +4,7 @@ import { NavController, NavParams, Toast, ToastController } from 'ionic-angular'
 import { Subscription } from 'rxjs/Subscription';
 
 import { UserService } from '../../providers/user-service/user-service';
-import { User } from '../../interfaces/user-interface';
+
 import { Coin } from '../../interfaces/coin-interface';
 
 @Component({

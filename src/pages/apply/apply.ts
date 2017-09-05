@@ -5,7 +5,7 @@ import { ValidatorService } from '../../providers/validator-service/validator-se
 import { Validator } from '../../interfaces/validator-interface'
 import { User } from '../../interfaces/user-interface';
 import { NewsService } from '../../providers/news-service/news-service';
-import { UserService } from '../../providers/user-service/user-service';
+
 
 import { HomePage } from '../../pages/home/home';
 import { ProfilePage } from '../../pages/profile/profile';
@@ -30,9 +30,9 @@ export class ApplyPage {
     public navParams: NavParams,
     private modalController: ModalController,
     private loadingCtrl: LoadingController,
-    private userService: UserService,
+
     private validatorService: ValidatorService,
-    private newsService: NewsService
+
   ) {
     this.validator = navParams.get('validator');
     this.user = navParams.get('user');

@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 import { Organisation } from '../../interfaces/organisation-interface';
-import { Coin } from '../../interfaces/coin-interface';
+
 import { ValidatorService } from '../../providers/validator-service/validator-service';
 import { AuthService } from '../../providers/auth-service/auth-service';
 

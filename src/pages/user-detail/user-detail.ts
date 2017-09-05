@@ -35,12 +35,12 @@ export class UserDetailPage {
     private navCtrl: NavController,
     public navParams: NavParams,
     private userService: UserService,
-    private newsService: NewsService,
+
     private validatorService: ValidatorService
   ) {
     this.viewUser = navParams.data;
     this.userService.getUserSettings(this.viewUser.uid).subscribe( (settings) => {
-      debugger;
+
       this.settings = settings;
     })
   }
@@ -63,14 +63,7 @@ export class UserDetailPage {
 
   // tslint:disable-next-line:no-unused-variable
   private sendCircles () {
-    // if (this.validatedBy)
-    //   this.sendCirclesViaValidator();
-    // else
     this.navCtrl.push(SendPage, {user:this.viewUser});//, val:false});
-  }
-
-  private sendCirclesViaValidator () {
-    this.navCtrl.push(SendPage, {user:this.viewUser, val:this.validatedByKey});
   }
 
   ionViewDidLoad() {

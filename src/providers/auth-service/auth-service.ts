@@ -2,12 +2,9 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
 import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { NewsService } from '../news-service/news-service';
-import { UserService } from '../user-service/user-service';
-import { ValidatorService } from '../validator-service/validator-service';
 
 @Injectable()
 export class AuthService {

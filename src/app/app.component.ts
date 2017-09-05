@@ -32,7 +32,6 @@ export class CirclesApp {
     private db: AngularFireDatabase,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
-    private newsService: NewsService,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,

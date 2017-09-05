@@ -7,7 +7,8 @@ import { UserService } from '../../providers/user-service/user-service';
 // tslint:disable-next-line:no-unused-variable
 import { NewsService } from '../../providers/news-service/news-service';
 // tslint:disable-next-line:no-unused-variable
-import { ValidatorService } from '../../providers/validator-service/validator-service';
+
+
 import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 import { Organisation } from '../../interfaces/organisation-interface';
@@ -27,16 +28,14 @@ export class HomePage {
 
   private selectedView: string = 'network';
 
-  private myCoinBalance: number;
-  private allCoinBalance: number;
-  private myCoinName: string;
   private userCoins: any;
 
   constructor(
     public navCtrl: NavController,
     private userService: UserService,
+    // tslint:disable-next-line:no-unused-variable
     private newsService: NewsService,
-    private validatorService: ValidatorService
+    //private validatorService: ValidatorService
   ) { }
 
   // tslint:disable-next-line:no-unused-variable

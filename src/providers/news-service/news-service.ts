@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 
 import { NotificationsService  } from 'angular2-notifications';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
+
 import { Subscription } from 'rxjs/Subscription';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
@@ -13,11 +13,11 @@ import 'rxjs/add/operator/isEmpty';
 import { UserService } from '../../providers/user-service/user-service';
 import { ValidatorService } from '../../providers/validator-service/validator-service';
 import { AuthService } from '../../providers/auth-service/auth-service';
-import { User } from '../../interfaces/user-interface';
-import { Individual } from '../../interfaces/individual-interface';
-import { Organisation } from '../../interfaces/organisation-interface';
+
+
+
 import { NewsItem } from '../../interfaces/news-item-interface';
-import { Validator } from '../../interfaces/validator-interface';
+
 
 @Injectable()
 export class NewsService implements OnDestroy {
@@ -39,7 +39,6 @@ export class NewsService implements OnDestroy {
     this.authService.loggedInState$.subscribe(
       (isLoggedIn) => {
         if (isLoggedIn) {
-          let l = this.newsItemsFirebaseList$;
           this.setupDBQuery(this.userService.user.uid);
         }
         else {

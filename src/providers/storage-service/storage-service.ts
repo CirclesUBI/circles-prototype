@@ -8,7 +8,7 @@ import { Observer } from 'rxjs/Observer';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-import { dataURLtoBlob } from 'blueimp-canvas-to-blob';
+
 
 export class Upload {
   $key: string;
