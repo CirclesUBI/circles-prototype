@@ -148,6 +148,11 @@ export class UserService implements OnDestroy {
     );
   }
 
+  public sendEmailVerification() {
+    let user = firebase.auth().currentUser;
+    return user.sendEmailVerification();
+  }
+
   public sendAndWaitEmailVerification(waitModal) {
     return new Promise((resolve, reject) => {
       let interval=null;

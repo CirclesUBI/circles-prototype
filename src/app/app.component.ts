@@ -68,7 +68,7 @@ export class CirclesApp {
               user => {
                 this.user = user.userData;
                 if (!user.$exists()) {
-                  this.nav.push(WelcomePage, { authUser: auth, obs: authUserObs$ });
+                  this.nav.push(WelcomePage, { authUser: auth });
                 }
                 else {
                   authUserSub$.unsubscribe();

@@ -65,7 +65,6 @@ export class NewsService implements OnDestroy {
           this.notificationsService.create('Transaction', msg, 'info');
         }
         else if (latestNewsItem.type == 'createAccount') {
-          debugger;
           let msg = 'Welcome to Circles ' +this.userService.user.displayName +'!';
           this.notificationsService.create('User Created', msg, 'success');
         }

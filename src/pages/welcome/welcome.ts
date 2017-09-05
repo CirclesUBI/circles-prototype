@@ -3,7 +3,7 @@ import { Loading, LoadingController, ModalController, NavParams, Slides, Toast, 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import "rxjs/add/observable/interval";
 
@@ -53,6 +53,7 @@ export class WelcomePage {
 
   constructor(
     private sanitizer: DomSanitizer,
+    private db: AngularFireDatabase,
     private formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
     private modalController: ModalController,
@@ -63,7 +64,7 @@ export class WelcomePage {
   ) {
 
     this.authUser = this.navParams.get('authUser');
-    this.userObs$ = this.navParams.get('obs');
+    this.userObs$ = this.db.object('/users/'+this.authUser.uid);
 
     this.userTypeForm = this.formBuilder.group({
       type: [null, Validators.required],
