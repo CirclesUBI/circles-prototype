@@ -230,7 +230,6 @@ export class ProfilePage {
               this.sendEmailVerif().then(
                 () => {
                   this.userService.saveUser();
-                  alert('here');
                   this.navCtrl.setRoot(HomePage);
                 },
                 (error) => {
