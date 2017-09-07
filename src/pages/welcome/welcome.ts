@@ -173,6 +173,43 @@ export class WelcomePage {
   }
 }
 
+// public fileChangeEvent(fileInput: any) {
+//     if (fileInput.target.files && fileInput.target.files[0]) {
+//
+//       this.welcomeSlider.lockSwipeToNext(true);
+//       this.formState.isResizingImage = true;
+//
+//       var reader = new FileReader();
+//       reader.onload = (e) => {
+//         let img = new Image;
+//         img.src = reader.result;
+//         img.onload = ( (file) => {
+//
+//           this.storageService.resizePicFile(fileInput.target.files, img.height, img.width).subscribe(
+//             (imageBlob) => {
+//               this.profilePicURL = URL.createObjectURL(imageBlob);
+//               this.base64ImageData = this.profilePicURL.split(',')[1];
+//               this.profilePicUpload = new UploadFile(imageBlob as File, this.authUser.uid);
+//               this.formState.isResizingImage = false;
+//               this.welcomeSlider.lockSwipeToNext(false);
+//             },
+//             (error) => {
+//               this.toast = this.toastCtrl.create({
+//                 message: error.message + ': ' + error.details,
+//                 duration: 4000,
+//                 position: 'middle'
+//               });
+//               console.error(error);
+//               this.toast.present();
+//             }
+//           );
+//         });
+//       }
+//       reader.readAsDataURL(fileInput.target.files[0]);
+//   }
+// }
+
+
   // tslint:disable-next-line:no-unused-variable
   private saveForm(): void {
 

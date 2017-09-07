@@ -16,6 +16,7 @@ import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 
 import { WaitModal } from '../wait-modal/wait-modal'
+import { HomePage } from '../../pages/home/home';
 
 @Component({
   selector: 'page-profile',
@@ -84,6 +85,38 @@ export class ProfilePage {
     //});
   }
 
+
+  // public fileChangeEvent(fileInput: any) {
+  //     if (fileInput.target.files && fileInput.target.files[0]) {
+  //
+  //       var reader = new FileReader();
+  //       reader.onload = (e) => {
+  //         let img = new Image;
+  //         img.src =  reader.result;
+  //         img.onload = ( (file) => {
+  //
+  //           this.storageService.resizePicFile(fileInput.target.files, img.height, img.width).subscribe(
+  //             (imageBlob) => {
+  //               this.profilePicURL = URL.createObjectURL(imageBlob);
+  //               this.base64ImageData = this.profilePicURL.split(',')[1];
+  //               this.profilePicUpload = new UploadFile(imageBlob as File, this.user.uid);
+  //
+  //             },
+  //             (error) => {
+  //               this.toast = this.toastCtrl.create({
+  //                 message: error.message + ': ' + error.details,
+  //                 duration: 4000,
+  //                 position: 'middle'
+  //               });
+  //               console.error(error);
+  //               this.toast.present();
+  //             }
+  //           );
+  //         });
+  //       }
+  //       reader.readAsDataURL(fileInput.target.files[0]);
+  //   }
+  // }
 
   public fileChangeEvent(fileInput: any) {
       if (fileInput.target.files && fileInput.target.files[0]) {
@@ -197,7 +230,8 @@ export class ProfilePage {
               this.sendEmailVerif().then(
                 () => {
                   this.userService.saveUser();
-                  this.navCtrl.pop();
+                  alert('here');
+                  this.navCtrl.setRoot(HomePage);
                 },
                 (error) => {
                   this.toast = this.toastCtrl.create({
