@@ -15,6 +15,7 @@ import { AngularFireModule } from 'angularfire2';
 import { Ng2PicaModule } from 'ng2-pica';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
+
 //pages
 import { HomePage } from '../pages/home/home';
 import { ProfilePage } from '../pages/profile/profile';

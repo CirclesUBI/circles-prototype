@@ -18,6 +18,8 @@ import { Individual } from '../../interfaces/individual-interface';
 import { WaitModal } from '../wait-modal/wait-modal'
 import { HomePage } from '../../pages/home/home';
 
+import * as exifStripper from '../../../node_modules/exif-stripper/exif-stripper.js';
+
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
@@ -128,8 +130,11 @@ export class ProfilePage {
           (imgObj:any) => {
             this.base64ImageData = imgObj.imgData;
             this.profilePicURL = imgObj.imgURL;
-            this.profilePicUpload = new UploadImage(this.base64ImageData,this.user.uid);
-            this.isImageLoading = false;
+            exifStripper.strip(imgObj.imgURL).then( (imgBlob:any) => {
+              //this.profilePicUpload = new UploadImage(this.base64ImageData,this.user.uid);
+              this.profilePicUpload = new UploadFile(imgBlob,this.user.uid);
+              this.isImageLoading = false;
+            });
           }
         );
 

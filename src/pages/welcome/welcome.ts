@@ -6,11 +6,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import "rxjs/add/observable/interval";
+import * as exifStripper from '../../../node_modules/exif-stripper/exif-stripper.js';
 
 import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 import { Organisation } from '../../interfaces/organisation-interface';
-import { StorageService, UploadImage } from '../../providers/storage-service/storage-service';
+import { StorageService, UploadImage, UploadFile } from '../../providers/storage-service/storage-service';
 import { UserService } from '../../providers/user-service/user-service';
 
 import { WaitModal } from '../wait-modal/wait-modal'
@@ -36,7 +37,7 @@ export class WelcomePage {
   private picForm: FormGroup;
   private disclaimerForm: FormGroup;
 
-  private profilePicUpload: UploadImage;
+  private profilePicUpload: UploadImage | UploadFile;
 
   private profilePicURL: string = "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a";
   private base64ImageData: string;
@@ -164,8 +165,12 @@ export class WelcomePage {
           (imgObj:any) => {
             this.base64ImageData = imgObj.imgData;
             this.profilePicURL = imgObj.imgURL;
-            this.formState.isResizingImage = false;
-            this.profilePicUpload = new UploadImage(this.base64ImageData,this.authUser.uid);
+
+            exifStripper.strip(imgObj.imgURL).then( (imgBlob:any) => {
+              //this.profilePicUpload = new UploadImage(this.base64ImageData,this.user.uid);
+              this.profilePicUpload = new UploadFile(imgBlob,this.authUser.uid);
+                this.formState.isResizingImage = false;
+            });
           }
         );
       }
