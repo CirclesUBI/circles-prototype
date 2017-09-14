@@ -4,8 +4,8 @@ import { Loading, LoadingController, ModalController, NavController, NavParams }
 import { ValidatorService } from '../../providers/validator-service/validator-service';
 import { Validator } from '../../interfaces/validator-interface'
 import { User } from '../../interfaces/user-interface';
-import { NewsService } from '../../providers/news-service/news-service';
-import { UserService } from '../../providers/user-service/user-service';
+
+
 
 import { HomePage } from '../../pages/home/home';
 import { ProfilePage } from '../../pages/profile/profile';
@@ -30,9 +30,9 @@ export class ApplyPage {
     public navParams: NavParams,
     private modalController: ModalController,
     private loadingCtrl: LoadingController,
-    private userService: UserService,
+
     private validatorService: ValidatorService,
-    private newsService: NewsService
+
   ) {
     this.validator = navParams.get('validator');
     this.user = navParams.get('user');
@@ -63,13 +63,9 @@ export class ApplyPage {
         this.loading.present();
 
         this.validatorService.applyForValidation(this.user, this.validator);
-        this.newsService.addValidatorTrustRequest(this.validator);
         if (this.validator.autoAccept) {
           setTimeout(() => {
             this.validatorService.completeValidation(this.user, this.validator);
-            this.newsService.addValidatorTrustAccept(this.validator);
-            this.userService.saveUser();
-            this.validatorService.saveValidator(this.validator);
             this.loading.dismiss();
             this.navCtrl.pop();
           }, 2000);
@@ -78,8 +74,6 @@ export class ApplyPage {
           this.loading.dismiss();
           this.navCtrl.pop();
         }
-        this.userService.saveUser();
-        this.validatorService.saveValidator(this.validator);
       }
       else {
         this.loading.dismiss();

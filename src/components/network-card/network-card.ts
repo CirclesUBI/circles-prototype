@@ -10,10 +10,10 @@ import { NewsItem } from '../../interfaces/news-item-interface';
 
 
 @Component({
-  selector: 'news-card',
-  templateUrl: 'news-card.html'
+  selector: 'network-card',
+  templateUrl: 'network-card.html'
 })
-export class NewsCard implements OnDestroy, OnInit {
+export class NetworkCard implements OnDestroy, OnInit {
 
   @Input('newsItem') newsItem: NewsItem;
   private user: User;
@@ -69,7 +69,6 @@ export class NewsCard implements OnDestroy, OnInit {
       this.profilePicURL = user.profilePicURL;
       this.message = `${this.newsItem.amount} Circles from ${user.displayName}`;
       }
-
     else if (this.newsItem.type == 'validatorRequest') {
       this.title = "Validator Request";
       this.itemIcon = "help-circle";
@@ -87,37 +86,23 @@ export class NewsCard implements OnDestroy, OnInit {
     else if (this.newsItem.type == 'revokeValidator') {
       this.title = "Revoke Validation";
       this.itemIcon = "close-circle";
-      let validator = this.validatorService.keyToValidator(this.newsItem.from);
+      let validator = this.validatorService.keyToValidator(this.newsItem.to);
       this.profilePicURL = validator.profilePicURL;
       this.message = `No longer validated by ${validator.displayName}`;
     }
-    else if (this.newsItem.type == 'trustUser' && this.newsItem.from == this.user.uid) {
+    else if (this.newsItem.type == 'trustUser') {
       this.title = "Trust Afforded";
       this.itemIcon = "checkmark-circle";
       let user = this.userService.keyToUser(this.newsItem.to);
       this.profilePicURL = user.profilePicURL;
       this.message = `Afforded trust to: ${user.displayName}`;
     }
-    else if (this.newsItem.type == 'trustUser' && this.newsItem.to == this.user.uid) {
-      this.title = "Trust Receieved";
-      this.itemIcon = "checkmark-circle";
-      let user = this.userService.keyToUser(this.newsItem.from);
-      this.profilePicURL = user.profilePicURL;
-      this.message = `Receieved trust from: ${user.displayName}`;
-    }
-    else if (this.newsItem.type == 'revokeUser' && this.newsItem.to) {
+    else if (this.newsItem.type == 'revokeUser') {
       this.title = "Revoke Trust";
       this.itemIcon = "close-circle";
       let user = this.userService.keyToUser(this.newsItem.to);
       this.profilePicURL = user.profilePicURL;
       this.message = `Stopped trusting: ${user.displayName}`;
-    }
-    else if (this.newsItem.type == 'revokeUser' && this.newsItem.from) {
-      this.title = "Revoke Trust";
-      this.itemIcon = "close-circle";
-      let user = this.userService.keyToUser(this.newsItem.from);
-      this.profilePicURL = user.profilePicURL;
-      this.message = `${user.displayName} stopped trusting you`;
     }
     else if (this.newsItem.type == 'issuance') {
       this.title = "Issuance";

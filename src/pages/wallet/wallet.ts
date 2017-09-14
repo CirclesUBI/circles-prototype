@@ -4,7 +4,7 @@ import { NavController, NavParams, Toast, ToastController } from 'ionic-angular'
 import { Subscription } from 'rxjs/Subscription';
 
 import { UserService } from '../../providers/user-service/user-service';
-import { User } from '../../interfaces/user-interface';
+
 import { Coin } from '../../interfaces/coin-interface';
 
 @Component({
@@ -13,7 +13,7 @@ import { Coin } from '../../interfaces/coin-interface';
 })
 export class WalletPage {
 
-  private user: User;
+  private user: any;
   private userSub$: Subscription;
   private toast: Toast;
   private displayWallet: Array<Coin>;
@@ -23,25 +23,24 @@ export class WalletPage {
     public navParams: NavParams,
     private userService: UserService,
     private toastCtrl: ToastController
-  )
-  { }
+  ) {}
 
   // tslint:disable-next-line:no-unused-variable
   private priorityUp(coin) {
     coin.priority--;
-    let c1 = this.displayWallet[coin.priority];
+    let c1 = this.displayWallet[coin.priority-1];
     c1.priority++;
-    this.displayWallet[coin.priority] = coin;
-    this.displayWallet[c1.priority] = c1;
+    this.displayWallet[coin.priority-1] = coin;
+    this.displayWallet[c1.priority-1] = c1;
   }
 
   // tslint:disable-next-line:no-unused-variable
   private priorityDown(coin) {
     coin.priority++;
-    let c1 = this.displayWallet[coin.priority];
+    let c1 = this.displayWallet[coin.priority-1];
     c1.priority--;
-    this.displayWallet[coin.priority] = coin;
-    this.displayWallet[c1.priority] = c1;
+    this.displayWallet[coin.priority-1] = coin;
+    this.displayWallet[c1.priority-1] = c1;
   }
 
 
@@ -55,14 +54,16 @@ export class WalletPage {
         if (a.priority < b.priority) {
          return -1;
         }
-      return 0;
-    });
+        return 0;
+      }
+    );
   }
 
   // tslint:disable-next-line:no-unused-variable
   private async save() {
-    for (let c of this.displayWallet) {
-      this.user.wallet[c.owner] = c;
+    for (let c of this.displayWallet as any) {
+      c.displayOwner = null;
+      this.user.wallet.coins[c.owner] = c;
     }
     this.userService.updateUser({wallet:this.user.wallet});
     this.navCtrl.pop();
@@ -70,15 +71,15 @@ export class WalletPage {
 
   ionViewDidLoad() {
 
-    console.log('ionViewDidLoad WalletPage');
-
     this.userSub$ = this.userService.user$.subscribe(
       user => {
         this.user = user;
         this.displayWallet = [];
-        for (let i in this.user.wallet) {
-          let w = Object.assign({},this.user.wallet[i]) as any;
-          w.displayOwner = this.userService.keyToUserName(w.owner);
+        for (let i in this.user.wallet.coins) {
+          if (this.user.organisation && this.user.wallet.coins[i].owner == this.user.uid)
+            continue;
+          let w = Object.assign({},this.user.wallet.coins[i]) as any;
+          w.displayOwner = this.userService.keyToUser(w.owner).displayName;
           this.displayWallet.push(w);
         }
         this.orderByPriority();

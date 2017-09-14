@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { UserService } from '../../providers/user-service/user-service';
-import { NewsService } from '../../providers/news-service/news-service';
+
 import { User } from '../../interfaces/user-interface';
 
 import { ApplyPage } from '../../pages/apply/apply';
@@ -30,7 +30,7 @@ export class ValidatorDetailPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private userService: UserService,
-    private newsService: NewsService,
+
     private validatorService: ValidatorService
   ) {
     this.validator = navParams.data;
@@ -43,9 +43,6 @@ export class ValidatorDetailPage {
     );
     this.trusted = false;
     this.validatorService.revokeValidation(this.user,this.validator);
-    this.newsService.revokeValidatorTrust(this.validator);
-    this.userService.saveUser();
-    this.validatorService.saveValidator(this.validator);
   }
 
   // tslint:disable-next-line:no-unused-variable
@@ -70,7 +67,8 @@ export class ValidatorDetailPage {
         if (this.validator.trustedUsers) {
           for (let tUserKey of this.validator.trustedUsers) {
             let u = this.userService.users[tUserKey];
-            this.trustedUsers.push(u);
+            if (u)
+              this.trustedUsers.push(u);
           }
         }
         if (this.validator.appliedUsers) {

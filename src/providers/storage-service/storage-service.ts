@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 
+
 export class Upload {
   $key: string;
   createdAt: Date = new Date();
@@ -56,7 +57,6 @@ export class StorageService {
     this.progress$ = this.progressSubject$.asObservable();
     this.uploads = this.db.list('/uploads');
   }
-
 
   public resizePicFile(files: File[], sourceHeight:number, sourceWidth:number): Observable<any> { //}: Promise<Upload>{
 
@@ -135,6 +135,117 @@ export class StorageService {
     elem.type = 'file';
     return !elem.disabled;
   }
+
+  public resize_image( src, dst, type?, quality? ) {
+    var tmp = new Image(),
+        canvas, context, cW, cH;
+
+    type = type || 'image/jpeg';
+    quality = quality || 0.8;
+
+    cW = src.naturalWidth;
+    cH = src.naturalHeight;
+
+    tmp.src = src.src;
+    tmp.onload = function() {
+
+       canvas = document.createElement( 'canvas' );
+
+       cW /= 2;
+       cH /= 2;
+
+       if ( cW < src.width ) cW = src.width;
+       if ( cH < src.height ) cH = src.height;
+
+       canvas.width = cW;
+       canvas.height = cH;
+       context = canvas.getContext( '2d' );
+       context.drawImage( tmp, 0, 0, cW, cH );
+
+       dst.src = canvas.toDataURL( type, quality );
+
+       if ( cW <= src.width || cH <= src.height )
+          return;
+
+       tmp.src = dst.src;
+    }
+
+ }
+
+
+ public simpleResize(src,maxWidth,maxHeight){
+   let picURL;
+   return new Promise ((resolve, reject) => {
+     var img = new Image;
+     img.src = src;
+     img.onload = (() => {
+       var canvas = document.createElement('canvas');
+       var ctx = canvas.getContext('2d');
+
+       if (img.naturalWidth <= maxWidth && img.naturalHeight <= maxHeight) {
+         picURL = src;
+       }
+       else {
+        var ratio = 1;
+        if(img.naturalWidth > maxWidth && img.naturalHeight > maxHeight) {
+          if (img.naturalWidth / maxWidth >= img.naturalHeight / maxHeight) {
+            ratio = maxWidth / img.naturalWidth;
+          }
+          else {
+            ratio = maxHeight / img.naturalHeight;
+          }
+        }
+        else if(img.naturalWidth > maxWidth)
+          ratio = maxWidth / img.naturalWidth;
+        else if(img.naturalHeight > maxHeight)
+          ratio = maxHeight / img.naturalHeight;
+
+         // We set the dimensions at the wanted size.
+         canvas.width = img.naturalWidth * ratio;
+         canvas.height = img.naturalHeight * ratio;
+
+         // We resize the image with the canvas method drawImage();
+         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+         picURL = canvas.toDataURL('image/jpeg', 0.7);
+       }
+       let base64ImageData = picURL.split(',')[1];
+       resolve({imgData:base64ImageData,imgURL:picURL});
+     });
+  });
+ }
+
+ // public simple_resize(img,maxHeight,maxWidth) {
+ //    // Create a canvas element
+ //    var canvas = document.createElement('canvas');
+ //    canvas.width = 3264;
+ //    canvas.height = 2448;
+ //
+ //    // Get the drawing context
+ //    var ctx = canvas.getContext('2d');
+ //    var canvasCopy = document.createElement("canvas");
+ //    var copyContext = canvasCopy.getContext("2d");
+ //
+ //    img.onload = function()
+ //    {
+ //        var ratio = 1;
+ //
+ //        if(img.width > maxWidth)
+ //            ratio = maxWidth / img.width;
+ //        else if(img.height > maxHeight)
+ //            ratio = maxHeight / img.height;
+ //
+ //        canvasCopy.width = img.width;
+ //        canvasCopy.height = img.height;
+ //        copyContext.drawImage(img, 0, 0);
+ //
+ //        canvas.width = img.width * ratio;
+ //        canvas.height = img.height * ratio;
+ //        ctx.drawImage(canvasCopy, 0, 0, canvasCopy.width, canvasCopy.height, 0, 0, canvas.width, canvas.height);
+ //    };
+ //
+ //    img.src = reader.result;
+ //  }
 
   // Writes the file details to the realtime db
   private saveFileData(uploadLogEntry: any) {

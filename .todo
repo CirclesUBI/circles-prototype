@@ -6,6 +6,18 @@ Main:
 ✔ fix UI issue with photo upload on both profile and welcome pages @done(2017-08-29 22:02)
 ✔ removed unused libs etc @done(2017-08-30 15:20)
 ✔ loading screen on login/relogin @done(2017-08-30 15:20)
+☐ Fix account create bug
+☐ Fix Newsitems signout issue
+☐ Fix userData observable firing 8 times
+☐
+
+
+Later:
+☐ Add links to user detail for facebook etc
+☐ Set user detail / validator detail pages to properly bind to db changes of those entities
+
+
+
 
 CSS/Styling:
 ☐ Loading spinner should be centered on the profile page profile pic

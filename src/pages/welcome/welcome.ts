@@ -3,14 +3,14 @@ import { Loading, LoadingController, ModalController, NavParams, Slides, Toast, 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import "rxjs/add/observable/interval";
 
 import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 import { Organisation } from '../../interfaces/organisation-interface';
-import { StorageService, UploadFile } from '../../providers/storage-service/storage-service';
+import { StorageService, UploadImage } from '../../providers/storage-service/storage-service';
 import { UserService } from '../../providers/user-service/user-service';
 
 import { WaitModal } from '../wait-modal/wait-modal'
@@ -36,7 +36,7 @@ export class WelcomePage {
   private picForm: FormGroup;
   private disclaimerForm: FormGroup;
 
-  private profilePicUpload: UploadFile;
+  private profilePicUpload: UploadImage;
 
   private profilePicURL: string = "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a";
   private base64ImageData: string;
@@ -49,10 +49,11 @@ export class WelcomePage {
     isResizingImage:  <boolean>false
   };
 
-  private profilePageViewNames: Array<string> = ['Intro', 'User Type', 'User Info', 'Picture', 'Disclaimer'];
+  //private profilePageViewNames: Array<string> = ['Intro', 'User Type', 'User Info', 'Picture', 'Disclaimer'];
 
   constructor(
     private sanitizer: DomSanitizer,
+    private db: AngularFireDatabase,
     private formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
     private modalController: ModalController,
@@ -63,7 +64,7 @@ export class WelcomePage {
   ) {
 
     this.authUser = this.navParams.get('authUser');
-    this.userObs$ = this.navParams.get('obs');
+    this.userObs$ = this.db.object('/users/'+this.authUser.uid);
 
     this.userTypeForm = this.formBuilder.group({
       type: [null, Validators.required],
@@ -159,33 +160,55 @@ export class WelcomePage {
 
       var reader = new FileReader();
       reader.onload = (e) => {
-        let img = new Image;
-        img.src = reader.result;
-        img.onload = ( (file) => {
-
-          this.storageService.resizePicFile(fileInput.target.files, img.height, img.width).subscribe(
-            (imageBlob) => {
-              this.profilePicURL = URL.createObjectURL(imageBlob);
-              this.base64ImageData = this.profilePicURL.split(',')[1];
-              this.profilePicUpload = new UploadFile(imageBlob as File, this.authUser.uid);
-              this.formState.isResizingImage = false;
-              this.welcomeSlider.lockSwipeToNext(false);
-            },
-            (error) => {
-              this.toast = this.toastCtrl.create({
-                message: error.message + ': ' + error.details,
-                duration: 4000,
-                position: 'middle'
-              });
-              console.error(error);
-              this.toast.present();
-            }
-          );
-        });
+        this.storageService.simpleResize(e.target['result'],1024,768).then(
+          (imgObj:any) => {
+            this.base64ImageData = imgObj.imgData;
+            this.profilePicURL = imgObj.imgURL;
+            this.formState.isResizingImage = false;
+            this.profilePicUpload = new UploadImage(this.base64ImageData,this.authUser.uid);
+          }
+        );
       }
       reader.readAsDataURL(fileInput.target.files[0]);
   }
 }
+
+// public fileChangeEvent(fileInput: any) {
+//     if (fileInput.target.files && fileInput.target.files[0]) {
+//
+//       this.welcomeSlider.lockSwipeToNext(true);
+//       this.formState.isResizingImage = true;
+//
+//       var reader = new FileReader();
+//       reader.onload = (e) => {
+//         let img = new Image;
+//         img.src = reader.result;
+//         img.onload = ( (file) => {
+//
+//           this.storageService.resizePicFile(fileInput.target.files, img.height, img.width).subscribe(
+//             (imageBlob) => {
+//               this.profilePicURL = URL.createObjectURL(imageBlob);
+//               this.base64ImageData = this.profilePicURL.split(',')[1];
+//               this.profilePicUpload = new UploadFile(imageBlob as File, this.authUser.uid);
+//               this.formState.isResizingImage = false;
+//               this.welcomeSlider.lockSwipeToNext(false);
+//             },
+//             (error) => {
+//               this.toast = this.toastCtrl.create({
+//                 message: error.message + ': ' + error.details,
+//                 duration: 4000,
+//                 position: 'middle'
+//               });
+//               console.error(error);
+//               this.toast.present();
+//             }
+//           );
+//         });
+//       }
+//       reader.readAsDataURL(fileInput.target.files[0]);
+//   }
+// }
+
 
   // tslint:disable-next-line:no-unused-variable
   private saveForm(): void {
@@ -202,13 +225,12 @@ export class WelcomePage {
       user = user as Individual;
       user.firstName = this.individualForm.get('firstName').value;
       user.lastName = this.individualForm.get('lastName').value;
-      user.displayName = user.firstName + ' ' + user.lastName;
       user.email = this.individualForm.get('email').value || '';
       user.profilePicURL = this.picForm.get('profilePicURL').value;
     }
     else {
       user = user as Organisation;
-      user.displayName = this.organisationForm.get('organisation').value;
+      user.organisation = this.organisationForm.get('organisation').value;
       user.email = this.organisationForm.get('email').value || '';
       user.greeting = this.organisationForm.get('tagline').value || '';
       user.website = this.organisationForm.get('website').value || '';
@@ -250,13 +272,30 @@ export class WelcomePage {
   private saveUser(formUser) {
     //sends us back to app.component's auth observer
 
-    let circlesUser = this.userService.createCirclesUser(this.formState.type,this.authUser,formUser);
+    let providers = ['name'];
+    if (formUser.email === this.authUser.email && this.authUser.emailVerified) {
+      providers.push('email');
+    }
+    if (formUser.profilePicURL) {
+      providers.push('photo');
+    }
+    else {
+      formUser.profilePicURL = "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a";
+    }
 
-    if (!circlesUser.authProviders.find( (prov) => prov == 'email')) {
+    formUser.authProviders = this.authUser.providerData.map(
+      (provider) => {
+        return provider.providerId.split('.')[0];
+      }
+    ).concat(providers).filter((elem, pos, arr) => {
+      return arr.indexOf(elem) == pos;
+    });
+
+    if (!formUser.authProviders.find( (prov) => prov == 'email')) {
       let waitModal = this.modalController.create(WaitModal);
       this.userService.sendAndWaitEmailVerification(waitModal).then(
        (user) => {
-         circlesUser.authProviders.push('email');
+         formUser.authProviders.push('email');
          waitModal.dismiss();
        },
        (error) => {
@@ -270,7 +309,7 @@ export class WelcomePage {
          this.toast.present();
        }
      ).then( () => {
-       this.userObs$.set({userData:circlesUser}).then(
+       this.userObs$.set({userData:formUser}).then(
          (result) => {
            this.loading.dismiss();
          },
@@ -288,7 +327,7 @@ export class WelcomePage {
      });
     }
     else {
-      this.userObs$.set({userData:circlesUser}).then(
+      this.userObs$.set({userData:formUser}).then(
         (result) => {
           this.loading.dismiss();
         },

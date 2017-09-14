@@ -1,0 +1,98 @@
+{
+  "static" : {
+    "authProviders" : {
+      "email" : {
+        "displayName" : "Email",
+        "icon" : "mail",
+        "message" : "You need to confirm your email address."
+      },
+      "facebook" : {
+        "displayName" : "Facebook",
+        "icon" : "logo-facebook",
+        "message" : "You need to add your Facebook profile."
+      },
+      "github" : {
+        "displayName" : "Github",
+        "icon" : "logo-github",
+        "message" : "You need to confirm your Github account."
+      },
+      "google" : {
+        "displayName" : "Google",
+        "icon" : "logo-google",
+        "message" : "You need to add your Google+ profile."
+      },
+      "name" : {
+        "displayName" : "Name",
+        "icon" : "brush",
+        "message" : "You need to add your full name."
+      },
+      "passport" : {
+        "displayName" : "Passport",
+        "icon" : "document",
+        "message" : "You need to add your Passport."
+      },
+      "photo" : {
+        "displayName" : "Profile Photo",
+        "icon" : "contact",
+        "message" : "You need to add a profile photo."
+      },
+      "soundcloud" : {
+        "displayName" : "SoundCloud",
+        "icon" : "cloud",
+        "message" : "You need to confirm your SoundCloud account."
+      },
+      "steam" : {
+        "displayName" : "Steam",
+        "icon" : "logo-steam",
+        "message" : "You need to confirm your Steam account."
+      },
+      "twitter" : {
+        "displayName" : "Twitter",
+        "icon" : "logo-twitter",
+        "message" : "You need to confirm your Twitter account."
+      }
+    }
+  },
+  "validators" : {
+    "-Kk1Xr2syRJ0V7NDKjSK" : {
+      "autoAccept" : true,
+      "description" : "Tinyhouse university is a Berlin-based NGO founded by Van Bo Le-Mentzel, designers, education activists and refugees. Our goal is to create new models of social neighborhoods. Our tools are architecture and the beliefs that make diversity a village stronger than common sense.",
+      "displayName" : "Tinyhouse University",
+      "email" : "tinyhouseuni@tinyhouse.com",
+      "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Ftinyu.png?alt=media&token=a61c66b6-d6af-46a8-ad73-3a5f853ba99e",
+      "requirements" : [ "email", "name", "photo" ],
+      "trustedUsers" : [ "Ea793jse7XNcSrMMmO8GvRPLlbU2", "jSu2I20VwcgesCvTCsAb2wsTqNG2", "uOYzaBrMaMfdqWeNIFr2V2D2Z0T2" ]
+    },
+    "-Kk1Xr2x-iftLqPsxscG" : {
+      "autoAccept" : false,
+      "description" : "Berlin Basic Income is a local group that explores strategies to implement a universal basic income (UBI), including unconventional methods that may start outside of the usual political process (e.g. the basic income cryptocurrency Circles). ",
+      "displayName" : "Berlin Basic Income Lab",
+      "email" : "basicincomeberlin@gmail.com",
+      "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Flab.png?alt=media&token=062c962c-9826-4714-98df-ba6c9d4fb166",
+      "requirements" : [ "email", "name", "photo", "facebook" ]
+    },
+    "-Kk1Xr2ytzY1xPWUVXWP" : {
+      "autoAccept" : false,
+      "description" : "Kreuzberg Music co-op is a group dedicated to sharing the means of music production. If you are a musician or a music lover this is the place for you.",
+      "displayName" : "Kreuzberg Music Co-op",
+      "email" : "KZBRG@funnow.com",
+      "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FCClogo.png?alt=media&token=cc46a2db-297f-4558-a6cc-1d1a7aef02d5",
+      "requirements" : [ "email", "name", "photo", "facebook", "soundcloud" ]
+    },
+    "-Kk1Xr2ytzY1xPWUVXWQ" : {
+      "autoAccept" : false,
+      "description" : "Radwerk is a collective of Berlin bike shops. We share resources, time and knowledge :)",
+      "displayName" : "Radwerk",
+      "email" : "Radwerk@Radwerk.com",
+      "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Frepair.png?alt=media&token=4d837bc7-7f92-4255-943a-5b34778e5a7d",
+      "requirements" : [ "name", "photo" ]
+    },
+    "-Kk1Xr2ytzY1xPWdcEEf" : {
+      "autoAccept" : false,
+      "description" : "For hardcore gamerz only!",
+      "displayName" : "Gamer",
+      "profilePicURL" : "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2Fgamecoop.png?alt=media&token=a8b6a45d-7249-46ab-90de-6f34a491c608",
+      "requirements" : [ "name", "photo", "steam" ]
+    }
+  }
+}

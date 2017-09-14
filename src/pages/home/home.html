@@ -35,11 +35,6 @@
 
       <div>{{user?.greeting}}</div>
 
-      <div class="balance">
-        {{user?.balance}} css
-      </div>
-    </div>
-
     <!-- segment btns -->
     <div class="segment-btns">
       <ion-segment [(ngModel)]="selectedView" color="primary">
@@ -57,22 +52,22 @@
 
     <div id="balance-detail" *ngIf="userService.type == 'organisation'">
       <div class="received">
-        <h1>Circles Received</h1>
-        <h2>0</h2>
+        <h1>Circles Sent</h1>
+        <h2>{{user?.wallet?.sent}}</h2>
       </div>
       <div class="sent">
-        <h1>Circles Sent</h1>
-        <h2>0</h2>
+        <h1>Circles Received</h1>
+        <h2>{{user?.wallet?.received}}</h2>
       </div>
     </div>
     <div id="balance-detail" *ngIf="userService.type == 'individual'">
       <div class="received">
         <h1>My Coins Balance</h1>
-        <h2>{{myCoinBalance}} {{myCoinName}}</h2>
+        <h2>{{userCoins?.amount}} {{userCoins?.title}}</h2>
       </div>
       <div class="sent">
         <h1>All Coins Balance</h1>
-        <h2>{{allCoinBalance}} Circles</h2>
+        <h2>{{user?.balance}} Circles</h2>
       </div>
     </div>
 
@@ -106,7 +101,7 @@
 
       <!-- VALIDATORS list -->
       <span *ngIf="selectedView == 'validators'">
-        <ion-item *ngFor="let validator of validatorService.userValidators" (click)="goToValidatorDetail(validator)">
+        <ion-item *ngFor="let validator of userService.validators" (click)="goToValidatorDetail(validator)">
           <ion-avatar style="width:48px;height:48px" item-left>
             <img src="{{validator?.profilePicURL}}">
           </ion-avatar>
@@ -114,7 +109,7 @@
           <p>{{validator?.description}}</p>
         </ion-item>
         <!-- placeholder text -->
-        <div *ngIf="validatorService.userValidators.length == 0" class="disclaimer">
+        <div *ngIf="userService.validators?.length == 0" class="disclaimer">
           Nobody has validated you yet.<br>
           Tap the search icon <ion-icon name="search"></ion-icon> in the top-right of the screen to build your network.
         </div>

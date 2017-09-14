@@ -33,7 +33,9 @@ import { ConfirmModal } from '../pages/confirm-modal/confirm-modal';
 import { WaitModal } from '../pages/wait-modal/wait-modal';
 
 //components
+import { NetworkCard } from '../components/network-card/network-card';
 import { NewsCard } from '../components/news-card/news-card';
+
 import { AutoresizeDirective } from '../directives/autoresize/autoresize';
 
 //services
@@ -56,6 +58,7 @@ import { environment } from '../environments/environment';
     HomePage,
     LoginEmailPage,
     LoginPage,
+    NetworkCard,
     NewsCard,
     ProfilePage,
     SearchPage,

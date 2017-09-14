@@ -12,14 +12,15 @@ import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 import { Organisation } from '../../interfaces/organisation-interface';
 
-import { Coin } from '../../interfaces/coin-interface';
+import { ValidatorService } from '../../providers/validator-service/validator-service';
+import { AuthService } from '../../providers/auth-service/auth-service';
 
 @Injectable()
 export class UserService implements OnDestroy {
 
   public users: any;
+  public validators: any;
   public type: string;
-  public authProviders: Array<string>;
 
   public user$: Observable<User>;
   public userFirebaseObj$: FirebaseObjectObservable<User>;
@@ -27,147 +28,129 @@ export class UserService implements OnDestroy {
   private usersSubject$: ReplaySubject<Array<any>> = new ReplaySubject<Array<any>>(1);
   public users$ = this.usersSubject$.asObservable();
 
-  private user = {} as User;
+  public user = {} as User;
   private userSubject$: ReplaySubject<User> = new ReplaySubject<User>(1);
 
-  private userSub$: Subscription;
-  private usersSub$: Subscription;
   private combinedSub$: Subscription;
-  private myCoins: Coin = {} as Coin;
-  private allCoins: { [key: string]: Coin };
+
   public trustedUsersNetwork: Array<any> = [];
   public trustedByValidator: Array<any> = [];
 
-  constructor(private db: AngularFireDatabase) {
+  private userObsCallCount = 0;
 
-    this.user.createdAt = 0;
-    this.user$ = this.userSubject$.asObservable();
-    this.usersFirebaseList$ = this.db.list('/users/');
-    this.usersSub$ = this.usersFirebaseList$.subscribe(
-      users => {
-        this.users = [];
-        for (let u of users) {
-          this.users[u.$key] = u.userData;
-        }
-        this.usersSubject$.next(users);
-        this.usersSub$.unsubscribe();
-      },
-      error => console.log('Could not load users.')
-    );
-  }
+  constructor(
+    private db: AngularFireDatabase,
+    private validatorService: ValidatorService,
+    private authService: AuthService) {
 
-  public initialise(authProviders, initUser) {
+    this.authService.authState$.subscribe(
+      (auth) => {
+        if (auth) {
 
-    this.authProviders = authProviders.map(
-      (provider) => {
-        return provider.providerId.split('.')[0];
-      }
-    );
-    this.authProviders = this.authProviders.concat(initUser.authProviders).filter((elem, pos, arr) => {
-      return arr.indexOf(elem) == pos;
-    });
+          this.userObsCallCount = 0;
+          this.userFirebaseObj$ = this.db.object('/users/' + auth.uid + '/userData');
+          this.user$ = this.userSubject$.asObservable();
+          this.usersFirebaseList$ = this.db.list('/users/');
 
-    if (!this.isOrg(initUser))
-      this.type = 'individual';
-    else
-      this.type = 'organisation';
+          this.combinedSub$  = Observable.combineLatest(this.userFirebaseObj$, this.usersFirebaseList$).subscribe(
+            (result) => {
+              console.log('user-service combinedSub$ called:'+(++this.userObsCallCount));
+              //store users
+              let users = result[1];
+              this.trustedUsersNetwork = [];
+              this.users = [];
+              for (let u of users) {
+                this.users[u.$key] = u.userData;
+              }
 
-    this.userFirebaseObj$ = this.db.object('/users/' + initUser.uid + '/userData');
-    this.userSub$ = this.userFirebaseObj$.subscribe(
-      user => {
-        this.user = user;
-        this.user.authProviders = this.authProviders;
-        //this.setBalance(user);
-        this.userSubject$.next(this.user);
-      },
-      error => console.log('Could not load current user record.')
-    );
+              let user = result[0] as any;
+              if (!user.$exists() || !user.wallet) {
+                console.log('user not ready');
+                return;
+              }
 
-    this.combinedSub$  = Observable.combineLatest(this.userFirebaseObj$, this.usersFirebaseList$).subscribe(
-      (result) => {
+              if (!user.authProviders.includes('email')) {//} && auth.emailVerified) {
+                user.authProviders.push('email');
+              }
 
-        let user = result[0];
-        let users = result[1];
-        this.trustedUsersNetwork = [];
-        this.users = [];
-        for (let u of users) {
-          this.users[u.$key] = u.userData;
-        }
-        this.usersSubject$.next(users);
-        if (user.trustedUsers || user.trustedBy) {
-          let tToUsers = (user.trustedUsers) ? user.trustedUsers.slice(0) : [];
-          let tByUsers = (user.trustedBy) ? user.trustedBy.slice(0) : [];
-          tToUsers =  tToUsers.filter(
-            (tUser:string) => {
-              let found = false;
-              tByUsers = tByUsers.filter(
-                (tByUser:string) => {
-                  if (tByUser === tUser) {
-                    let u = Object.assign({}, this.keyToUser(tByUser)) as any;
-                    u.icon = "checkmark-circle";
-                    u.networkType = 'direct';
-                    this.trustedUsersNetwork.push(u);
-                    found = true;
-                    return false;
+              if (!this.isOrg(user))
+                this.type = 'individual';
+              else
+                this.type = 'organisation';
+
+              //setup user
+              this.user = user;
+              this.user.coins = this.user.wallet.coins[this.user.uid];
+              if (this.user.validators)
+                this.validators = this.user.validators.map((valKey) => this.validatorService.keyToValidator(valKey));
+              else
+                this.validators = [];
+
+              this.userSubject$.next(this.user);
+              this.usersSubject$.next(users);
+
+              if (user.trustedUsers || user.trustedBy) {
+                let tToUsers = (user.trustedUsers) ? user.trustedUsers.slice(0) : [];
+                let tByUsers = (user.trustedBy) ? user.trustedBy.slice(0) : [];
+                tToUsers =  tToUsers.filter(
+                  (tUser:string) => {
+                    let found = false;
+                    tByUsers = tByUsers.filter(
+                      (tByUser:string) => {
+                        if (tByUser === tUser) {
+                          let u = Object.assign({}, this.keyToUser(tByUser)) as any;
+                          u.icon = "checkmark-circle";
+                          u.networkType = 'direct';
+                          this.trustedUsersNetwork.push(u);
+                          found = true;
+                          return false;
+                        }
+                        return true;
+                      }
+                    );
+                    return !found;
                   }
-                  return true;
+                );
+                tToUsers.map((tUserKey:string) => {
+                  let u = Object.assign({}, this.keyToUser(tUserKey)) as any;
+                  u.icon = "arrow-dropleft-circle";
+                  u.networkType = 'direct';
+                  this.trustedUsersNetwork.push(u);
+                });
+                tByUsers.map((tUserKey:string) => {
+                  let u = Object.assign({}, this.keyToUser(tUserKey)) as any;
+                  u.icon = "arrow-dropright-circle";
+                  u.networkType = 'direct';
+                  this.trustedUsersNetwork.push(u);
+                });
+              }
+              if (user.trustedByValidators) {
+                for (let valKey in user.trustedByValidators) {
+                  user.trustedByValidators[valKey].map((userKey:string) => {
+                    let u = Object.assign({}, this.keyToUser(userKey)) as any;
+                    u.image = this.validatorService.keyToValidator(valKey).profilePicURL;
+                    u.networkType = 'validator';
+                    this.trustedUsersNetwork.push(u);
+                  });
                 }
-              );
-              return !found;
+              }
+              this.authService.setLoggedInState(true);
             }
           );
-          tToUsers.map((tUserKey:string) => {
-            let u = Object.assign({}, this.keyToUser(tUserKey)) as any;
-            u.icon = "arrow-dropleft-circle";
-            u.networkType = 'direct';
-            this.trustedUsersNetwork.push(u);
-          });
-          tByUsers.map((tUserKey:string) => {
-            let u = Object.assign({}, this.keyToUser(tUserKey)) as any;
-            u.icon = "arrow-dropright-circle";
-            u.networkType = 'direct';
-            this.trustedUsersNetwork.push(u);
-          });
-          this.trustedUsersNetwork = this.trustedUsersNetwork.concat(this.trustedByValidator);
+
+        }
+        else {
+          this.user = null;
+          this.authService.setLoggedInState(false);
+          this.combinedSub$.unsubscribe();
         }
       }
     );
   }
 
-  public addValidatorUsers(users:Array<User>) {
-    this.trustedByValidator = users;
-    this.trustedUsersNetwork = this.trustedUsersNetwork.concat(this.trustedByValidator);
-  }
-
-  public createCirclesUser(type,authUser,formUser) {
-
-    if (type == 'organisation') {
-      formUser.organisation = formUser.displayName;
-    }
-    else {
-      formUser.firstName = formUser.firstName.charAt(0).toUpperCase() + formUser.firstName.slice(1).toLowerCase();
-      formUser.lastName = formUser.lastName.charAt(0).toUpperCase() + formUser.lastName.slice(1).toLowerCase();
-      formUser.displayName = formUser.firstName+' '+formUser.lastName;
-    }
-
-    formUser.createdAt = firebase.database['ServerValue']['TIMESTAMP'];
-
-    let providers = ['name'];
-    if (formUser.email === authUser.email && authUser.emailVerified) {
-      providers.push('email');
-    }
-    if (formUser.profilePicURL) {
-      providers.push('photo');
-    }
-    else {
-      formUser.profilePicURL = "https://firebasestorage.googleapis.com/v0/b/circles-testnet.appspot.com/o/profilepics%2FGeneric_Image_Missing-Profile.jpg?alt=media&token=f1f08984-69f3-4f25-b505-17358b437d7a";
-    }
-    //providers.push(authUser.providerData[0].providerId);
-    formUser.authProviders = providers;
-    formUser.agreedToDisclaimer = false;
-
-    this.user = this.setInitialWallet(formUser);
-    return this.user;
+  public sendEmailVerification() {
+    let user = firebase.auth().currentUser;
+    return user.sendEmailVerification();
   }
 
   public sendAndWaitEmailVerification(waitModal) {
@@ -206,31 +189,11 @@ export class UserService implements OnDestroy {
     });
   }
 
-  public keyToUser$(key: string): Observable<User> {
-    return this.users$.map(
-      users => users.find(user => user.uid === key).userData
-    );
-  }
-
   public keyToUser(key: string): User {
     let u = this.users[key];
     if (!u)
       console.log('Error: missing user '+key);
     return u;
-  }
-
-  public keyToUserName$(key: string): Observable<string> {
-    return this.users$.map(users => {
-      let u = users.find(user => user.uid === key);
-      return u.displayName;
-    });
-  }
-
-  public keyToUserName(key: string): string {
-    let d = this.users[key];
-    if (!d)
-      console.log('Error: missing user '+key);
-    return d.displayName;
   }
 
   public filterUsers$(searchTerm: string) {
@@ -254,68 +217,33 @@ export class UserService implements OnDestroy {
   }
 
   public addTrustedUser(userKey) {
-    if (this.user.trustedUsers)
+
+    if (this.user.trustedUsers) {
+      if (this.user.trustedUsers.includes(userKey)) {
+        console.error('user:'+userKey+' already trusted');
+        return;
+      }
       this.user.trustedUsers.push(userKey);
+    }
     else
       this.user.trustedUsers = [userKey];
 
-    this.updateUser({trustedUsers:this.user.trustedUsers});
+    return this.updateUser({trustedUsers:this.user.trustedUsers});
   }
 
   public removeTrustedUser(userKey) {
+    if (!this.user.trustedUsers || !this.user.trustedUsers.includes(userKey)) {
+      console.error('user:'+userKey+' not trusted');
+      return;
+    }
     this.user.trustedUsers = this.user.trustedUsers.filter(user => {
 	     return user != userKey;
     });
-    this.updateUser({trustedUsers:this.user.trustedUsers});
+    return this.updateUser({trustedUsers:this.user.trustedUsers});
   }
 
-  private setInitialWallet(user:Individual | Organisation): Individual | Organisation {
-
-    let now = new Date();
-    this.myCoins.amount = 0;
-    this.myCoins.owner = user.uid;
-    if (this.isOrg(user)) {
-      this.myCoins.title = 'Circles';
-    }
-    else {
-      this.myCoins.title = user.firstName + 'Coin';
-    }
-    this.myCoins.priority = 0;
-    this.myCoins.createdAt = now.getTime();
-    this.allCoins = {
-      [user.uid]: this.myCoins
-    };
-    user.wallet = this.allCoins;
-    user.balance = 0;
-    return user;
-  }
-
-  public setBalance(user:User): void {
-    let total = 0;
-    for (let i in user.wallet) {
-      total += user.wallet[i].amount;
-    }
-    user.balance = total;
-  }
-
-  public signOut() {
-    //todo: better way to do this?
-    if (this.userSub$)
-      this.userSub$.unsubscribe();
-
-    if (this.usersSub$)
-      this.usersSub$.unsubscribe();
-
-    if (this.combinedSub$)
-      this.combinedSub$.unsubscribe();
-  }
-
-  private clearUser() {
-    let blankUser = {} as User;
-    this.user = blankUser;
-    // if (this.userSubject$) {
-    //   this.userSubject$.next(blankUser);
-    // }
+  public getUserSettings(uid) {
+    return this.db.object('/users/'+uid+'/settings/');
   }
 
   public async updateUser(updateObject: Object) {
@@ -343,7 +271,6 @@ export class UserService implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userSub$.unsubscribe();
-    this.usersSub$.unsubscribe();
+    this.combinedSub$.unsubscribe();
   }
 }

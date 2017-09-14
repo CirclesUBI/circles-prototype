@@ -1,32 +1,48 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { Toast, ToastController } from 'ionic-angular';
 import { Headers, Http } from '@angular/http';
 
-import { Subscription } from 'rxjs/Subscription';
-
-import 'rxjs/add/operator/map';
-
-import { UserService } from '../../providers/user-service/user-service';
-import { User } from '../../interfaces/user-interface';
+import { NotificationsService  } from 'angular2-notifications';
 
 @Injectable()
 export class TransactionService implements OnDestroy {
 
-  private user: User;
-  private userSub$: Subscription;
+  private toast: Toast;
 
   constructor(
     private http: Http,
-    private userService: UserService
-  ) {
-    this.userSub$ = this.userService.user$.subscribe(
-      user => this.user = user,
-      error => console.error(error),
-      () => console.log('transaction-service constructor userSub$ obs complete')
-    );
-  }
+    private notificationsService: NotificationsService,
+    private toastCtrl: ToastController
+  ) {}
 
-  public transfer(fromUserKey,toUserKey,amount,message) {
-    return this.postTransaction(fromUserKey,toUserKey,amount);
+  public transfer(fromUserKey,toUserKey,amount) {
+    return new Promise ((resolve,reject) => {
+      this.postTransaction(fromUserKey,toUserKey,amount).subscribe(
+        (res:any) => {
+          let result = JSON.parse(res._body);
+          if (!result.complete) {
+            this.notificationsService.create('Send Fail', '', 'error');
+            this.notificationsService.create('Send', result.message, 'warn');
+            reject();
+          }
+          else {
+            this.notificationsService.create('Send Success', '', 'success');
+            resolve();
+          }
+          return;
+        },
+        (error) => {
+          this.toast = this.toastCtrl.create({
+            message: 'Error sending circles: '+error,
+            duration: 4000,
+            position: 'middle'
+          });
+          console.error(error);
+          this.toast.present();
+          return;
+        }
+      );
+    });
   }
 
   private postTransaction(fromUserKey,toUserKey,amount) {
@@ -44,6 +60,5 @@ export class TransactionService implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userSub$.unsubscribe();
   }
 }

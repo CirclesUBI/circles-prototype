@@ -26,12 +26,12 @@ export class CirclesApp {
   private loading: Loading;
   private toast: Toast;
   private isInApp: boolean = false;
+  private user: any;
 
   constructor(
     private db: AngularFireDatabase,
     private authService: AuthService,
     private loadingCtrl: LoadingController,
-    private newsService: NewsService,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
@@ -52,8 +52,10 @@ export class CirclesApp {
       }
       statusBar.styleDefault();
       this.authService.authState$.subscribe(
-        auth => {
+        (auth) => {
           if (auth) {
+            console.log('login',auth.uid);
+
             this.loading = this.loadingCtrl.create({
               content: 'Logging in ...',
               dismissOnPageChange: true
@@ -63,15 +65,19 @@ export class CirclesApp {
             let authUserObs$ = this.db.object('/users/' + auth.uid);
             let authUserSub$ = authUserObs$.subscribe(
               user => {
+                this.user = user.userData;
                 if (!user.$exists()) {
-                  this.nav.push(WelcomePage, { authUser: auth, obs: authUserObs$ });
+                  this.nav.push(WelcomePage, { authUser: auth });
                 }
                 else {
                   authUserSub$.unsubscribe();
-                  this.userService.initialise(auth.providerData,user.userData);
-                  this.newsService.initialise(user.userData);
-                  this.isInApp = true;
-                  this.nav.setRoot(HomePage);
+                  let loggedSub = this.authService.loggedInState$.subscribe( (isLoggedIn) => {
+                    if (isLoggedIn) {
+                      loggedSub.unsubscribe();
+                      this.isInApp = true;
+                      this.nav.setRoot(HomePage);
+                    }
+                  });
                 }
               },
               error => {
@@ -92,7 +98,7 @@ export class CirclesApp {
             },500);
           }
         },
-        error => {
+        (error) => {
           this.toast = this.toastCtrl.create({
             message: 'User auth error: ' + error,
             duration: 4000,
@@ -101,7 +107,7 @@ export class CirclesApp {
           console.error(error);
           this.toast.present();
         },
-        () => { }
+        () => {}
       );
     });
   }
@@ -113,7 +119,7 @@ export class CirclesApp {
 
   // tslint:disable-next-line:no-unused-variable
   private goToSettings(): void {
-    this.nav.push(SettingsPage);
+    this.nav.push(SettingsPage, {user:this.user});
   }
 
   // tslint:disable-next-line:no-unused-variable

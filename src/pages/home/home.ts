@@ -7,7 +7,8 @@ import { UserService } from '../../providers/user-service/user-service';
 // tslint:disable-next-line:no-unused-variable
 import { NewsService } from '../../providers/news-service/news-service';
 // tslint:disable-next-line:no-unused-variable
-import { ValidatorService } from '../../providers/validator-service/validator-service';
+
+
 import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 import { Organisation } from '../../interfaces/organisation-interface';
@@ -29,17 +30,17 @@ export class HomePage {
 
   private selectedView: string = 'network';
 
-  private myCoinBalance: number;
-  private allCoinBalance: number;
-  private myCoinName: string;
+  private userCoins: any;
 
   constructor(
     public navCtrl: NavController,
     private userService: UserService,
+    // tslint:disable-next-line:no-unused-variable
     private newsService: NewsService,
+
     private validatorService: ValidatorService,
     private changeDetector: ChangeDetectorRef
-  ) { }
+ ) { }
 
   // tslint:disable-next-line:no-unused-variable
   private openSearch(): void {
@@ -72,22 +73,15 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-
     this.userSub$ = this.userService.user$.subscribe(
       user => {
-        if (!user.agreedToDisclaimer) {
-          //if they got this far then they have agreed to the disclaimer
-          this.userService.updateUser({agreedToDisclaimer:true});
-        }
-
+        this.userCoins = user.wallet.coins[user.uid];
+        console.log("home userSub$");
         if (this.userService.type === 'organisation') {
           this.user = user as Organisation;
         }
         else {
           this.user = user as Individual;
-          this.myCoinName = user.wallet[user.uid].title;
-          this.myCoinBalance = user.wallet[user.uid].amount;
-          this.allCoinBalance = user.balance;
         }
       }
     );

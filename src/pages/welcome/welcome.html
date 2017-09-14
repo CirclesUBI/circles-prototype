@@ -7,7 +7,7 @@
 </ion-header>
 <ion-content>
 
-  <ion-slides pager (ionSlideWillChange)="onSlideWillChange()" (ionSlideDidChange)="onSlideDidChange()">
+  <ion-slides (ionSlideWillChange)="onSlideWillChange()" (ionSlideDidChange)="onSlideDidChange()">
 
     <ion-slide>
       <ion-row>
@@ -208,7 +208,15 @@
 
     <ion-slide>
       <form [formGroup]="disclaimerForm" (ngSubmit)="saveForm()">
-        <div>This is a disclaimer about the project being art.</div>
+        <ion-list>
+          <ion-item text-wrap>
+            <div>
+              <p>Circles is an experimental art project. The contents and functions contained in this app are provided solely for artistic purposes, and do not, and should not be deemed or construed to, constitute legal tender. </p>
+              <p>Any agreements or transactions conducted during this project are the responsibility of the concerned parties, are voluntary and do not in any way consitute legal agreements.</p>
+              <p>This project has a defined start and end date, and all accounts will be nullified at the end of this period. All tokens and platforms are free to be widthdrawn or modified at any point in the project, at the discretion of the Circles Team.</p>
+            </div>
+          </ion-item>
+        </ion-list>
         <button ion-button type="submit">Agree</button>
 
       </form>

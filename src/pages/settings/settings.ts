@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Loading, LoadingController, NavController, NavParams } from 'ionic-angular';
 
-import { AngularFireDatabase } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { Subscription } from 'rxjs/Subscription';
-
-import { UserService } from '../../providers/user-service/user-service';
-import { User } from '../../interfaces/user-interface';
 
 /**
  * Generated class for the SettingsPage page.
@@ -21,30 +17,41 @@ import { User } from '../../interfaces/user-interface';
 })
 export class SettingsPage {
 
-  //vars
-  private base64ImageData: string;
-  private user: User;
-  private userSub$: Subscription;
+  private user: any;
+  private settings: any;
+  private firebaseSettingsObj$: FirebaseObjectObservable<any>;
+  private settingsSub$: Subscription;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserService) {
-  }
+  private loading: Loading;
 
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SettingsPage');
-
-    //load user data
-    this.userSub$ = this.userService.user$.subscribe(
-      user => {
-        this.user = user;
-        console.log("user", user);
+  constructor(
+    public navCtrl: NavController,
+    private db: AngularFireDatabase,
+    private loadingCtrl: LoadingController,
+    private navParams: NavParams
+  ) {
+    this.user = this.navParams.data.user;
+    this.firebaseSettingsObj$ = this.db.object('/users/'+this.user.uid+'/settings/');
+    this.settingsSub$ = this.firebaseSettingsObj$.subscribe(
+      (settings) => {
+        this.settings = settings;
       }
     );
-
   }
 
-  saveSettings() {
+  // tslint:disable-next-line:no-unused-variable
+  private saveSettings() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Saving settings ...',
+    });
+    this.loading.present();
 
+    this.firebaseSettingsObj$.set(this.settings).then(
+      (res) => {
+        this.loading.dismiss();
+        this.navCtrl.pop();
+      }
+    );
   }
 
 }

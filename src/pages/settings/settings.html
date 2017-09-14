@@ -8,28 +8,69 @@
 
   <ion-row>
     <ion-col>
-
-      <form (ngSubmit)="saveSettings()">
-        <!-- First Name -->
+      <ion-list radio-group [(ngModel)]="settings.wallet.scheme" *ngIf="!user.organisation">
+        <ion-list-header>
+          When sending Circles
+        </ion-list-header>
         <ion-item>
-          <ion-label stacked>First Name</ion-label>
-          <ion-input type="text" [value]="user?.firstName" name="firstname"></ion-input>
+          <ion-label>Send my coins first</ion-label>
+          <ion-radio value="ownCoinsFirst"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Send other coins first</ion-label>
+          <ion-radio value="otherCoinsFirst"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>No preference</ion-label>
+          <ion-radio value="none"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list>
+        <ion-list-header>
+          Show on your public profile
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Email</ion-label>
+          <ion-checkbox [(ngModel)]="settings.toggleProfileVis.email"></ion-checkbox>
         </ion-item>
 
-        <!-- Last Name -->
         <ion-item>
-          <ion-label stacked>Last Name</ion-label>
-          <ion-input type="text" [value]="user?.lastName" name="lastname"></ion-input>
+          <ion-label>Phone</ion-label>
+          <ion-checkbox [(ngModel)]="settings.toggleProfileVis.phone"></ion-checkbox>
         </ion-item>
 
-        <!-- Greeting -->
         <ion-item>
-          <ion-label stacked>Greeting</ion-label>
-          <ion-input type="text" [value]="user?.greeting" name="title"></ion-input>
+          <ion-label>Validators</ion-label>
+          <ion-checkbox [(ngModel)]="settings.toggleProfileVis.validators"></ion-checkbox>
         </ion-item>
-        <button ion-button type="submit" block>Save</button>
-      </form>
 
+        <ion-item>
+          <ion-label>Website</ion-label>
+          <ion-checkbox [(ngModel)]="settings.toggleProfileVis.website"></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Facebook</ion-label>
+          <ion-checkbox [(ngModel)]="settings.toggleProfileVis.facebook"></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Google+</ion-label>
+          <ion-checkbox [(ngModel)]="settings.toggleProfileVis.google"></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Github</ion-label>
+          <ion-checkbox [(ngModel)]="settings.toggleProfileVis.github"></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Twitter</ion-label>
+          <ion-checkbox [(ngModel)]="settings.toggleProfileVis.twitter"></ion-checkbox>
+        </ion-item>
+
+      </ion-list>
+        <button ion-button type="button" (click)="saveSettings()" block>Save</button>
     </ion-col>
   </ion-row>
 

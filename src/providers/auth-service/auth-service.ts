@@ -3,20 +3,18 @@ import 'rxjs/add/operator/map';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 
-import { NewsService } from '../news-service/news-service';
-import { UserService } from '../user-service/user-service';
-import { ValidatorService } from '../validator-service/validator-service';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 
 @Injectable()
 export class AuthService {
 
   public authState$: any;
+  public loggedInState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private wasLoggedIn: boolean = false;
 
   constructor(
-    private afAuth: AngularFireAuth,
-    private newsService: NewsService,
-    private userService: UserService,
-    private validatorService: ValidatorService
+    private afAuth: AngularFireAuth
   ) {
     this.authState$ = this.afAuth.authState;
   }
@@ -41,11 +39,16 @@ export class AuthService {
     return this.afAuth.auth.currentUser.linkWithPopup(provider);
   }
 
-  signOut() {
-    this.newsService.signOut();
-    this.validatorService.signOut();
+  public setLoggedInState(isLoggedIn:boolean) {
+    if (this.wasLoggedIn != isLoggedIn) {
+      this.wasLoggedIn = isLoggedIn;
+      this.loggedInState$.next(isLoggedIn);
+    }
+  }
 
-    this.userService.signOut();
+  signOut() {
+    // this.newsService.signOut();
+    // this.validatorService.signOut();
 
     this.afAuth.auth.signOut().then(
       (user) => {

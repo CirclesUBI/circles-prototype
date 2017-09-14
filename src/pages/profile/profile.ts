@@ -16,6 +16,7 @@ import { User } from '../../interfaces/user-interface';
 import { Individual } from '../../interfaces/individual-interface';
 
 import { WaitModal } from '../wait-modal/wait-modal'
+import { HomePage } from '../../pages/home/home';
 
 @Component({
   selector: 'page-profile',
@@ -84,40 +85,94 @@ export class ProfilePage {
     //});
   }
 
+
+  // public fileChangeEvent(fileInput: any) {
+  //     if (fileInput.target.files && fileInput.target.files[0]) {
+  //
+  //       var reader = new FileReader();
+  //       reader.onload = (e) => {
+  //         let img = new Image;
+  //         img.src =  reader.result;
+  //         img.onload = ( (file) => {
+  //
+  //           this.storageService.resizePicFile(fileInput.target.files, img.height, img.width).subscribe(
+  //             (imageBlob) => {
+  //               this.profilePicURL = URL.createObjectURL(imageBlob);
+  //               this.base64ImageData = this.profilePicURL.split(',')[1];
+  //               this.profilePicUpload = new UploadFile(imageBlob as File, this.user.uid);
+  //
+  //             },
+  //             (error) => {
+  //               this.toast = this.toastCtrl.create({
+  //                 message: error.message + ': ' + error.details,
+  //                 duration: 4000,
+  //                 position: 'middle'
+  //               });
+  //               console.error(error);
+  //               this.toast.present();
+  //             }
+  //           );
+  //         });
+  //       }
+  //       reader.readAsDataURL(fileInput.target.files[0]);
+  //   }
+  // }
+
   public fileChangeEvent(fileInput: any) {
-    if (fileInput.target.files && fileInput.target.files[0]) {
-      this.debugText += 'fileChangeEvent';
-      this.isImageLoading = true;
+      if (fileInput.target.files && fileInput.target.files[0]) {
+        var reader = new FileReader();
+        this.isImageLoading = true;
+        reader.onload = (e) => {
 
-      var reader = new FileReader();
-      reader.onload = (e) => {
-        let img = new Image;
-        img.src = reader.result;
-        img.onload = ((file) => {
+        this.storageService.simpleResize(e.target['result'],1024,768).then(
+          (imgObj:any) => {
+            this.base64ImageData = imgObj.imgData;
+            this.profilePicURL = imgObj.imgURL;
+            this.profilePicUpload = new UploadImage(this.base64ImageData,this.user.uid);
+            this.isImageLoading = false;
+          }
+        );
 
-          this.storageService.resizePicFile(fileInput.target.files, img.height, img.width).subscribe(
-            (imageBlob) => {
-              this.profilePicURL = URL.createObjectURL(imageBlob);
-              this.base64ImageData = this.profilePicURL.split(',')[1];
-              this.profilePicUpload = new UploadFile(imageBlob as File, this.user.uid);
-              this.isImageLoading = false;
-            },
-            (error) => {
-              this.toast = this.toastCtrl.create({
-                message: error.message + ': ' + error.details,
-                duration: 4000,
-                position: 'middle'
-              });
-              console.error(error);
-              this.toast.present();
-            }
-          );
-        });
+          // var img = new Image;
+          // img.src = e.target['result'];
+          // img.onload = (() => {
+          //   var canvas = document.createElement('canvas');
+          //   var ctx = canvas.getContext('2d');
+          //
+          //   if (img.naturalWidth <= maxWidth && img.naturalHeight <= maxHeight) {
+          //     this.profilePicURL = e.target['result'];
+          //   }
+          //   else {
+          //    var ratio = 1;
+          //    if(img.naturalWidth > maxWidth && img.naturalHeight > maxHeight) {
+          //      if (img.naturalWidth / maxWidth >= img.naturalHeight / maxHeight) {
+          //        ratio = maxWidth / img.naturalWidth;
+          //      }
+          //      else {
+          //        ratio = maxHeight / img.naturalHeight;
+          //      }
+          //    }
+          //    else if(img.naturalWidth > maxWidth)
+          //      ratio = maxWidth / img.naturalWidth;
+          //    else if(img.naturalHeight > maxHeight)
+          //      ratio = maxHeight / img.naturalHeight;
+          //
+          //     // We set the dimensions at the wanted size.
+          //     canvas.width = img.naturalWidth * ratio;
+          //     canvas.height = img.naturalHeight * ratio;
+          //
+          //     // We resize the image with the canvas method drawImage();
+          //     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          //
+          //     this.profilePicURL = canvas.toDataURL('image/jpeg', 0.7);
+          //   }
+          //   this.base64ImageData = this.profilePicURL.split(',')[1];
+          //   this.isImageLoading = false;
+          // });
+        }
+        reader.readAsDataURL(fileInput.target.files[0]);
       }
-      reader.readAsDataURL(fileInput.target.files[0]);
     }
-  }
-
 
   // tslint:disable-next-line:no-unused-variable
   private async fileUpload() {
@@ -135,7 +190,6 @@ export class ProfilePage {
       });
 
       this.storageService.uploadFile(this.profilePicUpload).then(
-        //this.storageService.uploadFile(this.profilePicUpload).then(
         (profileURL) => {
           this.user.profilePicURL = profileURL;
           progressIntervalObs$.unsubscribe();
@@ -168,40 +222,46 @@ export class ProfilePage {
     else {
 
     }
-    this.fileUpload().then( () => {
-      if (this.user.email != firebase.auth().currentUser.email) {
-        firebase.auth().currentUser.updateEmail(this.user.email).then(
-          (result) => {
-            this.sendEmailVerif().then(
-              () => {
-                this.userService.saveUser();
-                this.navCtrl.pop();
-              },
-              (error) => {
-                this.toast = this.toastCtrl.create({
-                  message: 'Error sending email verification: ' + error,
-                  duration: 4000,
-                  position: 'middle'
-                });
-              }
-            );
-          },
-          (error) => {
-            this.toast = this.toastCtrl.create({
-              message: 'Error updating email: ' + error,
-              duration: 4000,
-              position: 'middle'
-            });
-            console.error(error);
-            this.toast.present();
-          }
-        );
-      }
-      else {
-        this.userService.saveUser();
-        this.navCtrl.pop();
-      }
-    });
+    if (this.profilePicUpload) {
+      this.fileUpload().then( () => {
+        if (this.user.email != firebase.auth().currentUser.email) {
+          firebase.auth().currentUser.updateEmail(this.user.email).then(
+            (result) => {
+              this.sendEmailVerif().then(
+                () => {
+                  this.userService.saveUser();
+                  this.navCtrl.setRoot(HomePage);
+                },
+                (error) => {
+                  this.toast = this.toastCtrl.create({
+                    message: 'Error sending email verification: ' + error,
+                    duration: 4000,
+                    position: 'middle'
+                  });
+                }
+              );
+            },
+            (error) => {
+              this.toast = this.toastCtrl.create({
+                message: 'Error updating email: ' + error,
+                duration: 4000,
+                position: 'middle'
+              });
+              console.error(error);
+              this.toast.present();
+            }
+          );
+        }
+        else {
+          this.userService.saveUser();
+          this.navCtrl.pop();
+        }
+      });
+    }
+    else {
+      this.userService.saveUser();
+      this.navCtrl.pop();
+    }
   }
 
   // tslint:disable-next-line:no-unused-variable
@@ -213,7 +273,10 @@ export class ProfilePage {
       prov.displayName == 'Passport' ||
       prov.displayName == 'Steam' ||
       prov.displayName == 'SoundCloud'
-    ) return;
+    ) {return;}
+    else if (prov.displayName == 'Email') {
+      this.sendEmailVerif();
+    }
     else {
       var provider;
 
