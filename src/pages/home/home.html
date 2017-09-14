@@ -16,9 +16,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding id="home-content"
-  [ngClass]="{'collapse': scrollScale < 1}"
->
+<ion-content padding id="home-content" [ngClass]="{'collapse': scrollScale < 1}">
 
   <span ion-fixed class="home-fixed">
 
@@ -34,6 +32,7 @@
       </div>
 
       <div>{{user?.greeting}}</div>
+    </div>
 
     <!-- segment btns -->
     <div class="segment-btns">
@@ -71,8 +70,7 @@
       </div>
     </div>
 
-    <ion-content
-      overflow-scroll="true" class="scrolling-list" (ionScroll)="onScroll($event)">
+    <ion-content overflow-scroll="true" class="scrolling-list" (ionScroll)="onScroll($event)">
 
       <!-- NETWORK LIST -->
       <span *ngIf="selectedView == 'network'">

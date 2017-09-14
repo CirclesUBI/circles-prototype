@@ -28,19 +28,19 @@ export class WalletPage {
   // tslint:disable-next-line:no-unused-variable
   private priorityUp(coin) {
     coin.priority--;
-    let c1 = this.displayWallet[coin.priority-1];
+    let c1 = this.displayWallet[coin.priority];
     c1.priority++;
-    this.displayWallet[coin.priority-1] = coin;
-    this.displayWallet[c1.priority-1] = c1;
+    this.displayWallet[coin.priority] = coin;
+    this.displayWallet[c1.priority] = c1;
   }
 
   // tslint:disable-next-line:no-unused-variable
   private priorityDown(coin) {
     coin.priority++;
-    let c1 = this.displayWallet[coin.priority-1];
+    let c1 = this.displayWallet[coin.priority];
     c1.priority--;
-    this.displayWallet[coin.priority-1] = coin;
-    this.displayWallet[c1.priority-1] = c1;
+    this.displayWallet[coin.priority] = coin;
+    this.displayWallet[c1.priority] = c1;
   }
 
 

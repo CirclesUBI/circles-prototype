@@ -37,8 +37,6 @@ export class HomePage {
     private userService: UserService,
     // tslint:disable-next-line:no-unused-variable
     private newsService: NewsService,
-
-    private validatorService: ValidatorService,
     private changeDetector: ChangeDetectorRef
  ) { }
 
