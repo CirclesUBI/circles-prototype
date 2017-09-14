@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [ngClass]="{'collapse': scrollScale < 1}">
   <ion-navbar color="secondary">
     <!--<ion-title></ion-title>-->
     <ion-buttons left>
@@ -16,13 +16,17 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding id="home-content">
+<ion-content padding id="home-content"
+  [ngClass]="{'collapse': scrollScale < 1}"
+>
 
-  <span ion-fixed class="home-fixed" style="">
+  <span ion-fixed class="home-fixed">
 
     <div class="home-pic">
       <div class="circle-crop"
-        [ngStyle]="{'background-image': 'url(' + user?.profilePicURL + ')'}">
+        [ngStyle]="{
+        'background-image': 'url(' + user?.profilePicURL + ')'
+        }">
       </div>
 
       <div class="user-name">
@@ -31,15 +35,13 @@
 
       <div>{{user?.greeting}}</div>
 
-    </div>
-
     <!-- segment btns -->
     <div class="segment-btns">
-      <ion-segment [(ngModel)]="view" color="primary">
+      <ion-segment [(ngModel)]="selectedView" color="primary">
         <ion-segment-button class="offer-segment-button" value="network" (ionSelect)="selectNetwork()">
           Network
         </ion-segment-button>
-        <ion-segment-button class="offer-segment-button" value="wants" (ionSelect)="selectNews()">
+        <ion-segment-button class="offer-segment-button" value="news" (ionSelect)="selectNews()">
           News
         </ion-segment-button>
         <ion-segment-button class="offer-segment-button" value="validators" (ionSelect)="selectValidators()">
@@ -69,7 +71,8 @@
       </div>
     </div>
 
-    <ion-content overflow-scroll="true" class="scrolling-list">
+    <ion-content
+      overflow-scroll="true" class="scrolling-list" (ionScroll)="onScroll($event)">
 
       <!-- NETWORK LIST -->
       <span *ngIf="selectedView == 'network'">

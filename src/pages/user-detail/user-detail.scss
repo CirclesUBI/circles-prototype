@@ -10,6 +10,10 @@ page-user-detail {
       width: 40vw;
     }
 
+    .circle-crop{
+        border-color: map-get($colors, secondary);
+    }
+
     .center-wrapper {
         text-align: center;
         position: relative;
@@ -27,6 +31,5 @@ page-user-detail {
     .center-text {
         top: 16px;
         right: 14px;
-        position: absolute;
     }
 }
